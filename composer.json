@@ -1,0 +1,28 @@
+{
+  "name": "bitmotion/mautic-deutschepost",
+  "description": "Send postcards or letters with Mautic via Deutsche Post Triggerdialog",
+  "license": "GPL-3.0-or-later",
+  "type": "mautic-plugin",
+  "authors": [
+    {
+      "name": "Florian Wessels",
+      "email": "f.wessels@bitmotion.de",
+      "homepage": "https://www.bitmotion.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "ext-json": "*",
+    "ext-simplexml": "*",
+    "firebase/php-jwt": "^5.0"
+  },
+  "support": {
+    "issues": "https://github.com/bitmotion/mautic-deutschepost/issues",
+    "source": "https://github.com/bitmotion/mautic-deutschepost"
+  },
+  "autoload": {
+    "psr-4": {
+      "MauticPlugin\\MauticTriggerdialogBundle\\": "/"
+    }
+  }
+}

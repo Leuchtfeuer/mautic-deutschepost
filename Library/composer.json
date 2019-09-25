@@ -1,0 +1,13 @@
+{
+    "name": "bitmotion/triggerdialog-library",
+    "type": "library",
+    "require": {
+        "firebase/php-jwt": "^5.0"
+    },
+    "authors": [
+        {
+            "name": "Florian Wessels",
+            "email": "f.wessels@bitmotion.de"
+        }
+    ]
+}
