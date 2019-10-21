@@ -1,12 +1,12 @@
 <?php
 namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
 
-use Firebase\JWT\JWT;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-
-if (!class_exists('Firebase\JWT\JWT')) {
+if (!class_exists('Firebase\JWT\JWT', false)) {
     require_once __DIR__ . '/../Library/vendor/autoload.php';
 }
+
+use Firebase\JWT\JWT;
+use Mautic\CoreBundle\Helper\CoreParametersHelper;
 
 class SsoUtility
 {
