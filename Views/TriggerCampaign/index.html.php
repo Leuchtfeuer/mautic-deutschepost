@@ -26,15 +26,21 @@ $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', TriggerCampaignController::MAUTIC_CONTENT);
 $view['slots']->set('headerTitle', $view['translator']->trans('plugin.triggerdialog.menu.root'));
 
-$view['slots']->set(
-    'actions',
-    $view->render('MauticCoreBundle:Helper:page_actions.html.php', [
-        'templateButtons' => [
-            'new' => $permissions[TriggerCampaignController::PERMISSIONS['create']],
-        ],
-        'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
-    ]) . $ssoButton
-);
+
+if ($configInvalid === false) {
+    $view['slots']->set(
+        'actions',
+        $view->render('MauticCoreBundle:Helper:page_actions.html.php', [
+            'templateButtons' => [
+                'new' => $permissions[TriggerCampaignController::PERMISSIONS['create']],
+            ],
+            'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
+        ]) . $ssoButton
+    );
+} else {
+    $view['slots']->set('actions', $ssoButton);
+}
+
 ?>
 
 <?php if ($configInvalid === true): ?>

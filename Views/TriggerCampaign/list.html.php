@@ -12,6 +12,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
  * @var int       $page
  * @var int       $limit
  * @var array     $permissions
+ * @var bool      $configInvalid
  */
 
 if ($template === 'index') {
@@ -56,25 +57,31 @@ if ($template === 'index') {
                 <tr>
                     <td>
                         <?php
-                        echo $view->render('MauticCoreBundle:Helper:list_actions.html.php', [
-                            'item' => $item,
-                            'templateButtons' => [
-                                'edit' => $permissions[TriggerCampaignController::PERMISSIONS['edit']],
-                                'clone' => $permissions[TriggerCampaignController::PERMISSIONS['create']],
-                                'delete' => $permissions[TriggerCampaignController::PERMISSIONS['delete']],
-                            ],
-                            'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
-                        ]);
+                        if ($configInvalid === false) {
+                            echo $view->render('MauticCoreBundle:Helper:list_actions.html.php', [
+                                'item' => $item,
+                                'templateButtons' => [
+                                    'edit' => $permissions[TriggerCampaignController::PERMISSIONS['edit']],
+                                    'clone' => $permissions[TriggerCampaignController::PERMISSIONS['create']],
+                                    'delete' => $permissions[TriggerCampaignController::PERMISSIONS['delete']],
+                                ],
+                                'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
+                            ]);
+                        }
                         ?>
                     </td>
                     <td>
                         <div>
 
-                            <?php echo $view->render('MauticCoreBundle:Helper:publishstatus_icon.html.php', [
-                                'item' => $item,
-                                'model' => TriggerCampaignModel::NAME,
-                            ]); ?>
-                            <?php if ($permissions[TriggerCampaignController::PERMISSIONS['edit']]): ?>
+                            <?php
+                            if ($configInvalid === false) {
+                                echo $view->render('MauticCoreBundle:Helper:publishstatus_icon.html.php', [
+                                    'item' => $item,
+                                    'model' => TriggerCampaignModel::NAME,
+                                ]);
+                            }
+                            ?>
+                            <?php if ($permissions[TriggerCampaignController::PERMISSIONS['edit']]  && $configInvalid === false): ?>
                                 <a href="<?php echo $view['router']->generate(TriggerCampaignController::ROUTES['action'], ['objectAction' => 'edit', 'objectId' => $item->getId()]); ?>" data-toggle="ajax">
                                     <?php echo $item->getName(); ?>
                                 </a>
