@@ -11,7 +11,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 return [
     'name' => 'Dt. Post',
     'description' => 'Send postcards or letters via Deutsche Post TRIGGERDIALOG',
-    'version' => '1.0.0',
+    'version' => '1.0.1',
     'author' => 'Florian Wessels',
 
     'menu' => [

@@ -46,7 +46,7 @@ class TriggerCampaign extends FormEntity
     private $startDate;
 
     /**
-     * @var \DateTime
+     * @var null|\DateTime
      */
     private $endDate;
 
@@ -95,7 +95,7 @@ class TriggerCampaign extends FormEntity
         $builder->addIdColumns();
 
         $builder->createField('startDate', 'datetime')->columnName('start_date')->build();
-        $builder->createField('endDate', 'datetime')->columnName('end_date')->build();
+        $builder->createField('endDate', 'datetime')->columnName('end_date')->nullable()->build();
         $builder->createField('printNodeId', 'string')->columnName('print_node_id')->build();
         $builder->createField('printNodeDescription', 'string')->columnName('print_node_description')->build();
         $builder->createField('variables', 'array')->build();
@@ -223,9 +223,9 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @param \DateTime $endDate
+     * @param null|\DateTime $endDate
      */
-    public function setEndDate($endDate)
+    public function setEndDate(\DateTime $endDate = null)
     {
         $this->isChanged('endDate', $endDate);
         $this->endDate = $endDate;
