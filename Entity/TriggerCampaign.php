@@ -4,6 +4,7 @@ namespace MauticPlugin\MauticTriggerdialogBundle\Entity;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 use Mautic\CoreBundle\Entity\FormEntity;
+use MauticPlugin\MauticTriggerdialogBundle\Validator\AllowedCharacters;
 use MauticPlugin\MauticTriggerdialogBundle\Validator\Variable;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -113,6 +114,7 @@ class TriggerCampaign extends FormEntity
                 'min' => 1,
                 'max' => 30,
             ]),
+            new AllowedCharacters(),
         ]);
 
         $metadata->addPropertyConstraints('printNodeId', [
@@ -127,6 +129,7 @@ class TriggerCampaign extends FormEntity
                 'min' => 1,
                 'max' => 30,
             ]),
+            new AllowedCharacters(),
         ]);
 
         $metadata->addPropertyConstraints('variables', [
@@ -157,10 +160,6 @@ class TriggerCampaign extends FormEntity
      */
     public function setName($name)
     {
-        if (!$this->isValueClean($name)) {
-            throw new \Exception('Name may not contain following characters: < > ? " : | \\ / *', 1568996441);
-        }
-
         $this->isChanged('name', $name);
         $this->name = $name;
     }
@@ -298,21 +297,7 @@ class TriggerCampaign extends FormEntity
      */
     public function setPrintNodeDescription($printNodeDescription)
     {
-        if (!$this->isValueClean($printNodeDescription)) {
-            throw new \Exception('Print node description may not contain following characters: < > ? " : | \\ / *', 1568904917);
-        }
-
         $this->isChanged('printNodeDescription', $printNodeDescription);
         $this->printNodeDescription = $printNodeDescription;
-    }
-
-    /**
-     * @param $value
-     *
-     * @return bool
-     */
-    protected function isValueClean($value)
-    {
-        return preg_match('/[\<\>\?\"\:\|\/\\\*]/', $value) === 0;
     }
 }
