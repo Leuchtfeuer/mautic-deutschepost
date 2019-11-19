@@ -94,7 +94,7 @@ return [
         'triggerdialog_username' => null,
         'triggerdialog_firstName' => null,
         'triggerdialog_lastName' => null,
-        'triggerdialog_masId' => '55',
+        'triggerdialog_masId' => '8',
         'triggerdialog_rest_user' => null,
         'triggerdialog_rest_password' => null,
     ],
