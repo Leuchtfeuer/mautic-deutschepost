@@ -34,8 +34,6 @@ directory of the mautic installation: `mv mautic-deutschepost-master <path-to-ma
 * Open the Mautic backend and go to "Settings" -> "Plugins", click on 
 "Install/Update Plugins".
 
-![Backend view of TRIGGERDIALOG settings](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/configure-bundle.png "Backend view of Deutsche Post TRIGGERDIALOG for Mautic settings.")
-
 Now you are all set. "Dt. Post" appears now in the plugin list and is 
 already activated.
 
@@ -44,6 +42,8 @@ already activated.
 You can configure the bundle within the configuration section of your
 Mautic Backend. All relevant configuration can be found underneath the
 tab "TRIGGERDIALOG Settings".
+
+![Backend view of TRIGGERDIALOG settings](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/configure-bundle.png "Backend view of Deutsche Post TRIGGERDIALOG for Mautic settings.")
 
 ### Before Start
 
