@@ -16,7 +16,7 @@ Send postcards or letters with Mautic via Deutsche Post TRIGGERDIALOG.
 The installation of the plugin requires, in addition to a Mautic 
 account, a customer account for the TRIGGERDIALOG administration 
 website of Deutsche Post - more information can be found on the website 
-[TRIGGERDIALOG by Deutschen Post AG](https://www.deutschepost.de/de/t/triggerdialog.html).
+[TRIGGERDIALOG by Deutsche Post AG](https://www.deutschepost.de/de/t/triggerdialog.html).
 
 To register, you need a valid [TRIGGERDIALOG Client ID](#before-start), 
 which is provided in the Mautic settings after installing this bundle.
