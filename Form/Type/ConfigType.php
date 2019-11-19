@@ -34,8 +34,10 @@ class ConfigType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'rows' => '6',
+                'readonly' => 'readonly',
             ],
         ]);
+
         $builder->add('triggerdialog_masSecret', TextType::class, [
             'label' => 'plugin.triggerdialog.form.masSecret',
             'label_attr' => [

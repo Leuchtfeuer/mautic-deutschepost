@@ -19,12 +19,13 @@ use Symfony\Component\Form\FormView;
 			<div class="col-md-6">
                 <?php echo $view['form']->row($form->children['triggerdialog_masId']); ?>
 			</div>
-		</div>
-		<div class="row">
 			<div class="col-md-6">
                 <?php echo $view['form']->row($form->children['triggerdialog_masClientId']); ?>
 			</div>
-			<div class="col-md-6">
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-md-12">
                 <?php echo $view['form']->row($form->children['triggerdialog_masSecret']); ?>
 			</div>
 		</div>

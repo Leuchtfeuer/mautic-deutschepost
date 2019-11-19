@@ -88,7 +88,7 @@ return [
     ],
 
     'parameters' => [
-        'triggerdialog_masClientId' => null,
+        'triggerdialog_masClientId' => \MauticPlugin\MauticTriggerdialogBundle\Generator\ClientIdGenerator::generateClientId(),
         'triggerdialog_masSecret' => null,
         'triggerdialog_email' => null,
         'triggerdialog_username' => null,
