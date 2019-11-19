@@ -11,7 +11,6 @@ use Mautic\CoreBundle\Helper\CoreParametersHelper;
 class SsoUtility
 {
     const SSO_AUDIENCE = 'https://login.triggerdialog.de/triggerdialog/sso/auth';
-
     const SSO_TEST_AUDIENCE = 'https://triggerdialog-uat.dhl.com/triggerdialog/sso/auth';
 
     const PAYLOAD_ISS = 'bitmotion';
@@ -58,6 +57,7 @@ class SsoUtility
             if ($this->validateParameter($parameter) === false) {
                 $this->errors[] = $parameter;
                 $valid = false;
+                break;
             }
         }
 
