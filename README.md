@@ -26,8 +26,10 @@ which is provided in the Mautic settings after installing this bundle.
 To install the plugin for Mautic, the following steps are necessary 
 (requires command line access):
 
-* Download of this plugin from [GitHub](https://ma.leuchtfeuer.com/asset/6:as051-triggerdialog-mautic-integration)
-(as ZIP archive) to the Mautic server.
+* Download the latest release of this bundle either as .tar.gz or as
+.zip archive from [GitHub](https://github.com/bitmotion/mautic-deutschepost/releases)
+and upload the archive to the Mautic server or fetch the source directly
+on the server e.g. by using `wget`.
 * Unpack the file, rename the directory and move it to the plugin.
 directory of the mautic installation: `mv mautic-deutschepost-master <path-to-mautic>/plugins/MauticTriggerdialogBundle`.
 * Clear cache, e.g. in the Mautic backend, or also directly via command line: `rm -rf <path-to-mautic>/app/cache/prod/*`.
