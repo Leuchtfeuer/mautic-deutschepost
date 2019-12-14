@@ -1,7 +1,5 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Generator;
-
 
 class ClientIdGenerator
 {
