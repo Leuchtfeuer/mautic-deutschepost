@@ -1,13 +1,14 @@
 {
-  "name": "bitmotion/mautic-deutschepost",
+  "name": "leuchtfeuer/mautic-deutschepost",
   "description": "Send postcards or letters with Mautic via Deutsche Post Triggerdialog",
   "license": "GPL-3.0-or-later",
   "type": "mautic-plugin",
+  "homepage": "https://www.Leuchtfeuer.com",
   "authors": [
     {
       "name": "Florian Wessels",
-      "email": "f.wessels@bitmotion.de",
-      "homepage": "https://www.bitmotion.de",
+      "email": "f.wessels@Leuchtfeuer.com",
+      "homepage": "https://www.Leuchtfeuer.com",
       "role": "Developer"
     }
   ],
@@ -18,8 +19,12 @@
     "firebase/php-jwt": "^5.0"
   },
   "support": {
-    "issues": "https://github.com/bitmotion/mautic-deutschepost/issues",
-    "source": "https://github.com/bitmotion/mautic-deutschepost"
+    "issues": "https://github.com/Leuchtfeuer/mautic-deutschepost/issues",
+    "source": "https://github.com/Leuchtfeuer/mautic-deutschepost",
+    "email": "dev@Leuchtfeuer.com"
+  },
+  "replace": {
+    "bitmotion/mautic-deutschepost": "self.version"
   },
   "autoload": {
     "psr-4": {
