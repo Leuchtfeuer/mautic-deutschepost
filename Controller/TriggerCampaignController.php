@@ -302,11 +302,11 @@ class TriggerCampaignController extends AbstractFormController
      */
     protected function checkConfiguration(CoreParametersHelper $coreParametersHelper)
     {
-        if (!$coreParametersHelper->hasParameter('triggerdialog_rest_user') || empty($coreParametersHelper->getParameter('triggerdialog_rest_user'))) {
+        if (!$coreParametersHelper->has('triggerdialog_rest_user') || empty($coreParametersHelper->get('triggerdialog_rest_user'))) {
             return false;
         }
 
-        if (!$coreParametersHelper->hasParameter('triggerdialog_rest_password') || empty($coreParametersHelper->getParameter('triggerdialog_rest_password'))) {
+        if (!$coreParametersHelper->has('triggerdialog_rest_password') || empty($coreParametersHelper->get('triggerdialog_rest_password'))) {
             return false;
         }
 
@@ -328,7 +328,7 @@ class TriggerCampaignController extends AbstractFormController
 
     protected function getLimit()
     {
-        return $this->session->get(self::SESSION_VARS['limit'], $this->coreParametersHelper->getParameter('default_pagelimit'));
+        return $this->session->get(self::SESSION_VARS['limit'], $this->coreParametersHelper->get('default_pagelimit'));
     }
 
     /**
