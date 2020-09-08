@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
 
 if (!class_exists('Firebase\JWT\JWT', false)) {
@@ -76,6 +77,18 @@ class SsoUtility
 
     public function generateJWT(): void
     {
+        /** TODO:
+         * The most important fields are
+         * • customerIds: Ids of the customer(s) you have access to. Usually, this will be exactly one. You
+            need this id for subsequent requests.
+         * • exp: Expiry datetime of the token in UTC (jwt standard field).
+         * • locale: Your chosen local for internationalization.
+         * • userId: This is your systemuser id.
+         * • authorities: An array containing all your access rights.
+         * TODO maybe not the above
+         * TODO encrypt like in pdf
+         */
+
         $payload = [
             'iss' => self::PAYLOAD_ISS,
             'iat' => time(),

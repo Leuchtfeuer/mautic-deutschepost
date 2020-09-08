@@ -10,7 +10,7 @@ class TriggerdialogService
 {
     const AUDIENCE = 'https://login.triggerdialog.de/';
 
-    const TEST_AUDIENCE = 'https://triggerdialog-uat.dhl.com/';
+    const TEST_AUDIENCE = 'https://dm-uat.deutschepost.de/gateway/partnersystemfacade';
 
     /**
      * @var self
