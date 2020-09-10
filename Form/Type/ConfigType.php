@@ -2,6 +2,7 @@
 namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -12,7 +13,7 @@ class ConfigType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('triggerdialog_masId', TextType::class, [
+        $builder->add('triggerdialog_masId', IntegerType::class, [
             'label' => 'plugin.triggerdialog.form.masId',
             'label_attr' => [
                 'class' => 'control-label',
@@ -21,7 +22,6 @@ class ConfigType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'rows' => '6',
-                'readonly' => 'readonly',
             ],
         ]);
 

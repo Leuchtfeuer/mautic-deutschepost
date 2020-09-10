@@ -4,6 +4,7 @@ namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -36,9 +37,9 @@ class VariableType extends AbstractType
             }
         );
 
-        $builder->add('field', 'hidden');
-        $builder->add('object', 'hidden');
-        $builder->add('type', 'hidden');
+        $builder->add('field', HiddenType::class);
+        $builder->add('object', HiddenType::class);
+        $builder->add('type', HiddenType::class);
     }
 
     /**

@@ -6,6 +6,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
+use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 
 return [
@@ -41,6 +42,29 @@ return [
     ],
 
     'services' => [
+        'integrations' => [
+            'mautic.integration.triggerdialog' => [
+                'class'     => TriggerdialogIntegration::class,
+                'arguments' => [
+                    'event_dispatcher',
+                    'mautic.helper.cache_storage',
+                    'doctrine.orm.entity_manager',
+                    'session',
+                    'request_stack',
+                    'router',
+                    'translator',
+                    'logger',
+                    'mautic.helper.encryption',
+                    'mautic.lead.model.lead',
+                    'mautic.lead.model.company',
+                    'mautic.helper.paths',
+                    'mautic.core.model.notification',
+                    'mautic.lead.model.field',
+                    'mautic.plugin.model.integration_entity',
+                    'mautic.lead.model.dnc',
+                ],
+            ],
+        ],
         'events' => [
             'mautic.triggerdialog.config.subscriber' => [
                 'class' => ConfigSubscriber::class,
@@ -94,7 +118,7 @@ return [
         'triggerdialog_username' => null,
         'triggerdialog_firstName' => null,
         'triggerdialog_lastName' => null,
-        'triggerdialog_masId' => '55',
+        'triggerdialog_masId' => null,
         'triggerdialog_rest_user' => null,
         'triggerdialog_rest_password' => null,
     ],

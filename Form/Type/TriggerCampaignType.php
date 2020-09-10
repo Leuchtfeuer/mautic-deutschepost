@@ -4,6 +4,7 @@ namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 use Mautic\CoreBundle\Factory\MauticFactory;
 use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
 use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
+use Mautic\CoreBundle\Form\Type\FormButtonsType;
 use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Mautic\CoreBundle\Form\Validator\Constraints\CircularDependency;
 use Mautic\CoreBundle\Security\Permissions\CorePermissions;
@@ -67,7 +68,7 @@ class TriggerCampaignType extends AbstractType
         $builder->addEventSubscriber(new CleanFormSubscriber(['description' => 'html']));
         $builder->addEventSubscriber(new FormExitSubscriber(TriggerCampaignModel::NAME, $options));
 
-        $builder->add('buttons', 'form_buttons');
+        $builder->add('buttons', FormButtonsType::class);
 
         if (!empty($options['action'])) {
             $builder->setAction($options['action']);
@@ -140,16 +141,19 @@ class TriggerCampaignType extends AbstractType
         }
 
         $builder->add('isPublished', YesNoButtonGroupType::class, [
-            'read_only' => $readonly,
+            'attr' => [
+                'readonly' => $readonly,
+            ],
             'data' => $data,
         ]);
 
+
         $builder->add(
             $builder->create('variables', CollectionType::class, [
-                'type' => 'trigger_variable',
-                'options' => [
+                'entry_type' => VariableType::class,
+                'entry_options' => [
                     'label' => false,
-                    'fields' => $this->fieldChoices,
+                    'attr' => $this->fieldChoices,
                 ],
                 'error_bubbling' => false,
                 'mapped' => true,
