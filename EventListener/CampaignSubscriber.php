@@ -9,6 +9,7 @@ use Mautic\CoreBundle\Helper\IpLookupHelper;
 use Mautic\CoreBundle\Model\AuditLogModel;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 use MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent;
+use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 use MauticPlugin\MauticTriggerdialogBundle\Service\TriggerdialogService;
 use MauticPlugin\MauticTriggerdialogBundle\TriggerdialogEvents;
@@ -76,7 +77,7 @@ class CampaignSubscriber implements EventSubscriberInterface
                 'eventName' => TriggerdialogEvents::ON_CAMPAIGN_TRIGGER_ACTION,
                 'label' => 'plugin.triggerdialog.campaign.label',
                 'description' => 'plugin.triggerdialog.campaign.description',
-                'formType' => 'trigger_action',
+                'formType' => ActionType::class,
             ]
         );
     }

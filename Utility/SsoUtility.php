@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
 
 if (!class_exists('Firebase\JWT\JWT', false)) {
@@ -10,8 +11,8 @@ use Mautic\CoreBundle\Helper\CoreParametersHelper;
 
 class SsoUtility
 {
-    const SSO_AUDIENCE = 'https://login.triggerdialog.de/triggerdialog/sso/auth';
-    const SSO_TEST_AUDIENCE = 'https://triggerdialog-uat.dhl.com/triggerdialog/sso/auth';
+    const SSO_AUDIENCE = 'https://dm-uat.deutschepost.de';
+    const SSO_TEST_AUDIENCE = 'https://dm-uat.deutschepost.de';
 
     const PAYLOAD_ISS = 'bitmotion';
 

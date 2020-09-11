@@ -82,7 +82,7 @@ if ($template === 'index') {
                             }
                             ?>
                             <?php if ($permissions[TriggerCampaignController::PERMISSIONS['edit']]  && $configInvalid === false): ?>
-                                <a href="<?php echo $view['router']->generate(TriggerCampaignController::ROUTES['action'], ['objectAction' => 'edit', 'objectId' => $item->getId()]); ?>" data-toggle="ajax">
+                                <a href="<?php echo $view['router']->url(TriggerCampaignController::ROUTES['action'], ['objectAction' => 'edit', 'objectId' => $item->getId()]); ?>" data-toggle="ajax">
                                     <?php echo $item->getName(); ?>
                                 </a>
                             <?php else: ?>
@@ -107,7 +107,7 @@ if ($template === 'index') {
             'page' => $page,
             'limit' => $limit,
             'menuLinkId' => TriggerCampaignController::ROUTES['index'],
-            'baseUrl' => $view['router']->generate(TriggerCampaignController::ROUTES['index']),
+            'baseUrl' => $view['router']->url(TriggerCampaignController::ROUTES['index']),
             'sessionVar' => 'plugin.triggerdialog',
         ]); ?>
     </div>
