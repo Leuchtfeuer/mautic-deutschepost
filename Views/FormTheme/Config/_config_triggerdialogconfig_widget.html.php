@@ -17,10 +17,10 @@ use Symfony\Component\Form\FormView;
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_masId']); ?>
+                <?php echo $view['form']->row($form->children['triggerdialog_partnerSystemIdExt']); ?>
 			</div>
 			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_masClientId']); ?>
+                <?php echo $view['form']->row($form->children['triggerdialog_partnerSystemCustomerIdExt']); ?>
 			</div>
 		</div>
 		<hr />

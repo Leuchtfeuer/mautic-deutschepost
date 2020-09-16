@@ -182,14 +182,10 @@ class CampaignSubscriber implements EventSubscriberInterface
     protected function getTriggerDialogService(): TriggerdialogService
     {
         return TriggerdialogService::makeInstance(
-            [
-                'auth' => [
-                    $this->coreParametersHelper->get('triggerdialog_rest_user'),
-                    $this->coreParametersHelper->get('triggerdialog_rest_password'),
-                ],
-            ],
-            $this->coreParametersHelper->get('triggerdialog_masId'),
-            $this->coreParametersHelper->get('triggerdialog_masClientId')
+            $this->coreParametersHelper->get('triggerdialog_partnerSystemIdExt'),
+            $this->coreParametersHelper->get('triggerdialog_partnerSystemCustomerIdExt'),
+            $this->coreParametersHelper->get('triggerdialog_rest_password'),
+            $this->coreParametersHelper->get('triggerdialog_masSecret')
         );
     }
 }

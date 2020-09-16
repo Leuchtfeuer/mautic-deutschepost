@@ -1,6 +1,12 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Service;
 
+if (!class_exists('Firebase\JWT\JWT', false)) {
+    require_once __DIR__ . '/../Library/vendor/autoload.php';
+}
+
+use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
 use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
@@ -9,7 +15,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 
 class TriggerdialogService
 {
-    const AUDIENCE = 'https://dm.deutschepost.de/gateway/';
+    const AUDIENCE = 'https://dm-uat.deutschepost.de/gateway/';
 
     const TEST_AUDIENCE = 'https://dm-uat.deutschepost.de/gateway/';
 
@@ -34,45 +40,77 @@ class TriggerdialogService
     protected $masClientId;
 
     /**
+     * @var string
+     */
+    protected $authenticationSecret;
+
+    /**
      * @var array
      */
     protected $config = [
         'http_errors' => false,
         'headers' => [
-            'Content-Type' => 'application/xml; charset=utf-8',
+            'Content-Type' => 'application/json',
         ],
     ];
+
+    private $masSecret;
 
     /**
      * TriggerdialogService constructor.
      *
-     * @param array  $config
-     * @param int    $masId
+     * @param int $masId
      * @param string $masClientId
+     * @param $authenticationSecret
      */
-    protected function __construct($config, $masId, $masClientId)
+    protected function __construct($masId, $masClientId, $authenticationSecret, $masSecret)
     {
         $audience = MAUTIC_ENV === 'prod' ? self::AUDIENCE : self::TEST_AUDIENCE;
-        $config = $config + $this->config + ['base_uri' => $audience];
-        $this->client = new Client($config);
+        $this->config += ['base_uri' => $audience];
+        $this->client = new Client($this->config);
         $this->masId = $masId;
         $this->masClientId = $masClientId;
+        $this->authenticationSecret = $authenticationSecret;
+        $this->masSecret = $masSecret;
+        $this->requestJWT();
     }
 
     /**
-     * @param array  $config
-     * @param int    $masId
+     * @param int $masId
      * @param string $masClientId
-     *
+     * @param string $authenticationSecret
      * @return TriggerdialogService
      */
-    public static function makeInstance($config = [], $masId = 0, $masClientId = '')
+    public static function makeInstance($masId = 0, $masClientId = '', $authenticationSecret = '', $masSecret)
     {
         if (self::$_instance === null) {
-            self::$_instance = new self($config, (int)$masId, $masClientId);
+            self::$_instance = new self((int)$masId, $masClientId, $authenticationSecret, $masSecret);
         }
 
         return self::$_instance;
+    }
+
+    public function requestJWT()
+    {
+        $credentials = [
+            "partnerSystemIdExt" => $this->masId,
+            "partnerSystemCustomerIdExt" => $this->masClientId,
+            "authenticationSecret" => $this->authenticationSecret,
+            "locale" => "de"
+        ];
+        $jwt = $this->client->request('POST', 'authentication/partnersystem/credentialsbased', ["body" => \GuzzleHttp\json_encode($credentials), "debug" => true]);
+        $jwt_body = $jwt->getBody()->getContents();
+        $jwt_body = \GuzzleHttp\json_decode($jwt_body, true);
+        //$jwt_body = $jwt_body["jwtToken"];
+        $decoded_jwt_arr = [];
+        try {
+            $decoded_jwt_arr = JWT::decode($jwt_body, $this->masSecret, array('HS512'));
+        } catch (\Exception $e){
+            var_dump($e);
+        }
+
+        return $decoded_jwt_arr;
+
     }
 
     /**
@@ -86,10 +124,9 @@ class TriggerdialogService
         $data = $this->getCampaignData($triggerCampaign);
         $data['variable'] = $triggerCampaign->getVariablesAsArray();
 
-        $xml = new \SimpleXMLElement('<createCampaignRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></createCampaignRequest>');
-        $this->transformData($xml, $data);
+        $json_body = \GuzzleHttp\json_encode($data);
 
-        $response = $this->client->request('PUT', '/rest-mas/campaign/', ['body' => $xml->asXML()]);
+        $response = $this->client->request('PUT', '/rest-mas/campaign/', ['body' => $json_body]);
 
         if ($response->getStatusCode() !== 200) {
             throw new RequestException($response, 1569423229);
@@ -98,7 +135,7 @@ class TriggerdialogService
 
     /**
      * @param TriggerCampaign $triggerCampaign
-     * @param string          $state
+     * @param string $state
      *
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -108,7 +145,6 @@ class TriggerdialogService
         $data = $this->getCampaignData($triggerCampaign);
         $data['campaignStatus'] = $state;
 
-        $xml = new \SimpleXMLElement('<updateCampaignRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></updateCampaignRequest>');
         $this->transformData($xml, $data);
 
         $response = $this->client->request('POST', '/rest-mas/campaign/', ['body' => $xml->asXML()]);
@@ -122,6 +158,21 @@ class TriggerdialogService
     {
         // TODO: Implement later on
     }
+
+    /**
+     * Not for SSO, should be in another class? TODO
+     * @return array
+     */
+    public function getJWTPayload(): array
+    {
+        return [
+            "partnerSystemIdExt" => $this->coreParametersHelper->get('triggerdialog_partnerSystemIdExt'),
+            "partnerSystemCustomerIdExt" => $this->coreParametersHelper->get('triggerdialog_partnerSystemCustomerIdExt'),
+            "authenticationSecret" => $this->coreParametersHelper->get('triggerdialog_authenticationSecret'),
+            "locale" => $this->coreParametersHelper->get('triggerdialog_locale')
+        ];
+    }
+
 
     /**
      * @param TriggerCampaign $triggerCampaign
@@ -146,7 +197,7 @@ class TriggerdialogService
 
     /**
      * @param TriggerCampaign $triggerCampaign
-     * @param Lead            $lead
+     * @param Lead $lead
      *
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -166,11 +217,12 @@ class TriggerdialogService
         $data = $this->getCampaignData($triggerCampaign, false);
         $data['printNodeID'] = $triggerCampaign->getPrintNodeId();
         $data['variableValue'] = $variableValue;
-
+        $json_body = \GuzzleHttp\json_encode($data);
         $xml = new \SimpleXMLElement('<createCampaignTriggerRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></createCampaignTriggerRequest>');
         $this->transformData($xml, $data);
 
-        $response = $this->client->request('POST', '/rest-mas/campaign/campaignTrigger/', ['body' => $xml->asXML()]);
+        $response = $this->client->request('POST', '/rest-mas/campaign/campaignTrigger/',
+            ['body' => $json_body, 'debug' => true]);
 
         if ($response->getStatusCode() !== 200) {
             throw new RequestException($response, 1569423375);
@@ -179,7 +231,7 @@ class TriggerdialogService
 
     /**
      * @param TriggerCampaign $triggerCampaign
-     * @param bool            $getFullData
+     * @param bool $getFullData
      *
      * @return array
      */
@@ -214,7 +266,7 @@ class TriggerdialogService
 
     /**
      * @param \SimpleXMLElement $xml
-     * @param array             $data
+     * @param array $data
      */
     protected function transformData(\SimpleXMLElement &$xml, $data)
     {

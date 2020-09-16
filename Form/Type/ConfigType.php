@@ -13,8 +13,8 @@ class ConfigType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('triggerdialog_masId', IntegerType::class, [
-            'label' => 'plugin.triggerdialog.form.masId',
+        $builder->add('triggerdialog_partnerSystemIdExt', IntegerType::class, [
+            'label' => 'plugin.triggerdialog.form.partnerSystemIdExt',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -25,8 +25,8 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_masClientId', TextType::class, [
-            'label' => 'plugin.triggerdialog.form.masClientId',
+        $builder->add('triggerdialog_partnerSystemCustomerIdExt', TextType::class, [
+            'label' => 'plugin.triggerdialog.form.partnerSystemCustomerIdExt',
             'label_attr' => [
                 'class' => 'control-label',
             ],

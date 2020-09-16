@@ -75,14 +75,16 @@ class SsoUtility
         return $this->coreParametersHelper->has($name) || !empty($this->coreParametersHelper->get($name));
     }
 
+
+
     public function generateJWT(): void
     {
         $payload = [
             'iss' => self::PAYLOAD_ISS,
             'iat' => time(),
-            'exp' => strtotime('+30 day', time()),
-            'masId' => $this->coreParametersHelper->get('triggerdialog_masId'),
-            'masClientId' => $this->coreParametersHelper->get('triggerdialog_masClientId'),
+            'exp' => strtotime('+30 day'),
+            'masId' => (int)$this->coreParametersHelper->get('triggerdialog_partnerSystemIdExt'),
+            'masClientId' => $this->coreParametersHelper->get('triggerdialog_partnerSystemCustomerIdExt'),
             'username' => $this->coreParametersHelper->get('triggerdialog_username'),
             'email' => $this->coreParametersHelper->get('triggerdialog_email'),
             'firstname' => $this->coreParametersHelper->get('triggerdialog_firstName'),
@@ -99,6 +101,6 @@ class SsoUtility
     {
         $audience = MAUTIC_ENV === 'prod' ? self::SSO_AUDIENCE : self::SSO_TEST_AUDIENCE;
 
-        return sprintf('%s?jwt=%s', $audience, $this->JWT);
+        return sprintf('%s?partnersystem=%s', $audience, $this->JWT);
     }
 }
