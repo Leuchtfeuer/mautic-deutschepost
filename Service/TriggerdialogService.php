@@ -15,9 +15,9 @@ use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 
 class TriggerdialogService
 {
-    const AUDIENCE = 'https://dm-uat.deutschepost.de/gateway/';
+    const AUDIENCE = 'https://login.triggerdialog.de/';
 
-    const TEST_AUDIENCE = 'https://dm-uat.deutschepost.de/gateway/';
+    const TEST_AUDIENCE = 'https://triggerdialog-uat.dhl.com/';
 
     /**
      * @var self
@@ -101,15 +101,7 @@ class TriggerdialogService
         $jwt = $this->client->request('POST', 'authentication/partnersystem/credentialsbased', ["body" => \GuzzleHttp\json_encode($credentials), "debug" => true]);
         $jwt_body = $jwt->getBody()->getContents();
         $jwt_body = \GuzzleHttp\json_decode($jwt_body, true);
-        //$jwt_body = $jwt_body["jwtToken"];
-        $decoded_jwt_arr = [];
-        try {
-            $decoded_jwt_arr = JWT::decode($jwt_body, $this->masSecret, array('HS512'));
-        } catch (\Exception $e){
-            var_dump($e);
-        }
-
-        return $decoded_jwt_arr;
+        return JWT::decode($jwt_body, $this->masSecret, array('HS512'));
 
     }
 

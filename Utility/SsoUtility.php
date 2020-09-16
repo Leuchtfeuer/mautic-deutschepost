@@ -11,8 +11,8 @@ use Mautic\CoreBundle\Helper\CoreParametersHelper;
 
 class SsoUtility
 {
-    const SSO_AUDIENCE = 'https://dm-uat.deutschepost.de';
-    const SSO_TEST_AUDIENCE = 'https://dm-uat.deutschepost.de';
+    const SSO_AUDIENCE = 'https://login.triggerdialog.de/triggerdialog/sso/auth';
+    const SSO_TEST_AUDIENCE = 'https://triggerdialog-uat.dhl.com/triggerdialog/sso/auth';
 
     const PAYLOAD_ISS = 'bitmotion';
 
@@ -83,7 +83,7 @@ class SsoUtility
             'iss' => self::PAYLOAD_ISS,
             'iat' => time(),
             'exp' => strtotime('+30 day'),
-            'masId' => (int)$this->coreParametersHelper->get('triggerdialog_partnerSystemIdExt'),
+            'masId' => (string)$this->coreParametersHelper->get('triggerdialog_partnerSystemIdExt'),
             'masClientId' => $this->coreParametersHelper->get('triggerdialog_partnerSystemCustomerIdExt'),
             'username' => $this->coreParametersHelper->get('triggerdialog_username'),
             'email' => $this->coreParametersHelper->get('triggerdialog_email'),
@@ -101,6 +101,6 @@ class SsoUtility
     {
         $audience = MAUTIC_ENV === 'prod' ? self::SSO_AUDIENCE : self::SSO_TEST_AUDIENCE;
 
-        return sprintf('%s?partnersystem=%s', $audience, $this->JWT);
+        return sprintf('%s?jwt=%s', $audience, $this->JWT);
     }
 }
