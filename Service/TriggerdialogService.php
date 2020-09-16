@@ -9,9 +9,9 @@ use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 
 class TriggerdialogService
 {
-    const AUDIENCE = 'https://dm.deutschepost.de/gateway/';
+    const AUDIENCE = 'https://login.triggerdialog.de/';
 
-    const TEST_AUDIENCE = 'https://dm-uat.deutschepost.de/gateway/';
+    const TEST_AUDIENCE = 'https://triggerdialog-uat.dhl.com/';
 
     /**
      * @var self
