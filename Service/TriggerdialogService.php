@@ -137,7 +137,7 @@ class TriggerdialogService
         $xml = new \SimpleXMLElement('<updateCampaignVariableRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></updateCampaignVariableRequest>');
         $this->transformData($xml, $data);
 
-        $response = $this->client->request('POST', '/rest-mas/campaign/variable/', ['body' => $xml->asXML()]);
+        $response = $this->client->request('POST', '/rest-mas/variabledefinitions/', ['body' => $xml->asXML()]);
 
         if ($response->getStatusCode() !== 200) {
             throw new RequestException($response, 1569423193);
@@ -170,7 +170,7 @@ class TriggerdialogService
         $xml = new \SimpleXMLElement('<createCampaignTriggerRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></createCampaignTriggerRequest>');
         $this->transformData($xml, $data);
 
-        $response = $this->client->request('POST', '/rest-mas/campaign/campaignTrigger/', ['body' => $xml->asXML()]);
+        $response = $this->client->request('POST', '/rest-mas/trigger/', ['body' => $xml->asXML()]);
 
         if ($response->getStatusCode() !== 200) {
             throw new RequestException($response, 1569423375);
