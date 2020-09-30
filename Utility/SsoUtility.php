@@ -14,7 +14,7 @@ class SsoUtility
     const SSO_AUDIENCE = 'https://dm-uat.deutschepost.de';
     const SSO_TEST_AUDIENCE = 'https://dm-uat.deutschepost.de';
 
-    const PAYLOAD_ISS = 'bitmotion';
+    const PAYLOAD_ISS = 'issuer';
 
     /**
      * @var CoreParametersHelper
@@ -81,7 +81,7 @@ class SsoUtility
             'iss' => self::PAYLOAD_ISS,
             'iat' => time(),
             'exp' => strtotime('+30 day', time()),
-            'masId' => $this->coreParametersHelper->get('triggerdialog_masId'),
+            'masId' => (int)$this->coreParametersHelper->get('triggerdialog_masId'),
             'masClientId' => $this->coreParametersHelper->get('triggerdialog_masClientId'),
             'username' => $this->coreParametersHelper->get('triggerdialog_username'),
             'email' => $this->coreParametersHelper->get('triggerdialog_email'),
@@ -99,6 +99,6 @@ class SsoUtility
     {
         $audience = MAUTIC_ENV === 'prod' ? self::SSO_AUDIENCE : self::SSO_TEST_AUDIENCE;
 
-        return sprintf('%s?jwt=%s', $audience, $this->JWT);
+        return sprintf('%s?partnersystem=%s', $audience, $this->JWT);
     }
 }
