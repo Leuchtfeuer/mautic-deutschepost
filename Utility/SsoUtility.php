@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
 
 if (!class_exists('Firebase\JWT\JWT', false)) {
@@ -41,7 +42,7 @@ class SsoUtility
     /**
      * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
         $valid = true;
         $parameters = [
@@ -69,32 +70,32 @@ class SsoUtility
      *
      * @return bool
      */
-    protected function validateParameter($name)
+    protected function validateParameter($name): bool
     {
-        return $this->coreParametersHelper->hasParameter($name) || !empty($this->coreParametersHelper->getParameter($name));
+        return $this->coreParametersHelper->has($name) || !empty($this->coreParametersHelper->get($name));
     }
 
-    public function generateJWT()
+    public function generateJWT(): void
     {
         $payload = [
             'iss' => self::PAYLOAD_ISS,
             'iat' => time(),
             'exp' => strtotime('+30 day', time()),
-            'masId' => $this->coreParametersHelper->getParameter('triggerdialog_masId'),
-            'masClientId' => $this->coreParametersHelper->getParameter('triggerdialog_masClientId'),
-            'username' => $this->coreParametersHelper->getParameter('triggerdialog_username'),
-            'email' => $this->coreParametersHelper->getParameter('triggerdialog_email'),
-            'firstname' => $this->coreParametersHelper->getParameter('triggerdialog_firstName'),
-            'lastname' => $this->coreParametersHelper->getParameter('triggerdialog_lastName'),
+            'masId' => $this->coreParametersHelper->get('triggerdialog_masId'),
+            'masClientId' => $this->coreParametersHelper->get('triggerdialog_masClientId'),
+            'username' => $this->coreParametersHelper->get('triggerdialog_username'),
+            'email' => $this->coreParametersHelper->get('triggerdialog_email'),
+            'firstname' => $this->coreParametersHelper->get('triggerdialog_firstName'),
+            'lastname' => $this->coreParametersHelper->get('triggerdialog_lastName'),
         ];
 
-        $this->JWT = JWT::encode($payload, $this->coreParametersHelper->getParameter('triggerdialog_masSecret'), 'HS512');
+        $this->JWT = JWT::encode($payload, $this->coreParametersHelper->get('triggerdialog_masSecret'), 'HS512');
     }
 
     /**
      * @return string
      */
-    public function getSSOUrl()
+    public function getSSOUrl(): string
     {
         $audience = MAUTIC_ENV === 'prod' ? self::SSO_AUDIENCE : self::SSO_TEST_AUDIENCE;
 

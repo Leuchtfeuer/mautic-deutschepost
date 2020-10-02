@@ -5,6 +5,7 @@ use Mautic\CoreBundle\Model\FormModel;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
 use MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent;
+use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
 use MauticPlugin\MauticTriggerdialogBundle\TriggerdialogEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -44,7 +45,7 @@ class TriggerCampaignModel extends FormModel
             $options['action'] = $action;
         }
 
-        return $formFactory->create('trigger_campaign', $entity, $options);
+        return $formFactory->create(TriggerCampaignType::class, $entity, $options);
     }
 
     /**

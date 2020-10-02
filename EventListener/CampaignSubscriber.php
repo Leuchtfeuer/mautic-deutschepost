@@ -4,17 +4,18 @@ namespace MauticPlugin\MauticTriggerdialogBundle\EventListener;
 use Mautic\CampaignBundle\CampaignEvents;
 use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
 use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\CoreBundle\Helper\IpLookupHelper;
 use Mautic\CoreBundle\Model\AuditLogModel;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 use MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent;
+use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 use MauticPlugin\MauticTriggerdialogBundle\Service\TriggerdialogService;
 use MauticPlugin\MauticTriggerdialogBundle\TriggerdialogEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CampaignSubscriber extends CommonSubscriber
+class CampaignSubscriber implements EventSubscriberInterface
 {
     /**
      * @var IpLookupHelper
@@ -68,7 +69,7 @@ class CampaignSubscriber extends CommonSubscriber
     /**
      * @param CampaignBuilderEvent $event
      */
-    public function onCampaignBuild(CampaignBuilderEvent $event)
+    public function onCampaignBuild(CampaignBuilderEvent $event): void
     {
         $event->addAction(
             'plugin.triggerdialog.campaign',
@@ -76,7 +77,7 @@ class CampaignSubscriber extends CommonSubscriber
                 'eventName' => TriggerdialogEvents::ON_CAMPAIGN_TRIGGER_ACTION,
                 'label' => 'plugin.triggerdialog.campaign.label',
                 'description' => 'plugin.triggerdialog.campaign.description',
-                'formType' => 'trigger_action',
+                'formType' => ActionType::class,
             ]
         );
     }
@@ -87,7 +88,7 @@ class CampaignSubscriber extends CommonSubscriber
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException
      */
-    public function onTriggerCampaignPreSave(TriggerCampaignEvent $event)
+    public function onTriggerCampaignPreSave(TriggerCampaignEvent $event): void
     {
         $triggerCampaign = $event->getTriggerCampaign();
 
@@ -111,7 +112,7 @@ class CampaignSubscriber extends CommonSubscriber
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException
      */
-    public function onTriggerCampaignPostSave(TriggerCampaignEvent $event)
+    public function onTriggerCampaignPostSave(TriggerCampaignEvent $event): void
     {
         $triggerCampaign = $event->getTriggerCampaign();
 
@@ -136,7 +137,7 @@ class CampaignSubscriber extends CommonSubscriber
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException
      */
-    public function onTriggerCampaignPreDelete(TriggerCampaignEvent $event)
+    public function onTriggerCampaignPreDelete(TriggerCampaignEvent $event): void
     {
         $this->getTriggerDialogService()->updateCampaign($event->getTriggerCampaign(), 'finished');
     }
@@ -178,17 +179,17 @@ class CampaignSubscriber extends CommonSubscriber
     /**
      * @return TriggerdialogService
      */
-    protected function getTriggerDialogService()
+    protected function getTriggerDialogService(): TriggerdialogService
     {
         return TriggerdialogService::makeInstance(
             [
                 'auth' => [
-                    $this->coreParametersHelper->getParameter('triggerdialog_rest_user'),
-                    $this->coreParametersHelper->getParameter('triggerdialog_rest_password'),
+                    $this->coreParametersHelper->get('triggerdialog_rest_user'),
+                    $this->coreParametersHelper->get('triggerdialog_rest_password'),
                 ],
             ],
-            $this->coreParametersHelper->getParameter('triggerdialog_masId'),
-            $this->coreParametersHelper->getParameter('triggerdialog_masClientId')
+            $this->coreParametersHelper->get('triggerdialog_masId'),
+            $this->coreParametersHelper->get('triggerdialog_masClientId')
         );
     }
 }
