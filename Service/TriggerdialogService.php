@@ -5,7 +5,6 @@ use GuzzleHttp\Client;
 use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 use MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 
 class TriggerdialogService
 {

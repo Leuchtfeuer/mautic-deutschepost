@@ -6,7 +6,6 @@ use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
-use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 
 return [

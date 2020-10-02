@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
 
 if (!class_exists('Firebase\JWT\JWT', false)) {
