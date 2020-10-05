@@ -306,7 +306,7 @@ class TriggerCampaignController extends AbstractFormController
             return false;
         }
 
-        if (!$coreParametersHelper->has('triggerdialog_rest_password') || empty($coreParametersHelper->get('triggerdialog_rest_password'))) {
+        if (!$coreParametersHelper->has('triggerdialog_authenticationSecret') || empty($coreParametersHelper->get('triggerdialog_authenticationSecret'))) {
             return false;
         }
 

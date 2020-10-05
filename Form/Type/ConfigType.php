@@ -108,7 +108,7 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_rest_password', TextType::class, [
+        $builder->add('triggerdialog_authenticationSecret', TextType::class, [
             'label' => 'plugin.triggerdialog.form.rest.password',
             'label_attr' => [
                 'class' => 'control-label',

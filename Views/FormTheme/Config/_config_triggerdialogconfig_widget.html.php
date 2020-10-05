@@ -58,7 +58,7 @@ use Symfony\Component\Form\FormView;
                 <?php echo $view['form']->row($form->children['triggerdialog_rest_user']); ?>
 			</div>
 			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_rest_password']); ?>
+                <?php echo $view['form']->row($form->children['triggerdialog_authenticationSecret']); ?>
 			</div>
 		</div>
 	</div>

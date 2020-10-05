@@ -185,11 +185,12 @@ class CampaignSubscriber implements EventSubscriberInterface
             [
                 'auth' => [
                     $this->coreParametersHelper->get('triggerdialog_rest_user'),
-                    $this->coreParametersHelper->get('triggerdialog_rest_password'),
+                    $this->coreParametersHelper->get('triggerdialog_authenticationSecret'),
                 ],
             ],
             $this->coreParametersHelper->get('triggerdialog_masId'),
-            $this->coreParametersHelper->get('triggerdialog_masClientId')
+            $this->coreParametersHelper->get('triggerdialog_masClientId'),
+            $this->coreParametersHelper->get('triggerdialog_authenticationSecret')
         );
     }
 }

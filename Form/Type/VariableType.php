@@ -62,7 +62,7 @@ class VariableType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['fields'] = $options['fields'];
+        $view->vars['attr'] = $options['attr'];
     }
 
     /**

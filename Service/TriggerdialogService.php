@@ -1,6 +1,11 @@
 <?php
 namespace MauticPlugin\MauticTriggerdialogBundle\Service;
 
+if (!class_exists('Firebase\JWT\JWT', false)) {
+    require_once __DIR__ . '/../Library/vendor/autoload.php';
+}
+
+use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
 use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
@@ -9,9 +14,9 @@ use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 
 class TriggerdialogService
 {
-    const AUDIENCE = 'https://login.triggerdialog.de/';
+    const AUDIENCE = 'https://dm-uat.deutschepost.de'; //TODO change for real address
 
-    const TEST_AUDIENCE = 'https://triggerdialog-uat.dhl.com/';
+    const TEST_AUDIENCE = 'https://dm-uat.deutschepost.de';
 
     /**
      * @var self
@@ -24,14 +29,29 @@ class TriggerdialogService
     protected $client;
 
     /**
-     * @var int
+     * @var string
      */
-    protected $masId;
+    protected $partnerSystemIdExt;
 
     /**
      * @var string
      */
-    protected $masClientId;
+    protected $authenticationSecret;
+
+    /**
+     * @var string
+     */
+    protected $partnerSystemCustomerIdExt;
+
+    /**
+     * @var array
+     */
+    protected $jwtKeys;
+
+    /**
+     * @var string
+     */
+    protected $jwt;
 
     /**
      * @var array
@@ -46,33 +66,73 @@ class TriggerdialogService
     /**
      * TriggerdialogService constructor.
      *
-     * @param array  $config
-     * @param int    $masId
+     * @param array $config
+     * @param int $masId
      * @param string $masClientId
      */
-    protected function __construct($config, $masId, $masClientId)
+    protected function __construct($config, $masId, $masClientId, $authenticationSecret)
     {
         $audience = MAUTIC_ENV === 'prod' ? self::AUDIENCE : self::TEST_AUDIENCE;
         $config = $config + $this->config + ['base_uri' => $audience];
         $this->client = new Client($config);
-        $this->masId = $masId;
-        $this->masClientId = $masClientId;
+        $this->partnerSystemIdExt = $masId;
+        $this->partnerSystemCustomerIdExt = $masClientId;
+        $this->authenticationSecret = $authenticationSecret;
+        $this->setJWT();
     }
 
     /**
-     * @param array  $config
-     * @param int    $masId
+     * @param array $config
+     * @param int $masId
      * @param string $masClientId
      *
      * @return TriggerdialogService
      */
-    public static function makeInstance($config = [], $masId = 0, $masClientId = '')
+    public static function makeInstance($config = [], $masId = 0, $masClientId = '', $authenticationSecret = '')
     {
         if (self::$_instance === null) {
-            self::$_instance = new self($config, (int)$masId, $masClientId);
+            self::$_instance = new self($config, (int)$masId, $masClientId, $authenticationSecret);
+        }
+
+        if (self::$_instance->getJwt() === null) {
+            self::$_instance->setJWT();
         }
 
         return self::$_instance;
+    }
+
+    public function setJWT()
+    {
+        $this->jwt = $this->getAutorizationJWT();
+        $this->jwtKeys = JWT::decode($this->jwt, $this->authenticationSecret);
+    }
+
+    public function getAutorizationJWT()
+    {
+        $credentials = [
+            "partnerSystemIdExt" => (string)$this->partnerSystemIdExt,
+            "partnerSystemCustomerIdExt" => $this->partnerSystemCustomerIdExt,
+            "authenticationSecret" => $this->authenticationSecret,
+            "locale" => "de"
+        ];
+        //$cred = \GuzzleHttp\json_encode($credentials);
+        return $this->client->request(
+            'POST',
+            '/gateway/authentication/partnersystem/credentialsbased',
+            [
+                'debug'=> true,
+                'JSON' => $credentials
+            ]
+        );
+    }
+
+    public function reauthJWT()
+    {
+        //TODO still needs bearer token
+        return $this->client->request(
+            'POST',
+            '/gateway/authentication/reauth'
+        );
     }
 
     /**
@@ -85,11 +145,11 @@ class TriggerdialogService
     {
         $data = $this->getCampaignData($triggerCampaign);
         $data['variable'] = $triggerCampaign->getVariablesAsArray();
-
+        $json_body = $data;
         $xml = new \SimpleXMLElement('<createCampaignRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></createCampaignRequest>');
         $this->transformData($xml, $data);
 
-        $response = $this->client->request('PUT', '/rest-mas/campaign/', ['body' => $xml->asXML()]);
+        $response = $this->client->request('PUT', '/gateway/longtermcampaigns', ['json' => $json_body]);
 
         if ($response->getStatusCode() !== 200) {
             throw new RequestException($response, 1569423229);
@@ -98,7 +158,7 @@ class TriggerdialogService
 
     /**
      * @param TriggerCampaign $triggerCampaign
-     * @param string          $state
+     * @param string $state
      *
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -146,7 +206,7 @@ class TriggerdialogService
 
     /**
      * @param TriggerCampaign $triggerCampaign
-     * @param Lead            $lead
+     * @param Lead $lead
      *
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -179,16 +239,16 @@ class TriggerdialogService
 
     /**
      * @param TriggerCampaign $triggerCampaign
-     * @param bool            $getFullData
+     * @param bool $getFullData
      *
      * @return array
      */
     protected function getCampaignData(TriggerCampaign $triggerCampaign, $getFullData = true)
     {
         $data = [
-            'masID' => $this->masId,
+            'masID' => $this->partnerSystemIdExt,
             'masCampaignID' => $triggerCampaign->getId(),
-            'masClientID' => $this->masClientId,
+            'masClientID' => $this->partnerSystemCustomerIdExt,
         ];
 
         if ($getFullData === false) {
@@ -214,7 +274,7 @@ class TriggerdialogService
 
     /**
      * @param \SimpleXMLElement $xml
-     * @param array             $data
+     * @param array $data
      */
     protected function transformData(\SimpleXMLElement &$xml, $data)
     {
@@ -239,4 +299,14 @@ class TriggerdialogService
             }
         }
     }
+
+    /**
+     * @return string
+     */
+    public function getJwt(): string
+    {
+        return $this->jwt;
+    }
+
+
 }
