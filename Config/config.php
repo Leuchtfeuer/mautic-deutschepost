@@ -8,6 +8,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
 use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
+use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 
 return [
     'name' => 'Dt. Post',
@@ -109,6 +110,16 @@ return [
                 'class' => TriggerCampaignModel::class,
             ],
         ],
+        'utilities' => [
+            'mautic.triggerdialog.utility.sso' => array(
+                'class' => SsoUtility::class,
+                'alias' => 'sso_utility',
+                'arguments' => [
+                    'mautic.helper.core_parameters',
+                    'mautic.helper.user'
+                ]
+            )
+        ]
     ],
 
     'parameters' => [

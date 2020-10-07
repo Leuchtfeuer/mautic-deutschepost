@@ -8,6 +8,8 @@ if (!class_exists('Firebase\JWT\JWT', false)) {
 
 use Firebase\JWT\JWT;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use Mautic\CoreBundle\Helper\UserHelper;
+use Mautic\CoreBundle\Security\Permissions\CorePermissions;
 use MauticPlugin\MauticTriggerdialogBundle\Service\TriggerdialogService;
 
 class SsoUtility
@@ -33,11 +35,17 @@ class SsoUtility
     protected $JWT = '';
 
     /**
+     * @var UserHelper
+     */
+    protected $userHelper;
+
+    /**
      * SsoUtility constructor.
      */
-    public function __construct(CoreParametersHelper $coreParametersHelper)
+    public function __construct(CoreParametersHelper $coreParametersHelper, UserHelper $userHelper)
     {
         $this->coreParametersHelper = $coreParametersHelper;
+        $this->userHelper = $userHelper;
     }
 
     /**
@@ -78,23 +86,16 @@ class SsoUtility
 
     public function generateJWT(): void
     {
-        TriggerdialogService::makeInstance(
-            [],
-            $this->coreParametersHelper->get('triggerdialog_masId'),
-            $this->coreParametersHelper->get('triggerdialog_masClientId'),
-            $this->coreParametersHelper->get('triggerdialog_authenticationSecret')
-        );
-
         $payload = [
             'iss' => self::PAYLOAD_ISS,
             'iat' => time(),
             'exp' => strtotime('+30 day', time()),
             'masId' => (int)$this->coreParametersHelper->get('triggerdialog_masId'),
             'masClientId' => $this->coreParametersHelper->get('triggerdialog_masClientId'),
-            'username' => $this->coreParametersHelper->get('triggerdialog_username'),
-            'email' => $this->coreParametersHelper->get('triggerdialog_email'),
-            'firstname' => $this->coreParametersHelper->get('triggerdialog_firstName'),
-            'lastname' => $this->coreParametersHelper->get('triggerdialog_lastName'),
+            'username' => $this->userHelper->getUser()->getUsername(),
+            'email' => $this->userHelper->getUser()->getEmail(),
+            'firstname' => $this->userHelper->getUser()->getFirstName(),
+            'lastname' => $this->userHelper->getUser()->getLastName(),
         ];
 
         $this->JWT = JWT::encode($payload, $this->coreParametersHelper->get('triggerdialog_masSecret'), 'HS512');

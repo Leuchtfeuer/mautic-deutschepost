@@ -465,7 +465,7 @@ class TriggerCampaignController extends AbstractFormController
      */
     protected function getSSOUrl(CoreParametersHelper $coreParametersHelper)
     {
-        $ssoUtility = new SsoUtility($coreParametersHelper);
+        $ssoUtility = new SsoUtility($coreParametersHelper, $this->container->get('mautic.helper.user'));
         $ssoUrl = null;
 
         if ($ssoUtility->isValid()) {
