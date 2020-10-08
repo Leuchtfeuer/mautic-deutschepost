@@ -59,7 +59,7 @@ class TriggerdialogService
     protected $config = [
         'http_errors' => false,
         'headers' => [
-            'Content-Type' => 'application/xml; charset=utf-8',
+            'Content-Type' => 'application/json; charset=utf-8',
         ],
     ];
 
@@ -121,7 +121,7 @@ class TriggerdialogService
             '/gateway/authentication/partnersystem/credentialsbased',
             [
                 'debug'=> true,
-                'JSON' => $credentials
+                'json' => $credentials
             ]
         );
     }
