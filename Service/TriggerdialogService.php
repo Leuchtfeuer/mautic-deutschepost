@@ -11,6 +11,8 @@ use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 use MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException;
 use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
+use Pheanstalk\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 
 class TriggerdialogService
 {
@@ -103,8 +105,12 @@ class TriggerdialogService
 
     public function setJWT()
     {
-        $this->jwt = $this->getAutorizationJWT();
-        $this->jwtKeys = JWT::decode($this->jwt, $this->authenticationSecret);
+        $this->jwt = \GuzzleHttp\json_decode($this->getAutorizationJWT()->getBody()->getContents(), true)['jwtToken'];
+        try {
+            $this->jwtKeys = JWT::decode($this->jwt, 'aKaqioatnPqwSrWWy5-9v', ['HS512']);
+        } catch (\Exception $e){
+            var_dump($e); //todo: log exception
+        }
     }
 
     public function getAutorizationJWT()
@@ -128,10 +134,12 @@ class TriggerdialogService
 
     public function reauthJWT()
     {
-        //TODO still needs bearer token
         return $this->client->request(
             'POST',
-            '/gateway/authentication/reauth'
+            '/gateway/authentication/reauth',
+            ["headers" => [
+                'authorization' => 'Bearer ' . $this->jwt
+            ]]
         );
     }
 
@@ -307,6 +315,16 @@ class TriggerdialogService
     {
         return $this->jwt;
     }
+
+    /**
+     * @return bool
+     */
+    public function isTokenValid(): bool
+    {
+        return $this->jwtKeys["exp"] < strtotime("now - 5 minutes");
+    }
+
+
 
 
 }

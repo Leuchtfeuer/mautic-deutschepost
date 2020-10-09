@@ -8,6 +8,7 @@ if (!class_exists('Firebase\JWT\JWT', false)) {
 
 use Firebase\JWT\JWT;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MauticPlugin\MauticTriggerdialogBundle\Service\TriggerdialogService;
 
 class SsoUtility
 {
@@ -77,6 +78,13 @@ class SsoUtility
 
     public function generateJWT(): void
     {
+        TriggerdialogService::makeInstance(
+            [],
+            $this->coreParametersHelper->get('triggerdialog_masId'),
+            $this->coreParametersHelper->get('triggerdialog_masClientId'),
+            $this->coreParametersHelper->get('triggerdialog_authenticationSecret')
+        );
+
         $payload = [
             'iss' => self::PAYLOAD_ISS,
             'iat' => time(),
