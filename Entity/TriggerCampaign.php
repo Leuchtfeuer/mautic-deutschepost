@@ -31,6 +31,16 @@ class TriggerCampaign extends FormEntity
     private $id;
 
     /**
+     * @var int
+     */
+    private $triggerId;
+
+    /**
+     * @var int
+     */
+    private $mailingId;
+
+    /**
      * @var string
      */
     private $name;
@@ -244,12 +254,20 @@ class TriggerCampaign extends FormEntity
      */
     public function getVariablesAsArray()
     {
+        $variableDefDataType = \GuzzleHttp\json_decode('[{"id": 10,"label": "string"},{"id": 20,"label": "integer"},{"id": 30,"label": "boolean"},{"id": 40,"label": "date"},{"id": 50,"label": "image"},{"id": 60,"label": "imageurl"},{"id": 70,"label": "float"},{"id": 80,"label": "zip"},{"id": 90,"label": "countryCode"}]', true);
         $variables = [];
 
         foreach ($this->variables as $variable) {
+            $type_def = "";
+            foreach ($variableDefDataType as $type){
+                if($type["label"] === $variable['variable']){
+                    $type_def = $type["id"];
+                }
+            }
             $variables[] = [
-                'name' => $variable['field'],
-                'type' => $variable['variable'],
+                'label' => $variable['field'],
+                'sortOrder' => 0,
+                'dataTypeId' => $type_def,
             ];
         }
 
@@ -300,4 +318,38 @@ class TriggerCampaign extends FormEntity
         $this->isChanged('printNodeDescription', $printNodeDescription);
         $this->printNodeDescription = $printNodeDescription;
     }
+
+    /**
+     * @return int
+     */
+    public function getTriggerId(): int
+    {
+        return $this->triggerId;
+    }
+
+    /**
+     * @param int $triggerId
+     */
+    public function setTriggerId(int $triggerId): void
+    {
+        $this->triggerId = $triggerId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMailingId(): int
+    {
+        return $this->mailingId;
+    }
+
+    /**
+     * @param int $mailingId
+     */
+    public function setMailingId(int $mailingId): void
+    {
+        $this->mailingId = $mailingId;
+    }
+
+
 }
