@@ -92,6 +92,8 @@ class CampaignSubscriber implements EventSubscriberInterface
     {
         $triggerCampaign = $event->getTriggerCampaign();
 
+
+
         if ($triggerCampaign->isNew()) {
             $printNodeId = time();
             $triggerCampaign->setPrintNodeId('ID_' . $printNodeId);
@@ -104,6 +106,7 @@ class CampaignSubscriber implements EventSubscriberInterface
                 $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign);
             }
         }
+
     }
 
     /**
@@ -116,8 +119,11 @@ class CampaignSubscriber implements EventSubscriberInterface
     {
         $triggerCampaign = $event->getTriggerCampaign();
 
+
         if (isset($triggerCampaign->getChanges()['printNodeId'])) {
-            $this->getTriggerDialogService()->createCampaign($triggerCampaign);
+            $triggerCampaign = $this->getTriggerDialogService()->createCampaign($triggerCampaign);
+            $tcmr = $this->triggerCampaignModel->getRepository();
+            $tcmr->saveEntity($triggerCampaign);
         }
 
         if ($details = $event->getChanges()) {
@@ -129,6 +135,7 @@ class CampaignSubscriber implements EventSubscriberInterface
                 'ipAddress' => $this->ipLookupHelper->getIpAddressFromRequest(),
             ]);
         }
+
     }
 
     /**

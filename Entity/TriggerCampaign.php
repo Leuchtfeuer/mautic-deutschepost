@@ -31,12 +31,12 @@ class TriggerCampaign extends FormEntity
     private $id;
 
     /**
-     * @var int
+     * @var null|int
      */
     private $triggerId;
 
     /**
-     * @var int
+     * @var null|int
      */
     private $mailingId;
 
@@ -91,6 +91,8 @@ class TriggerCampaign extends FormEntity
     public function __construct()
     {
         $this->setStartDate();
+        $this->setMailingId(0);
+        $this->setTriggerId(0);
     }
 
     /**
@@ -103,7 +105,8 @@ class TriggerCampaign extends FormEntity
         $builder = new ClassMetadataBuilder($metadata);
         $builder->setTable('trigger_campaigns')->setCustomRepositoryClass(TriggerCampaignRepository::class);
         $builder->addIdColumns();
-
+        $builder->createField('mailingId', 'string')->columnName('mailing_id')->build();
+        $builder->createField('triggerId', 'string')->columnName('trigger_id')->build();
         $builder->createField('startDate', 'datetime')->columnName('start_date')->build();
         $builder->createField('endDate', 'datetime')->columnName('end_date')->nullable()->build();
         $builder->createField('printNodeId', 'string')->columnName('print_node_id')->build();
@@ -320,7 +323,7 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @return int
+     * @return null|int
      */
     public function getTriggerId(): int
     {
@@ -328,15 +331,15 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @param int $triggerId
+     * @param null|int $triggerId
      */
-    public function setTriggerId(int $triggerId): void
+    public function setTriggerId($triggerId): void
     {
         $this->triggerId = $triggerId;
     }
 
     /**
-     * @return int
+     * @return null|int
      */
     public function getMailingId(): int
     {
@@ -344,9 +347,9 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @param int $mailingId
+     * @param null|int $mailingId
      */
-    public function setMailingId(int $mailingId): void
+    public function setMailingId($mailingId): void
     {
         $this->mailingId = $mailingId;
     }

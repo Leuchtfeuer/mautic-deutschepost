@@ -602,10 +602,10 @@ class TriggerCampaignController extends AbstractFormController
             //lock the entity
             $triggerCampaignModel->lockEntity($triggerCampaign);
         }
-
+        $test = $this->setFormTheme($form, self::TEMPLATES['form'], self::THEMES['variables']);
         return $this->delegateView([
             'viewParameters' => [
-                'form' => $this->setFormTheme($form, self::TEMPLATES['form'], self::THEMES['variables']),
+                'form' => $test,
                 'currentListId' => $triggerCampaign->getId(),
             ],
             'contentTemplate' => self::TEMPLATES['form'],

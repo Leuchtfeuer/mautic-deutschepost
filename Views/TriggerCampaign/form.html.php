@@ -82,6 +82,7 @@ echo $view['form']->start($form);
                                         $header = $object;
                                         $icon = ($object === 'company') ? 'building' : 'user';
                                         ?>
+
 										<optgroup label="<?php echo $view['translator']->trans('mautic.lead.' . $header); ?>">
                                             <?php foreach ($field as $value => $params):
                                                 $list = (!empty($params['properties']['list'])) ? $params['properties']['list'] : [];

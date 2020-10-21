@@ -10,7 +10,9 @@ use GuzzleHttp\Client;
 use Mautic\LeadBundle\Entity\Lead;
 use Mautic\PointBundle\Entity\Trigger;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
+use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
 use MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException;
+use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 use Pheanstalk\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
@@ -176,7 +178,7 @@ class TriggerdialogService
 
         $this->createMailing($triggerCampaign);
         $this->setVariableDefinitions($triggerCampaign);
-
+        return $triggerCampaign;
 
     }
 
@@ -264,7 +266,7 @@ class TriggerdialogService
     {
         $json_body = [
             "customerId" => $this->jwtKeys["customerIds"][0],
-            "createVariableDefRequestRepList" => $triggerCampaign->getVariablesAsArray(),
+            "updateVariableDefRequestRepList" => $triggerCampaign->getVariablesAsArray(),
         ];
 
         $response = $this->client->request(
