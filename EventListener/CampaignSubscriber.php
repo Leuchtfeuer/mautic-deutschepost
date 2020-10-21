@@ -103,11 +103,27 @@ class CampaignSubscriber implements EventSubscriberInterface
                 $this->getTriggerDialogService()->updateCampaign($triggerCampaign);
             }
             if (isset($changes['variables'])) {
-                $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign);
+                $diff = array_diff($changes['variables'][0], $changes['variables'][1]);
+                $origin = $changes['variables'][0];
+                $diff = array_filter($changes['variables'][1], function($array) use ($origin) {
+                    dump($array);
+                    dump($origin);
+                    foreach ($origin as $var) {
+                        if($var === $array){
+                            return false;
+                        }
+                    }
+                    return true;
+                }, ARRAY_FILTER_USE_BOTH);
+                dump($diff);
+                $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign, $changes['variables'][1]);
             }
         }
 
     }
+
+
+
 
     /**
      * @param TriggerCampaignEvent $event

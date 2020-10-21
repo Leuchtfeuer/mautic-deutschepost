@@ -82,7 +82,6 @@ echo $view['form']->start($form);
                                         $header = $object;
                                         $icon = ($object === 'company') ? 'building' : 'user';
                                         ?>
-
 										<optgroup label="<?php echo $view['translator']->trans('mautic.lead.' . $header); ?>">
                                             <?php foreach ($field as $value => $params):
                                                 $list = (!empty($params['properties']['list'])) ? $params['properties']['list'] : [];
@@ -115,6 +114,7 @@ echo $view['form']->start($form);
                                     <?php echo $view['form']->errors($form['variables']); ?>
 								</div>
                             <?php endif ?>
+
                             <?php echo $view['form']->widget($form['variables']); ?>
 						</div>
 					</div>

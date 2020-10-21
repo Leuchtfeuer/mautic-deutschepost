@@ -343,7 +343,7 @@ class TriggerCampaign extends FormEntity
      */
     public function getMailingId(): int
     {
-        return $this->mailingId;
+        return (int)$this->mailingId;
     }
 
     /**

@@ -259,16 +259,32 @@ class TriggerdialogService
     /**
      * @param TriggerCampaign $triggerCampaign
      *
+     * @param null $diff
      * @throws RequestException
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function updateCampaignVariable(TriggerCampaign $triggerCampaign)
+    public function updateCampaignVariable(TriggerCampaign $triggerCampaign, $diff = null)
     {
+        $variableDefDataType = \GuzzleHttp\json_decode('[{"id": 10,"label": "string"},{"id": 20,"label": "integer"},{"id": 30,"label": "boolean"},{"id": 40,"label": "date"},{"id": 50,"label": "image"},{"id": 60,"label": "imageurl"},{"id": 70,"label": "float"},{"id": 80,"label": "zip"},{"id": 90,"label": "countryCode"}]', true);
+        $variables = [];
+
+        foreach ($diff as $variable) {
+            $type_def = "";
+            foreach ($variableDefDataType as $type){
+                if($type["label"] === $variable['variable']){
+                    $type_def = $type["id"];
+                }
+            }
+            $variables[] = [
+                'label' => $variable['field'],
+                'sortOrder' => 0,
+                'dataTypeId' => $type_def,
+            ];
+        }
         $json_body = [
             "customerId" => $this->jwtKeys["customerIds"][0],
-            "updateVariableDefRequestRepList" => $triggerCampaign->getVariablesAsArray(),
+            "updateVariableDefRequestRepList" => $variables,
         ];
-
+        $triggerCampaign->getVariablesAsArray();
         $response = $this->client->request(
             'PUT',
             '/gateway/mailings/'.$triggerCampaign->getMailingId().'/variabledefinitions',
