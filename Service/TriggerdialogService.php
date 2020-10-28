@@ -108,7 +108,7 @@ class TriggerdialogService
 
     public function setJWT()
     {
-        $this->jwt = \GuzzleHttp\json_decode($this->getAutorizationJWT()->getBody()->getContents(), true)['jwtToken'];
+        $this->jwt = $this->getAuthorizationJWT();
         try {
             $this->jwtKeys = $array = json_decode(json_encode(JWT::decode($this->jwt, 'aKaqioatnPqwSrWWy5-9v', ['HS512'])), true);;
         } catch (\Exception $e){
@@ -116,7 +116,7 @@ class TriggerdialogService
         }
     }
 
-    public function getAutorizationJWT()
+    public function getAuthorizationJWT()
     {
         $credentials = [
             "partnerSystemIdExt" => (string)$this->partnerSystemIdExt,
@@ -124,14 +124,15 @@ class TriggerdialogService
             "authenticationSecret" => $this->authenticationSecret,
             "locale" => "de"
         ];
-        //$cred = \GuzzleHttp\json_encode($credentials);
-        return $this->client->request(
+
+        $result = $this->client->request(
             'POST',
             '/gateway/authentication/partnersystem/credentialsbased',
             [
                 'json' => $credentials
             ]
         );
+        return \GuzzleHttp\json_decode($result->getBody()->getContents(), true)['jwtToken'];
     }
 
     public function reauthJWT()
@@ -151,7 +152,7 @@ class TriggerdialogService
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function createCampaign(TriggerCampaign $triggerCampaign)
+    public function createCampaign(TriggerCampaign $triggerCampaign): TriggerCampaign
     {
         $data = $this->getCampaignData($triggerCampaign);
         //$data['variable'] = $triggerCampaign->getVariablesAsArray();
@@ -182,7 +183,7 @@ class TriggerdialogService
 
     }
 
-    public function setVariableDefinitions(TriggerCampaign $triggerCampaign)
+    public function setVariableDefinitions(TriggerCampaign $triggerCampaign): void
     {
         $json_body = [
             "customerId" => $this->jwtKeys["customerIds"][0],
@@ -233,10 +234,9 @@ class TriggerdialogService
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function updateCampaign(TriggerCampaign $triggerCampaign, $state = 'active')
+    public function updateCampaign(TriggerCampaign $triggerCampaign, $state = 'active'): void
     {
         $data = $this->getCampaignData($triggerCampaign);
-        //$data['variable'] = $triggerCampaign->getVariablesAsArray();
         $json_body = $data;
         $xml = new \SimpleXMLElement('<createCampaignRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></createCampaignRequest>');
         $this->transformData($xml, $data);
@@ -251,18 +251,13 @@ class TriggerdialogService
         );
     }
 
-    public function addCampaignPrintNode()
-    {
-        // TODO: Implement later on
-    }
-
     /**
      * @param TriggerCampaign $triggerCampaign
      *
      * @param null $diff
      * @throws RequestException
      */
-    public function updateCampaignVariable(TriggerCampaign $triggerCampaign, $diff = null)
+    public function updateCampaignVariable(TriggerCampaign $triggerCampaign, $diff = null): void
     {
         $variableDefDataType = \GuzzleHttp\json_decode('[{"id": 10,"label": "string"},{"id": 20,"label": "integer"},{"id": 30,"label": "boolean"},{"id": 40,"label": "date"},{"id": 50,"label": "image"},{"id": 60,"label": "imageurl"},{"id": 70,"label": "float"},{"id": 80,"label": "zip"},{"id": 90,"label": "countryCode"}]', true);
         $variables = [];
@@ -306,7 +301,7 @@ class TriggerdialogService
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function createCampaignTrigger(TriggerCampaign $triggerCampaign, Lead $lead)
+    public function createCampaignTrigger(TriggerCampaign $triggerCampaign, Lead $lead): void
     {
         $variables = $triggerCampaign->getVariablesAsArray();
         $variableValue = [
@@ -343,7 +338,7 @@ class TriggerdialogService
      *
      * @return array
      */
-    protected function getCampaignData(TriggerCampaign $triggerCampaign, $getFullData = true)
+    protected function getCampaignData(TriggerCampaign $triggerCampaign, $getFullData = true): array
     {
         $customer = $this->jwtKeys["customerIds"][0];
         $data = [
@@ -364,7 +359,7 @@ class TriggerdialogService
      * @param \SimpleXMLElement $xml
      * @param array $data
      */
-    protected function transformData(\SimpleXMLElement &$xml, $data)
+    protected function transformData(\SimpleXMLElement &$xml, $data): void
     {
         foreach ($data as $key => $value) {
             if (!is_array($value)) {
