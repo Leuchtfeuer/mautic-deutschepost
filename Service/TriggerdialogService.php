@@ -314,16 +314,17 @@ class TriggerdialogService
         $variableValue = [
             "campaignId" => $triggerCampaign->getTriggerId(),
             "customerId" => $this->jwtKeys["customerIds"][0],
-            "recipients" => []
+            "recipients" => ["recipientData" => [], "recipientIdExt" => $lead->getId()]
         ];
+        $address_array = ["recipientData" => [], "recipientIdExt" => $lead->getId()];
 
         foreach ($variables as $variable) {
-            $variableValue["recipients"] = [
+            $address_array["recipientData"][] = [
                 'label' => $variable['label'],
-                'value' => $lead->getFieldValue($variable['name']),
+                'value' => $lead->getFieldValue($variable['label']),
             ];
         }
-
+        $variableValue["recipients"][] = $address_array;
 
         $response = $this->client->request(
             'POST',
@@ -333,7 +334,7 @@ class TriggerdialogService
                 'headers' => ['Authorization' => $this->jwt]
             ]
         );
-
+        $response_body = $response->getBody()->getContents();
         if ($response->getStatusCode() !== 200) {
             throw new RequestException($response, 1569423375);
         }
