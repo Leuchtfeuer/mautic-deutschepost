@@ -62,40 +62,6 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_username', TextType::class, [
-            'label' => 'plugin.triggerdialog.form.username',
-            'label_attr' => [
-                'class' => 'control-label',
-            ],
-            'required' => true,
-            'attr' => [
-                'class' => 'form-control',
-                'rows' => '6',
-            ],
-        ]);
-
-        $builder->add('triggerdialog_firstName', TextType::class, [
-            'label' => 'plugin.triggerdialog.form.firstName',
-            'label_attr' => [
-                'class' => 'control-label',
-            ],
-            'attr' => [
-                'class' => 'form-control',
-                'rows' => '6',
-            ],
-        ]);
-
-        $builder->add('triggerdialog_lastName', TextType::class, [
-            'label' => 'plugin.triggerdialog.form.lastName',
-            'label_attr' => [
-                'class' => 'control-label',
-            ],
-            'attr' => [
-                'class' => 'form-control',
-                'rows' => '6',
-            ],
-        ]);
-
         $builder->add('triggerdialog_rest_user', TextType::class, [
             'label' => 'plugin.triggerdialog.form.rest.user',
             'label_attr' => [
