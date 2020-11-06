@@ -1,11 +1,11 @@
 Deutsche Post TRIGGERDIALOG Bundle for Mautic
 =============================================
 
-[![Latest Stable Version](https://poser.pugx.org/bitmotion/mautic-deutschepost/v/stable)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
-[![Total Downloads](https://poser.pugx.org/bitmotion/mautic-deutschepost/downloads)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
-[![Latest Unstable Version](https://poser.pugx.org/bitmotion/mautic-deutschepost/v/unstable)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
-[![Code Climate](https://codeclimate.com/github/bitmotion/mautic-deutschepost/badges/gpa.svg)](https://codeclimate.com/github/bitmotion/mautic-deutschepost)
-[![License](https://poser.pugx.org/bitmotion/mautic-deutschepost/license)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
+[![Latest Stable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/stable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Total Downloads](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/downloads)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Latest Unstable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/unstable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Code Climate](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost/badges/gpa.svg)](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost)
+[![License](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/license)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
 
 ## About
 
@@ -27,7 +27,7 @@ To install the plugin for Mautic, the following steps are necessary
 (requires command line access):
 
 * Download the latest release of this bundle either as .tar.gz or as
-.zip archive from [GitHub](https://github.com/bitmotion/mautic-deutschepost/releases)
+.zip archive from [GitHub](https://github.com/Leuchtfeuer/mautic-deutschepost/releases)
 and upload the archive to the Mautic server or fetch the source directly
 on the server e.g. by using `wget`.
 * Unpack the file, rename the directory and move it to the plugin.
@@ -45,7 +45,7 @@ You can configure the bundle within the configuration section of your
 Mautic Backend. All relevant configuration can be found underneath the
 tab "TRIGGERDIALOG Settings".
 
-![Backend view of TRIGGERDIALOG settings](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/configure-bundle.png "Backend view of Deutsche Post TRIGGERDIALOG for Mautic settings.")
+![Backend view of TRIGGERDIALOG settings](https://www.leuchtfeuer.com/fileadmin/github/mautic-deutschepost/configure-bundle.png "Backend view of Deutsche Post TRIGGERDIALOG for Mautic settings.")
 
 ### Before Start
 
@@ -80,7 +80,7 @@ assign the contact data in Mautic to the corresponding fields in
 TRIGGERDIALOG - ZIP-Code is a mandatory field. It goes without saying 
 that complete address data is required for successful postcard dispatch.
 
-![Backend view of creating a TRIGGERDIALOG template](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/create-triggerdialog-template.png "Backend view of creating a TRIGGERDIALOG template in Mautic.")
+![Backend view of creating a TRIGGERDIALOG template](https://www.leuchtfeuer.com/fileadmin/github/mautic-deutschepost/create-triggerdialog-template.png "Backend view of creating a TRIGGERDIALOG template in Mautic.")
 
 Please note: The optical design (InDesign, ...) and other configuration
 of the postcard are not stored in Mautic, but directly on the
@@ -92,9 +92,9 @@ Via the plugin, a new campaign action is now available:
 "Send via Deutsche Post". In this action you can select the desired 
 postcard template from the TRIGGERDIALOG templates stored in Mautic.
 
-![Add campaign action](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/add-campaign-action.png "Add campaign action.")
+![Add campaign action](https://www.leuchtfeuer.com/fileadmin/github/mautic-deutschepost/add-campaign-action.png "Add campaign action.")
 
-![Configure campaign action](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/configure-campaign-action.png "Configure campaign action.")
+![Configure campaign action](https://www.leuchtfeuer.com/fileadmin/github/mautic-deutschepost/configure-campaign-action.png "Configure campaign action.")
 
 Mautic then uses the plugin to send the data to Deutsche Post for
 printing and delivery - and shortly afterwards your contact has his

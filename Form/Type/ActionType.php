@@ -38,6 +38,7 @@ class ActionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = $this->fieldChoices;
         $builder->add('trigger_campaign', ChoiceType::class, [
             'choices' => array_flip($this->fieldChoices),
             'label' => 'plugin.triggerdialog.campaign.formlabel',

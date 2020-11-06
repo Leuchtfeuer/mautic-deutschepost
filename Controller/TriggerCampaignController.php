@@ -576,16 +576,16 @@ class TriggerCampaignController extends AbstractFormController
                     // Re-create the form once more with the fresh segment and action.
                     // The alias was empty on redirect after cloning.
                     $form = $triggerCampaignModel->createForm(
-                            $triggerCampaign,
-                            $this->get('form.factory'),
-                            $this->generateUrl(
+                        $triggerCampaign,
+                        $this->get('form.factory'),
+                        $this->generateUrl(
                                 self::ROUTES['action'],
                                 [
                                     'objectAction' => 'edit',
                                     'objectId' => $triggerCampaign->getId(),
                                 ]
                             )
-                        );
+                    );
 
                     $postActionVars['viewParameters'] = [
                             'objectAction' => 'edit',
