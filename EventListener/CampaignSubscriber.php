@@ -177,8 +177,17 @@ class CampaignSubscriber implements EventSubscriberInterface
 
         try {
             $lead = $event->getLead();
+            $this->auditLogModel->writeToLog([
+                'bundle' => 'triggerdialog',
+                'object' => 'lead',
+                'objectId' => $lead->getId(),
+                'action' => 'registered for campaign',
+                'details' => $event->getEventSettings(),
+                'ipAddress' => $this->ipLookupHelper->getIpAddressFromRequest(),
+            ]);
             $this->getTriggerDialogService()->createCampaignTrigger($triggerCampaign, $lead);
             $event->setResult(true);
+
         } catch (\Exception $exception) {
             $event->setFailed($exception->getMessage());
         } catch (\GuzzleHttp\Exception\GuzzleException $exception) {

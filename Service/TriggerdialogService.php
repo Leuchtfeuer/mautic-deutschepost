@@ -314,7 +314,6 @@ class TriggerdialogService
         $variableValue = [
             "campaignId" => $triggerCampaign->getTriggerId(),
             "customerId" => $this->jwtKeys["customerIds"][0],
-            "recipients" => ["recipientData" => [], "recipientIdExt" => $lead->getId()]
         ];
         $address_array = ["recipientData" => [], "recipientIdExt" => $lead->getId()];
 
