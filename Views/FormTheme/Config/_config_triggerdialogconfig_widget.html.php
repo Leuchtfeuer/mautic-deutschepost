@@ -29,22 +29,6 @@ use Symfony\Component\Form\FormView;
                 <?php echo $view['form']->row($form->children['triggerdialog_masSecret']); ?>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_username']); ?>
-			</div>
-			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_email']); ?>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_firstName']); ?>
-			</div>
-			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_lastName']); ?>
-			</div>
-		</div>
 	</div>
 </div>
 
