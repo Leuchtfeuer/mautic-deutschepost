@@ -8,14 +8,9 @@ if (!class_exists('Firebase\JWT\JWT', false)) {
 use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
 use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Entity\Trigger;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
 use MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException;
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
 use Pheanstalk\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 
 class TriggerdialogService
 {
@@ -74,6 +69,7 @@ class TriggerdialogService
      * @param array $config
      * @param int $masId
      * @param string $masClientId
+     * @param mixed $authenticationSecret
      */
     protected function __construct($config, $masId, $masClientId, $authenticationSecret)
     {
@@ -90,6 +86,7 @@ class TriggerdialogService
      * @param array $config
      * @param int $masId
      * @param string $masClientId
+     * @param mixed $authenticationSecret
      *
      * @return TriggerdialogService
      */
@@ -110,8 +107,8 @@ class TriggerdialogService
     {
         $this->jwt = $this->getAuthorizationJWT();
         try {
-            $this->jwtKeys = $array = json_decode(json_encode(JWT::decode($this->jwt, 'aKaqioatnPqwSrWWy5-9v', ['HS512'])), true);;
-        } catch (\Exception $e){
+            $this->jwtKeys = $array = json_decode(json_encode(JWT::decode($this->jwt, 'aKaqioatnPqwSrWWy5-9v', ['HS512'])), true);
+        } catch (\Exception $e) {
             var_dump($e); //todo: log exception
         }
     }
@@ -119,19 +116,20 @@ class TriggerdialogService
     public function getAuthorizationJWT()
     {
         $credentials = [
-            "partnerSystemIdExt" => (string)$this->partnerSystemIdExt,
-            "partnerSystemCustomerIdExt" => $this->partnerSystemCustomerIdExt,
-            "authenticationSecret" => $this->authenticationSecret,
-            "locale" => "de"
+            'partnerSystemIdExt' => (string)$this->partnerSystemIdExt,
+            'partnerSystemCustomerIdExt' => $this->partnerSystemCustomerIdExt,
+            'authenticationSecret' => $this->authenticationSecret,
+            'locale' => 'de',
         ];
 
         $result = $this->client->request(
             'POST',
             '/gateway/authentication/partnersystem/credentialsbased',
             [
-                'json' => $credentials
+                'json' => $credentials,
             ]
         );
+
         return json_decode($result->getBody()->getContents(), true)['jwtToken'];
     }
 
@@ -140,8 +138,8 @@ class TriggerdialogService
         return $this->client->request(
             'POST',
             '/gateway/authentication/reauth',
-            ["headers" => [
-                'authorization' => 'Bearer ' . $this->jwt
+            ['headers' => [
+                'authorization' => 'Bearer ' . $this->jwt,
             ]]
         );
     }
@@ -165,37 +163,36 @@ class TriggerdialogService
             '/gateway/longtermcampaigns',
             [
                 'json' => $json_body,
-                'headers' => ['Authorization' => $this->jwt]
+                'headers' => ['Authorization' => $this->jwt],
             ]
         );
 
-        $response_body = json_decode($response->getBody()->getContents(),true);
-        $triggerCampaign->setTriggerId($response_body["id"]);
+        $response_body = json_decode($response->getBody()->getContents(), true);
+        $triggerCampaign->setTriggerId($response_body['id']);
 
         if ($response->getStatusCode() >= 300) {
             throw new RequestException($response, 1569423229);
         }
 
-
         $this->createMailing($triggerCampaign);
         $this->setVariableDefinitions($triggerCampaign);
-        return $triggerCampaign;
 
+        return $triggerCampaign;
     }
 
     public function setVariableDefinitions(TriggerCampaign $triggerCampaign): void
     {
         $json_body = [
-            "customerId" => $this->jwtKeys["customerIds"][0],
-            "createVariableDefRequestRepList" => $triggerCampaign->getVariablesAsArray(),
+            'customerId' => $this->jwtKeys['customerIds'][0],
+            'createVariableDefRequestRepList' => $triggerCampaign->getVariablesAsArray(),
         ];
 
         $response = $this->client->request(
             'POST',
-            '/gateway/mailings/'.$triggerCampaign->getMailingId().'/variabledefinitions',
+            '/gateway/mailings/' . $triggerCampaign->getMailingId() . '/variabledefinitions',
             [
                 'json' => $json_body,
-                'headers' => ['Authorization' => $this->jwt]
+                'headers' => ['Authorization' => $this->jwt],
             ]
         );
         $response_body = $response->getBody()->getContents();
@@ -203,14 +200,15 @@ class TriggerdialogService
             throw new RequestException($response, 1569423229);
         }
     }
+
     /**
      * @param TriggerCampaign $triggerCampaign
      */
     public function createMailing(TriggerCampaign $triggerCampaign): void
     {
         $json_body = [
-            "customerId" => $this->jwtKeys["customerIds"][0],
-            "campaignId" => $triggerCampaign->getTriggerId(),
+            'customerId' => $this->jwtKeys['customerIds'][0],
+            'campaignId' => $triggerCampaign->getTriggerId(),
         ];
 
         $response = $this->client->request(
@@ -218,13 +216,12 @@ class TriggerdialogService
             '/gateway/mailings',
             [
                 'json' => $json_body,
-                'headers' => ['Authorization' => $this->jwt]
+                'headers' => ['Authorization' => $this->jwt],
             ]
         );
 
-        $response_body = json_decode($response->getBody()->getContents(),true);
-        $triggerCampaign->setMailingId($response_body["id"]);
-
+        $response_body = json_decode($response->getBody()->getContents(), true);
+        $triggerCampaign->setMailingId($response_body['id']);
     }
 
     /**
@@ -246,7 +243,7 @@ class TriggerdialogService
             '/gateway/longtermcampaigns',
             [
                 'json' => $json_body,
-                'headers' => ['Authorization' => $this->jwt]
+                'headers' => ['Authorization' => $this->jwt],
             ]
         );
     }
@@ -261,16 +258,16 @@ class TriggerdialogService
     {
         $variables = $this->transformVariableArray($diff);
         $json_body = [
-            "customerId" => $this->jwtKeys["customerIds"][0],
-            "updateVariableDefRequestRepList" => $variables,
+            'customerId' => $this->jwtKeys['customerIds'][0],
+            'updateVariableDefRequestRepList' => $variables,
         ];
         $triggerCampaign->getVariablesAsArray();
         $response = $this->client->request(
             'PUT',
-            '/gateway/mailings/'.$triggerCampaign->getMailingId().'/variabledefinitions',
+            '/gateway/mailings/' . $triggerCampaign->getMailingId() . '/variabledefinitions',
             [
                 'json' => $json_body,
-                'headers' => ['Authorization' => $this->jwt]
+                'headers' => ['Authorization' => $this->jwt],
             ]
         );
         $response_body = $response->getBody()->getContents();
@@ -285,10 +282,10 @@ class TriggerdialogService
         $variables = [];
 
         foreach ($variables_old as $variable) {
-            $type_def = "";
-            foreach ($variableDefDataType as $type){
-                if($type["label"] === $variable['variable']){
-                    $type_def = $type["id"];
+            $type_def = '';
+            foreach ($variableDefDataType as $type) {
+                if ($type['label'] === $variable['variable']) {
+                    $type_def = $type['id'];
                 }
             }
             $variables[] = [
@@ -312,25 +309,25 @@ class TriggerdialogService
     {
         $variables = $triggerCampaign->getVariablesAsArray();
         $variableValue = [
-            "campaignId" => $triggerCampaign->getTriggerId(),
-            "customerId" => $this->jwtKeys["customerIds"][0],
+            'campaignId' => $triggerCampaign->getTriggerId(),
+            'customerId' => $this->jwtKeys['customerIds'][0],
         ];
-        $address_array = ["recipientData" => [], "recipientIdExt" => $lead->getId()];
+        $address_array = ['recipientData' => [], 'recipientIdExt' => $lead->getId()];
 
         foreach ($variables as $variable) {
-            $address_array["recipientData"][] = [
+            $address_array['recipientData'][] = [
                 'label' => $variable['label'],
                 'value' => $lead->getFieldValue($variable['label']),
             ];
         }
-        $variableValue["recipients"][] = $address_array;
+        $variableValue['recipients'][] = $address_array;
 
         $response = $this->client->request(
             'POST',
             '/gateway/recipients/',
             [
                 'json' => $variableValue,
-                'headers' => ['Authorization' => $this->jwt]
+                'headers' => ['Authorization' => $this->jwt],
             ]
         );
         $response_body = $response->getBody()->getContents();
@@ -347,7 +344,7 @@ class TriggerdialogService
      */
     protected function getCampaignData(TriggerCampaign $triggerCampaign, $getFullData = true): array
     {
-        $customer = $this->jwtKeys["customerIds"][0];
+        $customer = $this->jwtKeys['customerIds'][0];
         $data = [
             'campaignIdExt' => $triggerCampaign->getId(),
             'campaignName' => $triggerCampaign->getName(),
@@ -403,10 +400,6 @@ class TriggerdialogService
      */
     public function isTokenValid(): bool
     {
-        return $this->jwtKeys["exp"] < strtotime("now - 5 minutes");
+        return $this->jwtKeys['exp'] < strtotime('now - 5 minutes');
     }
-
-
-
-
 }

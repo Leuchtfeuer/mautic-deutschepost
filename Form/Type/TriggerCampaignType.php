@@ -147,7 +147,6 @@ class TriggerCampaignType extends AbstractType
             'data' => $data,
         ]);
 
-
         $builder->add(
             $builder->create('variables', CollectionType::class, [
                 'entry_type' => VariableType::class,

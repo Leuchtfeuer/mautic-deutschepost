@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
 
 if (!class_exists('Firebase\JWT\JWT', false)) {
@@ -9,8 +8,6 @@ if (!class_exists('Firebase\JWT\JWT', false)) {
 use Firebase\JWT\JWT;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use MauticPlugin\MauticTriggerdialogBundle\Service\TriggerdialogService;
 
 class SsoUtility
 {

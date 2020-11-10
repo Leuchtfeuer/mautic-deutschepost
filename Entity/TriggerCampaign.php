@@ -261,10 +261,10 @@ class TriggerCampaign extends FormEntity
         $variables = [];
 
         foreach ($this->variables as $variable) {
-            $type_def = "";
-            foreach ($variableDefDataType as $type){
-                if($type["label"] === $variable['variable']){
-                    $type_def = $type["id"];
+            $type_def = '';
+            foreach ($variableDefDataType as $type) {
+                if ($type['label'] === $variable['variable']) {
+                    $type_def = $type['id'];
                 }
             }
             $variables[] = [
@@ -353,6 +353,4 @@ class TriggerCampaign extends FormEntity
     {
         $this->mailingId = $mailingId;
     }
-
-
 }

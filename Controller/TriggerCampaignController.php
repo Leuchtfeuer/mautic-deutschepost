@@ -579,12 +579,12 @@ class TriggerCampaignController extends AbstractFormController
                         $triggerCampaign,
                         $this->get('form.factory'),
                         $this->generateUrl(
-                                self::ROUTES['action'],
-                                [
+                            self::ROUTES['action'],
+                            [
                                     'objectAction' => 'edit',
                                     'objectId' => $triggerCampaign->getId(),
                                 ]
-                            )
+                        )
                     );
 
                     $postActionVars['viewParameters'] = [
@@ -603,6 +603,7 @@ class TriggerCampaignController extends AbstractFormController
             $triggerCampaignModel->lockEntity($triggerCampaign);
         }
         $test = $this->setFormTheme($form, self::TEMPLATES['form'], self::THEMES['variables']);
+
         return $this->delegateView([
             'viewParameters' => [
                 'form' => $test,

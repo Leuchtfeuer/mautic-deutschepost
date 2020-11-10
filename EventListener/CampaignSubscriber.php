@@ -92,8 +92,6 @@ class CampaignSubscriber implements EventSubscriberInterface
     {
         $triggerCampaign = $event->getTriggerCampaign();
 
-
-
         if ($triggerCampaign->isNew()) {
             $printNodeId = time();
             $triggerCampaign->setPrintNodeId('ID_' . $printNodeId);
@@ -106,11 +104,7 @@ class CampaignSubscriber implements EventSubscriberInterface
                 $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign, $changes['variables'][1]);
             }
         }
-
     }
-
-
-
 
     /**
      * @param TriggerCampaignEvent $event
@@ -121,7 +115,6 @@ class CampaignSubscriber implements EventSubscriberInterface
     public function onTriggerCampaignPostSave(TriggerCampaignEvent $event): void
     {
         $triggerCampaign = $event->getTriggerCampaign();
-
 
         if (isset($triggerCampaign->getChanges()['printNodeId'])) {
             $triggerCampaign = $this->getTriggerDialogService()->createCampaign($triggerCampaign);
@@ -138,7 +131,6 @@ class CampaignSubscriber implements EventSubscriberInterface
                 'ipAddress' => $this->ipLookupHelper->getIpAddressFromRequest(),
             ]);
         }
-
     }
 
     /**
@@ -187,7 +179,6 @@ class CampaignSubscriber implements EventSubscriberInterface
             ]);
             $this->getTriggerDialogService()->createCampaignTrigger($triggerCampaign, $lead);
             $event->setResult(true);
-
         } catch (\Exception $exception) {
             $event->setFailed($exception->getMessage());
         } catch (\GuzzleHttp\Exception\GuzzleException $exception) {

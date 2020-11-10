@@ -45,7 +45,7 @@ return [
     'services' => [
         'integrations' => [
             'mautic.integration.triggerdialog' => [
-                'class'     => TriggerdialogIntegration::class,
+                'class' => TriggerdialogIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',
@@ -111,15 +111,15 @@ return [
             ],
         ],
         'utilities' => [
-            'mautic.triggerdialog.utility.sso' => array(
+            'mautic.triggerdialog.utility.sso' => [
                 'class' => SsoUtility::class,
                 'alias' => 'sso_utility',
                 'arguments' => [
                     'mautic.helper.core_parameters',
-                    'mautic.helper.user'
-                ]
-            )
-        ]
+                    'mautic.helper.user',
+                ],
+            ],
+        ],
     ],
 
     'parameters' => [
