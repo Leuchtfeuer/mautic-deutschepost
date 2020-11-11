@@ -274,20 +274,46 @@ class TriggerdialogService
 
     protected function transformVariableArray($variables_old)
     {
-        $variableDefDataType = json_decode('[{"id": 10,"label": "string"},{"id": 20,"label": "integer"},{"id": 30,"label": "boolean"},{"id": 40,"label": "date"},{"id": 50,"label": "image"},{"id": 60,"label": "imageurl"},{"id": 70,"label": "float"},{"id": 80,"label": "zip"},{"id": 90,"label": "countryCode"}]', true);
+
         $variables = [];
 
         foreach ($variables_old as $variable) {
-            $type_def = '';
-            foreach ($variableDefDataType as $type) {
-                if ($type['label'] === $variable['variable']) {
-                    $type_def = $type['id'];
-                }
+            $typeDef = '';
+
+            switch ($variable['variable']) {
+                case "string":
+                    $typeDef = 10;
+                    break;
+                case "integer":
+                    $typeDef = 20;
+                    break;
+                case "boolean":
+                    $typeDef = 30;
+                    break;
+                case "date":
+                    $typeDef = 40;
+                    break;
+                case "image":
+                    $typeDef = 50;
+                    break;
+                case "imageurl":
+                    $typeDef = 60;
+                    break;
+                case "float":
+                    $typeDef = 70;
+                    break;
+                case "zip":
+                    $typeDef = 80;
+                    break;
+                case "countryCode":
+                    $typeDef = 90;
+                    break;
             }
+
             $variables[] = [
                 'label' => $variable['field'],
                 'sortOrder' => 0,
-                'dataTypeId' => $type_def,
+                'dataTypeId' => $typeDef,
             ];
         }
 
