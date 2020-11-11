@@ -91,8 +91,6 @@ class TriggerCampaign extends FormEntity
     public function __construct()
     {
         $this->setStartDate();
-        $this->setMailingId(0);
-        $this->setTriggerId(0);
     }
 
     /**
