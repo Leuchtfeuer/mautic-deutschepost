@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class TriggerdialogService
 {
-    const LOCALE = 'en';
+    const LOCALE = 'de';
 
     const SESSION_KEY = 'triggerdialog';
 
