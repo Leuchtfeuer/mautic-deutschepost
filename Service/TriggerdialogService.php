@@ -107,7 +107,7 @@ class TriggerdialogService
     {
         $this->jwt = $this->getAuthorizationJWT();
         try {
-            $this->jwtKeys = $array = json_decode(json_encode(JWT::decode($this->jwt, 'aKaqioatnPqwSrWWy5-9v', ['HS512'])), true);
+            $this->jwtKeys = json_decode(json_encode(JWT::decode($this->jwt, 'aKaqioatnPqwSrWWy5-9v', ['HS512'])), true);
         } catch (\Exception $e) {
             var_dump($e); //todo: log exception
         }
@@ -153,8 +153,6 @@ class TriggerdialogService
     public function createCampaign(TriggerCampaign $triggerCampaign): TriggerCampaign
     {
         $data = $this->getCampaignData($triggerCampaign);
-        //$data['variable'] = $triggerCampaign->getVariablesAsArray();
-        $json_body = $data;
         $xml = new \SimpleXMLElement('<createCampaignRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></createCampaignRequest>');
         $this->transformData($xml, $data);
 
@@ -162,13 +160,13 @@ class TriggerdialogService
             'POST',
             '/gateway/longtermcampaigns',
             [
-                'json' => $json_body,
+                'json' => $data,
                 'headers' => ['Authorization' => $this->jwt],
             ]
         );
 
-        $response_body = json_decode($response->getBody()->getContents(), true);
-        $triggerCampaign->setTriggerId($response_body['id']);
+        $responseBody = json_decode($response->getBody()->getContents(), true);
+        $triggerCampaign->setTriggerId($responseBody['id']);
 
         if ($response->getStatusCode() >= 300) {
             throw new RequestException($response, 1569423229);
@@ -182,7 +180,7 @@ class TriggerdialogService
 
     public function setVariableDefinitions(TriggerCampaign $triggerCampaign): void
     {
-        $json_body = [
+        $jsonBody = [
             'customerId' => $this->jwtKeys['customerIds'][0],
             'createVariableDefRequestRepList' => $triggerCampaign->getVariablesAsArray(),
         ];
@@ -191,11 +189,10 @@ class TriggerdialogService
             'POST',
             '/gateway/mailings/' . $triggerCampaign->getMailingId() . '/variabledefinitions',
             [
-                'json' => $json_body,
+                'json' => $jsonBody,
                 'headers' => ['Authorization' => $this->jwt],
             ]
         );
-        $response_body = $response->getBody()->getContents();
         if ($response->getStatusCode() >= 300) {
             throw new RequestException($response, 1569423229);
         }
@@ -206,7 +203,7 @@ class TriggerdialogService
      */
     public function createMailing(TriggerCampaign $triggerCampaign): void
     {
-        $json_body = [
+        $jsonBody = [
             'customerId' => $this->jwtKeys['customerIds'][0],
             'campaignId' => $triggerCampaign->getTriggerId(),
         ];
@@ -215,13 +212,13 @@ class TriggerdialogService
             'POST',
             '/gateway/mailings',
             [
-                'json' => $json_body,
+                'json' => $jsonBody,
                 'headers' => ['Authorization' => $this->jwt],
             ]
         );
 
-        $response_body = json_decode($response->getBody()->getContents(), true);
-        $triggerCampaign->setMailingId($response_body['id']);
+        $responseBody = json_decode($response->getBody()->getContents(), true);
+        $triggerCampaign->setMailingId($responseBody['id']);
     }
 
     /**
@@ -234,7 +231,7 @@ class TriggerdialogService
     public function updateCampaign(TriggerCampaign $triggerCampaign, $state = 'active'): void
     {
         $data = $this->getCampaignData($triggerCampaign);
-        $json_body = $data;
+        $jsonBody = $data;
         $xml = new \SimpleXMLElement('<createCampaignRequest xmlns:ns2="urn:pep-dpdhl-com:triggerdialog/campaign/v_10"></createCampaignRequest>');
         $this->transformData($xml, $data);
 
@@ -242,7 +239,7 @@ class TriggerdialogService
             'PUT',
             '/gateway/longtermcampaigns',
             [
-                'json' => $json_body,
+                'json' => $jsonBody,
                 'headers' => ['Authorization' => $this->jwt],
             ]
         );
@@ -257,7 +254,7 @@ class TriggerdialogService
     public function updateCampaignVariable(TriggerCampaign $triggerCampaign, $diff = null): void
     {
         $variables = $this->transformVariableArray($diff);
-        $json_body = [
+        $jsonBody = [
             'customerId' => $this->jwtKeys['customerIds'][0],
             'updateVariableDefRequestRepList' => $variables,
         ];
@@ -266,11 +263,10 @@ class TriggerdialogService
             'PUT',
             '/gateway/mailings/' . $triggerCampaign->getMailingId() . '/variabledefinitions',
             [
-                'json' => $json_body,
+                'json' => $jsonBody,
                 'headers' => ['Authorization' => $this->jwt],
             ]
         );
-        $response_body = $response->getBody()->getContents();
         if ($response->getStatusCode() >= 300) {
             throw new RequestException($response, 1569423229);
         }
@@ -330,7 +326,6 @@ class TriggerdialogService
                 'headers' => ['Authorization' => $this->jwt],
             ]
         );
-        $response_body = $response->getBody()->getContents();
         if ($response->getStatusCode() !== 200) {
             throw new RequestException($response, 1569423375);
         }

@@ -331,7 +331,7 @@ class TriggerCampaign extends FormEntity
     /**
      * @param int $triggerId
      */
-    public function setTriggerId($triggerId): void
+    public function setTriggerId(int $triggerId): void
     {
         $this->triggerId = $triggerId;
     }
@@ -341,13 +341,13 @@ class TriggerCampaign extends FormEntity
      */
     public function getMailingId(): int
     {
-        return (int)$this->mailingId;
+        return $this->mailingId;
     }
 
     /**
      * @param int $mailingId
      */
-    public function setMailingId($mailingId): void
+    public function setMailingId(int $mailingId): void
     {
         $this->mailingId = $mailingId;
     }

@@ -118,8 +118,7 @@ class CampaignSubscriber implements EventSubscriberInterface
 
         if (isset($triggerCampaign->getChanges()['printNodeId'])) {
             $triggerCampaign = $this->getTriggerDialogService()->createCampaign($triggerCampaign);
-            $tcmr = $this->triggerCampaignModel->getRepository();
-            $tcmr->saveEntity($triggerCampaign);
+            $this->triggerCampaignModel->getRepository()->saveEntity($triggerCampaign);
         }
 
         if ($details = $event->getChanges()) {
