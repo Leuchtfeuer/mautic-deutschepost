@@ -179,7 +179,7 @@ class TriggerCampaignType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TriggerCampaign::class,
@@ -189,7 +189,7 @@ class TriggerCampaignType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['fields'] = $this->fieldChoices;
     }

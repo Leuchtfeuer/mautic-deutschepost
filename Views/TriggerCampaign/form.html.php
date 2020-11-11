@@ -114,6 +114,7 @@ echo $view['form']->start($form);
                                     <?php echo $view['form']->errors($form['variables']); ?>
 								</div>
                             <?php endif ?>
+
                             <?php echo $view['form']->widget($form['variables']); ?>
 						</div>
 					</div>

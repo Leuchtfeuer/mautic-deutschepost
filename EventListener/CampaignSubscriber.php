@@ -101,23 +101,18 @@ class CampaignSubscriber implements EventSubscriberInterface
                 $this->getTriggerDialogService()->updateCampaign($triggerCampaign);
             }
             if (isset($changes['variables'])) {
-                $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign);
+                $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign, $changes['variables'][1]);
             }
         }
     }
 
-    /**
-     * @param TriggerCampaignEvent $event
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException
-     */
     public function onTriggerCampaignPostSave(TriggerCampaignEvent $event): void
     {
         $triggerCampaign = $event->getTriggerCampaign();
 
         if (isset($triggerCampaign->getChanges()['printNodeId'])) {
-            $this->getTriggerDialogService()->createCampaign($triggerCampaign);
+            $triggerCampaign = $this->getTriggerDialogService()->createCampaign($triggerCampaign);
+            $this->triggerCampaignModel->getRepository()->saveEntity($triggerCampaign);
         }
 
         if ($details = $event->getChanges()) {
@@ -131,15 +126,12 @@ class CampaignSubscriber implements EventSubscriberInterface
         }
     }
 
-    /**
-     * @param TriggerCampaignEvent $event
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException
-     */
     public function onTriggerCampaignPreDelete(TriggerCampaignEvent $event): void
     {
-        $this->getTriggerDialogService()->updateCampaign($event->getTriggerCampaign(), 'finished');
+        $this->getTriggerDialogService()->updateCampaignStage(
+            $event->getTriggerCampaign(),
+            TriggerdialogService::STATE_DELETED
+        );
     }
 
     /**
@@ -167,29 +159,27 @@ class CampaignSubscriber implements EventSubscriberInterface
 
         try {
             $lead = $event->getLead();
-            $this->getTriggerDialogService()->createCampaignTrigger($triggerCampaign, $lead);
+            $this->auditLogModel->writeToLog([
+                'bundle' => 'triggerdialog',
+                'object' => 'lead',
+                'objectId' => $lead->getId(),
+                'action' => 'registered for campaign',
+                'details' => $event->getEventSettings(),
+                'ipAddress' => $this->ipLookupHelper->getIpAddressFromRequest(),
+            ]);
+            $this->getTriggerDialogService()->createRecipient($triggerCampaign, $lead);
             $event->setResult(true);
         } catch (\Exception $exception) {
-            $event->setFailed($exception->getMessage());
-        } catch (\GuzzleHttp\Exception\GuzzleException $exception) {
             $event->setFailed($exception->getMessage());
         }
     }
 
-    /**
-     * @return TriggerdialogService
-     */
     protected function getTriggerDialogService(): TriggerdialogService
     {
         return TriggerdialogService::makeInstance(
-            [
-                'auth' => [
-                    $this->coreParametersHelper->get('triggerdialog_rest_user'),
-                    $this->coreParametersHelper->get('triggerdialog_rest_password'),
-                ],
-            ],
-            $this->coreParametersHelper->get('triggerdialog_masId'),
-            $this->coreParametersHelper->get('triggerdialog_masClientId')
+            (int)$this->coreParametersHelper->get('triggerdialog_masId'),
+            $this->coreParametersHelper->get('triggerdialog_masClientId'),
+            $this->coreParametersHelper->get('triggerdialog_authenticationSecret')
         );
     }
 }

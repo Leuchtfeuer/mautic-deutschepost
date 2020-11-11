@@ -10,7 +10,7 @@ class TriggerCampaignRepository extends CommonRepository
     /**
      * {@inheritdoc}
      */
-    public function getTableAlias()
+    public function getTableAlias(): string
     {
         return self::ALIAS;
     }
@@ -18,7 +18,7 @@ class TriggerCampaignRepository extends CommonRepository
     /**
      * {@inheritdoc}
      */
-    protected function getDefaultOrder()
+    protected function getDefaultOrder(): array
     {
         return [
             [

@@ -13,57 +13,42 @@ use Symfony\Component\Validator\Mapping\ClassMetadata as SymfonyClassMetadata;
 class TriggerCampaign extends FormEntity
 {
     const ALLOWED_TYPES = [
-        'boolean' => 'boolean',
-        'float' => 'float',
-        'integer' => 'integer',
-        'string' => 'string',
-        'date' => 'date',
-        'set' => 'set',
-        'image' => 'image',
-        'zip' => 'zip',
-        'countryCode' => 'countryCode',
-        'imageurl' => 'imageurl',
+        'string' => 'plugin.triggerdialog.form.types.string',
+        'integer' => 'plugin.triggerdialog.form.types.integer',
+        'boolean' => 'plugin.triggerdialog.form.types.boolean',
+        'date' => 'plugin.triggerdialog.form.types.date',
+        'image' => 'plugin.triggerdialog.form.types.image',
+        'imageurl' => 'plugin.triggerdialog.form.types.imageurl',
+        'float' => 'plugin.triggerdialog.form.types.float',
+        'zip' => 'plugin.triggerdialog.form.types.zip',
+        'countrycode' => 'plugin.triggerdialog.form.types.countrycode',
     ];
 
-    /**
-     * @var int
-     */
     private $id;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private $triggerId = 0;
+
+    private $mailingId = 0;
+
+    private $name = '';
+
+    private $description = '';
 
     /**
-     * @var string
-     */
-    private $description;
-
-    /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     private $startDate;
 
     /**
-     * @var null|\DateTime
+     * @var null|\DateTimeInterface
      */
     private $endDate;
 
-    /**
-     * @var array
-     */
-    private $variables;
+    private $variables = [];
 
-    /**
-     * @var string
-     */
-    private $printNodeId;
+    private $printNodeId = '';
 
-    /**
-     * @var string
-     */
-    private $printNodeDescription;
+    private $printNodeDescription = '';
 
     /**
      * {@inheritdoc}
@@ -75,9 +60,6 @@ class TriggerCampaign extends FormEntity
         parent::__clone();
     }
 
-    /**
-     * Campaign constructor.
-     */
     public function __construct()
     {
         $this->setStartDate();
@@ -93,7 +75,8 @@ class TriggerCampaign extends FormEntity
         $builder = new ClassMetadataBuilder($metadata);
         $builder->setTable('trigger_campaigns')->setCustomRepositoryClass(TriggerCampaignRepository::class);
         $builder->addIdColumns();
-
+        $builder->createField('mailingId', 'integer')->columnName('mailing_id')->build();
+        $builder->createField('triggerId', 'integer')->columnName('trigger_id')->build();
         $builder->createField('startDate', 'datetime')->columnName('start_date')->build();
         $builder->createField('endDate', 'datetime')->columnName('end_date')->nullable()->build();
         $builder->createField('printNodeId', 'string')->columnName('print_node_id')->build();
@@ -137,167 +120,112 @@ class TriggerCampaign extends FormEntity
         ]);
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @throws \Exception
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->isChanged('name', $name);
         $this->name = $name;
     }
 
-    /**
-     * Get description.
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
-        return $this->description;
+        return $this->description ?? '';
     }
 
-    /**
-     * Set description.
-     *
-     * @param string $description
-     *
-     * @return string
-     */
-    public function setDescription($description)
+    public function setDescription(?string $description): void
     {
+        $description = (string)$description;
         $this->isChanged('description', $description);
         $this->description = $description;
-
-        return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStartDate()
+    public function getStartDate(): \DateTimeInterface
     {
         return $this->startDate;
     }
 
-    /**
-     * @param \DateTime|null $startDate
-     */
-    public function setStartDate(\DateTime $startDate = null)
+    public function setStartDate(?\DateTimeInterface $startDate = null): void
     {
-        if ($startDate === null) {
-            try {
-                $startDate = new \DateTime();
-            } catch (\Exception $exception) {
-                // Do nothing
-            }
+        if ($startDate instanceof \DateTimeInterface === false) {
+            $startDate = new \DateTime();
         }
 
         $this->isChanged('startDate', $startDate);
         $this->startDate = $startDate;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getEndDate()
+    public function getEndDate(): ?\DateTimeInterface
     {
         return $this->endDate;
     }
 
-    /**
-     * @param null|\DateTime $endDate
-     */
-    public function setEndDate(\DateTime $endDate = null)
+    public function setEndDate(?\DateTimeInterface $endDate = null): void
     {
         $this->isChanged('endDate', $endDate);
         $this->endDate = $endDate;
     }
 
-    /**
-     * @return array
-     */
-    public function getVariables()
+    public function getVariables(): array
     {
         return $this->variables;
     }
 
-    /**
-     * @return array
-     */
-    public function getVariablesAsArray()
-    {
-        $variables = [];
-
-        foreach ($this->variables as $variable) {
-            $variables[] = [
-                'name' => $variable['field'],
-                'type' => $variable['variable'],
-            ];
-        }
-
-        return $variables;
-    }
-
-    /**
-     * @param array $variables
-     */
-    public function setVariables($variables)
+    public function setVariables(array $variables): void
     {
         $this->isChanged('variables', $variables);
         $this->variables = $variables;
     }
 
-    /**
-     * @return string
-     */
-    public function getPrintNodeId()
+    public function getPrintNodeId(): string
     {
         return $this->printNodeId;
     }
 
-    /**
-     * @param string $printNodeId
-     */
-    public function setPrintNodeId($printNodeId)
+    public function setPrintNodeId(string $printNodeId): void
     {
         $this->isChanged('printNodeId', $printNodeId);
         $this->printNodeId = $printNodeId;
     }
 
-    /**
-     * @return string
-     */
-    public function getPrintNodeDescription()
+    public function getPrintNodeDescription(): string
     {
         return $this->printNodeDescription;
     }
 
-    /**
-     * @param string $printNodeDescription
-     *
-     * @throws \Exception
-     */
-    public function setPrintNodeDescription($printNodeDescription)
+    public function setPrintNodeDescription(string $printNodeDescription): void
     {
         $this->isChanged('printNodeDescription', $printNodeDescription);
         $this->printNodeDescription = $printNodeDescription;
+    }
+
+    public function getTriggerId(): int
+    {
+        return $this->triggerId;
+    }
+
+    public function setTriggerId(int $triggerId): void
+    {
+        $this->isChanged('triggerId', $triggerId);
+        $this->triggerId = $triggerId;
+    }
+
+    public function getMailingId(): int
+    {
+        return $this->mailingId;
+    }
+
+    public function setMailingId(int $mailingId): void
+    {
+        $this->isChanged('mailingId', $mailingId);
+        $this->mailingId = $mailingId;
     }
 }

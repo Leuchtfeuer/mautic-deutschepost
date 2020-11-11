@@ -7,7 +7,7 @@ use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
+use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -69,8 +69,8 @@ class TriggerCampaignController extends AbstractFormController
 
         $this->setSession();
         $coreParametersHelper = $this->getCoreParametersHelper();
-        $viewParameters['ssoUrl'] = $this->getSSOUrl($coreParametersHelper);
-        $viewParameters['template'] = $this->getTemplate();
+        $viewParameters['ssoUrl'] = (new SingleSignOnUtility($coreParametersHelper, $this->container->get('mautic.helper.user')))->getSingleSignOnUrl();
+        $viewParameters['template'] = $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index';
         $viewParameters['configInvalid'] = !$this->checkConfiguration($coreParametersHelper);
 
         $limit = $this->getLimit();
@@ -306,7 +306,7 @@ class TriggerCampaignController extends AbstractFormController
             return false;
         }
 
-        if (!$coreParametersHelper->has('triggerdialog_rest_password') || empty($coreParametersHelper->get('triggerdialog_rest_password'))) {
+        if (!$coreParametersHelper->has('triggerdialog_authenticationSecret') || empty($coreParametersHelper->get('triggerdialog_authenticationSecret'))) {
             return false;
         }
 
@@ -423,7 +423,7 @@ class TriggerCampaignController extends AbstractFormController
      *
      * @return Response
      */
-    protected function redirectToLastPage($count, $limit)
+    protected function redirectToLastPage(int $count, int $limit): Response
     {
         $lastPage = ($count === 1) ? 1 : (ceil($count / $limit)) ?: 1;
         $this->session->set(self::SESSION_VARS['search'], $lastPage);
@@ -447,34 +447,9 @@ class TriggerCampaignController extends AbstractFormController
      *
      * @param int $page
      */
-    protected function setPage($page)
+    protected function setPage(int $page): void
     {
         $this->session->set(self::SESSION_VARS['page'], $page);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getTemplate()
-    {
-        return  $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getSSOUrl(CoreParametersHelper $coreParametersHelper)
-    {
-        $ssoUtility = new SsoUtility($coreParametersHelper);
-        $ssoUrl = null;
-
-        if ($ssoUtility->isValid()) {
-            $ssoUtility->generateJWT();
-
-            return $ssoUtility->getSSOUrl();
-        }
-
-        return '';
     }
 
     /**
@@ -482,7 +457,7 @@ class TriggerCampaignController extends AbstractFormController
      *
      * @return array
      */
-    protected function getPostActionVars()
+    protected function getPostActionVars(): array
     {
         $viewParameters = ['page' => $this->session->get(self::SESSION_VARS['page'], 1)];
 
@@ -506,7 +481,7 @@ class TriggerCampaignController extends AbstractFormController
      * @throws AccessDeniedException
      * @return TriggerCampaign
      */
-    private function getTriggerCampaign($triggerCampaignId)
+    private function getTriggerCampaign(int $triggerCampaignId): TriggerCampaign
     {
         /** @var TriggerCampaign $triggerCampaign */
         $triggerCampaign = $this->getModel(TriggerCampaignModel::NAME)->getEntity($triggerCampaignId);
