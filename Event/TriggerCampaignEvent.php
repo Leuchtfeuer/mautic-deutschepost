@@ -7,8 +7,6 @@ use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
 class TriggerCampaignEvent extends CommonEvent
 {
     /**
-     * TriggerCampaignEvent constructor.
-     *
      * @param TriggerCampaign $triggerCampaign
      * @param bool            $isNew
      */
@@ -23,7 +21,7 @@ class TriggerCampaignEvent extends CommonEvent
      *
      * @return TriggerCampaign
      */
-    public function getTriggerCampaign()
+    public function getTriggerCampaign(): TriggerCampaign
     {
         return $this->entity;
     }

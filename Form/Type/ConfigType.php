@@ -11,7 +11,7 @@ class ConfigType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('triggerdialog_masId', IntegerType::class, [
             'label' => 'plugin.triggerdialog.form.masId',
@@ -40,18 +40,6 @@ class ConfigType extends AbstractType
 
         $builder->add('triggerdialog_masSecret', TextType::class, [
             'label' => 'plugin.triggerdialog.form.masSecret',
-            'label_attr' => [
-                'class' => 'control-label',
-            ],
-            'required' => true,
-            'attr' => [
-                'class' => 'form-control',
-                'rows' => '6',
-            ],
-        ]);
-
-        $builder->add('triggerdialog_email', TextType::class, [
-            'label' => 'plugin.triggerdialog.form.email',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -91,7 +79,7 @@ class ConfigType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'triggerdialogconfig';
     }

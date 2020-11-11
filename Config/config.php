@@ -6,15 +6,15 @@ use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
-use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
+use MauticPlugin\MauticTriggerdialogBundle\Generator\ClientIdGenerator;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SsoUtility;
+use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
 
 return [
     'name' => 'Dt. Post',
     'description' => 'Send postcards or letters via Deutsche Post TRIGGERDIALOG',
-    'version' => '1.2.0',
-    'author' => 'Florian Wessels',
+    'version' => '2.0.0',
+    'author' => 'Leuchtfeuer Digital Marketing',
 
     'menu' => [
         'main' => [
@@ -112,7 +112,7 @@ return [
         ],
         'utilities' => [
             'mautic.triggerdialog.utility.sso' => [
-                'class' => SsoUtility::class,
+                'class' => SingleSignOnUtility::class,
                 'alias' => 'sso_utility',
                 'arguments' => [
                     'mautic.helper.core_parameters',
@@ -123,12 +123,8 @@ return [
     ],
 
     'parameters' => [
-        'triggerdialog_masClientId' => \MauticPlugin\MauticTriggerdialogBundle\Generator\ClientIdGenerator::generateClientId(),
+        'triggerdialog_masClientId' => ClientIdGenerator::generateClientId(),
         'triggerdialog_masSecret' => null,
-        'triggerdialog_email' => null,
-        'triggerdialog_username' => null,
-        'triggerdialog_firstName' => null,
-        'triggerdialog_lastName' => null,
         'triggerdialog_masId' => null,
         'triggerdialog_rest_user' => null,
         'triggerdialog_rest_password' => null,

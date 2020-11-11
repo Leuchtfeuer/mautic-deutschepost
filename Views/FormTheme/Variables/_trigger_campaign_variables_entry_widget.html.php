@@ -27,7 +27,7 @@ if (!$isPrototype && !isset($fields[$object][$variableType]['label'])) {
 
         <div class="col-xs-6 col-sm-3 padding-none"></div>
 
-        <?php $hasErrors = count($form['filter']->vars['errors']) || count($form['display']->vars['errors']); ?>
+        <?php $hasErrors = count($form['filter']->vars['errors'] ?? []) || count($form['display']->vars['errors'] ?? []); ?>
         <div class="col-xs-10 col-sm-5 padding-none<?php if ($hasErrors): echo ' has-error'; endif; ?>">
             <?php echo $view['form']->widget($form['variable']); ?>
             <?php echo $view['form']->errors($form['variable']); ?>

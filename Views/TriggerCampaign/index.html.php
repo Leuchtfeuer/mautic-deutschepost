@@ -12,9 +12,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Controller\TriggerCampaignController;
  * @var $configInvalid bool
  */
 
-$ssoButton = '';
-
-if (isset($ssoUrl)) {
+if (!empty($ssoUrl)) {
     $ssoButton = sprintf(
         '<a href="%s" target="_blank" class="ml-10 btn btn-primary">%s</a>',
         $ssoUrl,
@@ -35,10 +33,10 @@ if ($configInvalid === false) {
                 'new' => $permissions[TriggerCampaignController::PERMISSIONS['create']],
             ],
             'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
-        ]) . $ssoButton
+        ]) . ($ssoButton ?? '')
     );
 } else {
-    $view['slots']->set('actions', $ssoButton);
+    $view['slots']->set('actions', ($ssoButton ?? ''));
 }
 
 ?>

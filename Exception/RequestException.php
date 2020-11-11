@@ -15,13 +15,9 @@ class RequestException extends \Exception
      */
     public function __construct(ResponseInterface $response, $code = 0, Throwable $previous = null)
     {
-        $responseContent = $response->getBody()->getContents();
+        $responseContent = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        $error = $responseContent['errors'][0] ?? ['errorMessage' => $responseContent['error']];
 
-        if (strpos($responseContent, '<') !== 0) {
-            parent::__construct($response->getReasonPhrase(), $code, $previous);
-        } else {
-            $xml = new \SimpleXMLElement();
-            parent::__construct($xml->errorMessage, $code, $previous);
-        }
+        parent::__construct($error['errorMessage'], $code, $previous);
     }
 }
