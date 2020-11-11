@@ -31,14 +31,14 @@ class TriggerCampaign extends FormEntity
     private $id;
 
     /**
-     * @var null|int
+     * @var int
      */
-    private $triggerId;
+    private $triggerId = 0;
 
     /**
-     * @var null|int
+     * @var int
      */
-    private $mailingId;
+    private $mailingId = 0;
 
     /**
      * @var string
@@ -323,7 +323,7 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @return null|int
+     * @return int
      */
     public function getTriggerId(): int
     {
@@ -331,7 +331,7 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @param null|int $triggerId
+     * @param int $triggerId
      */
     public function setTriggerId($triggerId): void
     {
@@ -339,7 +339,7 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @return null|int
+     * @return int
      */
     public function getMailingId(): int
     {
@@ -347,7 +347,7 @@ class TriggerCampaign extends FormEntity
     }
 
     /**
-     * @param null|int $mailingId
+     * @param int $mailingId
      */
     public function setMailingId($mailingId): void
     {
