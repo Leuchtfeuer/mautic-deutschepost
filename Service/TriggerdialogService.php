@@ -374,7 +374,7 @@ class TriggerdialogService
             ]
         );
 
-        if ($response->getStatusCode() !== 201) {
+        if ($response->getStatusCode() !== 202) {
             throw new RequestException($response, 1569423375);
         }
     }
