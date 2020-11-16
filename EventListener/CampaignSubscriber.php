@@ -179,7 +179,7 @@ class CampaignSubscriber implements EventSubscriberInterface
         return TriggerdialogService::makeInstance(
             (int)$this->coreParametersHelper->get('triggerdialog_masId'),
             $this->coreParametersHelper->get('triggerdialog_masClientId'),
-            $this->coreParametersHelper->get('triggerdialog_authenticationSecret')
+            $this->coreParametersHelper->get('triggerdialog_rest_password')
         );
     }
 }

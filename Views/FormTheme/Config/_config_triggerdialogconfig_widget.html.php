@@ -42,7 +42,7 @@ use Symfony\Component\Form\FormView;
                 <?php echo $view['form']->row($form->children['triggerdialog_rest_user']); ?>
 			</div>
 			<div class="col-md-6">
-                <?php echo $view['form']->row($form->children['triggerdialog_authenticationSecret']); ?>
+                <?php echo $view['form']->row($form->children['triggerdialog_rest_password']); ?>
 			</div>
 		</div>
 	</div>
