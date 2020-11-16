@@ -158,7 +158,7 @@ class TriggerCampaign extends FormEntity
         if ($startDate instanceof \DateTimeInterface === false) {
             $startDate = new \DateTime();
         }
-        if ($startDate === null){
+        elseif ($startDate === null){
             $this->isChanged('startDate', $startDate);
         }
         $this->startDate = $startDate;
