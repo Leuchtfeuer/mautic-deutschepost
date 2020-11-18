@@ -43,9 +43,10 @@ if ($configInvalid === false) {
 
 <?php if ($configInvalid === true): ?>
 <div class="alert alert-warning" role="alert">
-	<?php echo $view['translator']->trans('plugin.triggerdialog.config.invalid', ['%link%' => '<a href="/s/config/edit#triggerdialogconfig">Configuration</a>']); ?>
+	<?php echo $view['translator']->trans('plugin.triggerdialog.config.invalid', ['%link%' => '<a href="' . $view['router']->url('mautic_config_action', ['objectAction' => 'edit']) . '#triggerdialog' . '">Configuration</a>']); ?>
 </div>
 <?php endif; ?>
+
 
 <div class="panel panel-default bdr-t-wdh-0 mb-0">
     <?php echo $view->render(
