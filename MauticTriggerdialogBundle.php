@@ -41,5 +41,7 @@ class MauticTriggerdialogBundle extends PluginBundleBase
                 throw $exception;
             }
         }
+
+        parent::updatePluginSchema($metadata, $installedSchema, $factory);
     }
 }
