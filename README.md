@@ -22,7 +22,7 @@ website of Deutsche Post - more information can be found on the website
 To register, you need a valid [TRIGGERDIALOG Client ID](#before-start), 
 which is provided in the Mautic settings after installing this bundle.
 
-We are currently supporting following Mautic versions:<br>br>
+We are currently supporting following Mautic versions:<br><br>
 
 | Bundle Version | Mautic v3 Support | Mautic v2 Support |
 | :-: | :-: | :-: |
