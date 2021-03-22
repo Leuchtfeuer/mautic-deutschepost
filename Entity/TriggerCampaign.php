@@ -69,7 +69,7 @@ class TriggerCampaign extends FormEntity
             2 => ['field' => 'address1', 'object' => 'lead', 'type' => 'text', 'variable' => 'string'],
             3 => ['field' => 'zipcode', 'object' => 'lead', 'type' => 'text', 'variable' => 'zip'],
             4 => ['field' => 'city', 'object' => 'lead', 'type' => 'text', 'variable' => 'string'],
-            5 => ['field' => 'country', 'object' => 'lead', 'type' => 'country', 'variable' => 'string']
+            5 => ['field' => 'country', 'object' => 'lead', 'type' => 'country', 'variable' => 'string'],
         ];
         $this->setVariables($var_array);
     }
