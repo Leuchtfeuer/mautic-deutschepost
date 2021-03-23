@@ -1,4 +1,3 @@
-With our plugin, print mailings can be personalized using Deutsche Post's „Print-Mailing Automation" (a.k.a. "Triggerdialog") product, to be integrated directly into your Mautic campaign - and automatically sent when it makes the most sense.
 
 [![Latest Stable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/stable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
 [![Build Status](https://github.com/Leuchtfeuer/mautic-deutschepost/workflows/Continous%20Integration/badge.svg)](https://github.com/Leuchtfeuer/mautic-deutschepost/actions)
@@ -6,7 +5,11 @@ With our plugin, print mailings can be personalized using Deutsche Post's „Pri
 [![Latest Unstable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/unstable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
 [![Code Climate](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost/badges/gpa.svg)](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost)
 [![License](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/license)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
-### What is the plugin for?
+
+With our plugin, print mailings can be personalized using Deutsche Post's „Print-Mailing Automation" (a.k.a. "Triggerdialog") product, to be integrated directly into your Mautic campaign - and automatically sent when it makes the most sense.
+
+
+#### What is the plugin for?
 
 Leuchtfeuer has developed the Triggerdialog-Plugin in cooperation with Deutsche Post AG to enable the sending of postcards directly from the Marketing Automation Tool, personalized and at the individually perfect time.  
 Mautic users can use the plugin to integrate the sending of a print mailing as a new action directly into their Mautic campaign - based on the normal logic modules (e.g. "email unopened?" or "booking cancelled?"). The corresponding postcards can, of course, be completely designed and personalized for each recipient, so that he can be addressed directly or, for example, given a special discount code. You can find out more about the benefits and possible applications of the Triggerdialog-Plugin here.
