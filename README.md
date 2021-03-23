@@ -1,5 +1,11 @@
 With our plugin, print mailings can be personalized using Deutsche Post's „Print-Mailing Automation" (a.k.a. "Triggerdialog") product, to be integrated directly into your Mautic campaign - and automatically sent when it makes the most sense.
 
+[![Latest Stable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/stable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Build Status](https://github.com/Leuchtfeuer/mautic-deutschepost/workflows/Continous%20Integration/badge.svg)](https://github.com/Leuchtfeuer/mautic-deutschepost/actions)
+[![Total Downloads](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/downloads)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Latest Unstable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/unstable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Code Climate](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost/badges/gpa.svg)](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost)
+[![License](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/license)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
 ### What is the plugin for?
 
 Leuchtfeuer has developed the Triggerdialog-Plugin in cooperation with Deutsche Post AG to enable the sending of postcards directly from the Marketing Automation Tool, personalized and at the individually perfect time.  
@@ -16,6 +22,13 @@ The installation of the plugin requires, in addition to a Mautic account, a cust
     
 *   Command line access to the server
     
+
+We are currently supporting following Mautic versions:<br><br>
+
+| Bundle Version | Mautic v3 Support | Mautic v2 Support |
+| :-: | :-: | :-: |
+| 1.1.x          | x                 | -                 |
+| 1.0.x          | -                 | x                 |
 
 ### Installation
 
@@ -85,7 +98,12 @@ The plugin comes with a new campaign action: “Send via Deutsche Post”.
 
 Again, just like with email, you can now select from your existing templates - i.e. from the Triggerdialog mapping templates that you created in Mautic.
 
-![](https://www.leuchtfeuer.com/fileadmin/_processed_/4/5/csm_TD-Beispielkampagne_748801a493.png)
-![](https://www.leuchtfeuer.com/fileadmin/_processed_/6/7/csm_TD-Aktionen_1eb9ecd609.png)
+![Add campaign action](https://www.leuchtfeuer.com/fileadmin/_processed_/4/5/csm_TD-Beispielkampagne_748801a493.png)
+![Configure campaign action](https://www.leuchtfeuer.com/fileadmin/_processed_/6/7/csm_TD-Aktionen_1eb9ecd609.png)
 
 Mautic then uses the plugin to send the data to Deutsche Post for printing and delivery - and shortly afterwards your contact has his individual postcard in his mailbox.
+
+## Contributing
+
+You can contribute by making a **pull request** to the master branch of 
+this repository. Or just send us some **beers**...
