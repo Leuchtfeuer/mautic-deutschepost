@@ -25,14 +25,6 @@ The installation of the plugin requires, in addition to a Mautic account, a cust
     
 *   Command line access to the server
     
-
-We are currently supporting following Mautic versions:<br><br>
-
-| Bundle Version | Mautic v3 Support | Mautic v2 Support |
-| :-: | :-: | :-: |
-| 1.1.x          | x                 | -                 |
-| 1.0.x          | -                 | x                 |
-
 ### Installation
 
 *   Download plugin "mautic-deutschepost" from [Github](https://ma.leuchtfeuer.com/asset/6:as051-triggerdialog-mautic-integration) (as ZIP archive) to the Mautic-Server
@@ -93,7 +85,7 @@ So press the blue button - see above - and you can continue in Deutsche Post's P
 
 If you are using the online editor, you can also create or edit designs directly in your browser:
 
-![](https://www.leuchtfeuer.com/fileadmin/_processed_/3/1/csm_TD-Manager_ee1f0c1ce2.jpg)
+![](https://www.leuchtfeuer.com/fileadmin/_processed_/3/1/csm_TD-Manager_383ad2e208.jpg)
 
 ### Integration in Mautic campaigns
 
