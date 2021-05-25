@@ -12,7 +12,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
 
 return [
     'name' => 'Print Mail',
-    'description' => 'Send postcards or letters via Deutsche Post TRIGGERDIALOG',
+    'description' => 'Send postcards or letters via Print Mailing',
     'version' => '2.0.0',
     'author' => 'Leuchtfeuer Digital Marketing',
 
