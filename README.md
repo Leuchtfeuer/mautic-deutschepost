@@ -54,7 +54,7 @@ The following configuration is easy: You can make all necessary settings under _
 *   _User_ und password (_"Authentication Secret"_) - required for data transfer from your system to Deutsche Post
     
 
-![](https://www.leuchtfeuer.com/fileadmin/_processed_/b/7/csm_TD-Mautic-Config_3880157bfa.png)
+![](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Mautic-Config.png)
 
 Configuration done, and "Mandanten-ID" (see above) reported to Deutsche Post?
 
@@ -62,7 +62,7 @@ Now it gets exciting: In "_Channels" -> "Print Mailing"_, click on the blue butt
 
 If you arrive there - in the "yellow surface" - and see your name in the top right corner, everything worked!
 
-![](https://www.leuchtfeuer.com/fileadmin/_processed_/e/2/csm_TD-Manager-Button_86cb8eedea.png) 
+![](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Manager-Button.png) 
 ![](https://www.leuchtfeuer.com/fileadmin/_processed_/0/7/csm_TD-SSO_5e0671e54c.png)
 
 ## Usage
@@ -77,7 +77,7 @@ In the tab _"Data Mapping"_, the desired data can be selected for transfer when 
 
 For each mapping template, you will be able to assign design etc. in the next steps, through Deutsche Post's Print Mailing Manager.
 
-![](https://www.leuchtfeuer.com/fileadmin/_processed_/b/b/csm_TD-Template_a4abc86775.png)
+![](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Template.png)
 
 That's it with the preparations within Mautic. The visual design (e.g. using InDesign or the modern online editor) and other configuration of the postcard are not happending in Mautic, but directly in the Print Mailing Manager.
 
@@ -94,7 +94,7 @@ The plugin comes with a new campaign action: “Send via Print Mailing”.
 Again, just like with email, you can now select from your existing templates - i.e. from the Print Mailing mapping templates that you created in Mautic.
 
 ![Add campaign action](https://www.leuchtfeuer.com/fileadmin/_processed_/4/5/csm_TD-Beispielkampagne_748801a493.png)
-![Configure campaign action](https://www.leuchtfeuer.com/fileadmin/_processed_/6/7/csm_TD-Aktionen_1eb9ecd609.png)
+![Configure campaign action](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Aktionen.png)
 
 Mautic then uses the plugin to send the data to Deutsche Post for printing and delivery - and shortly afterwards your contact has his individual postcard in his mailbox.
 
