@@ -11,7 +11,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
 
 return [
-    'name' => 'Print Mail',
+    'name' => 'Dt. Post',
     'description' => 'Send postcards or letters via Print Mailing',
     'version' => '2.0.0',
     'author' => 'Leuchtfeuer Digital Marketing',
