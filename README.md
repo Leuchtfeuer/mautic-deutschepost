@@ -21,7 +21,7 @@ The installation of the plugin requires, in addition to a Mautic account, a cust
 ### Requirements
 
 
-*   Mautic Version 3.x
+*   Mautic Version 3.x // 4.x
     
 *   Command line access to the server
     
