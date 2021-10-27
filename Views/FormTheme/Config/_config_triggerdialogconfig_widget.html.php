@@ -14,6 +14,7 @@ $message = $view['translator']->trans('plugin.triggerdialog.form.contract.email'
 	'%masId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASID"],
 	'%masClientId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASCLIENTID"],
 ]);
+$subject = $view['translator']->trans('plugin.triggerdialog.form.contract.subject',['%masId%' => $formConfig['parameters']['triggerdialog_masId']]);
 ?>
 
 <div class="panel panel-primary">
@@ -66,10 +67,10 @@ $message = $view['translator']->trans('plugin.triggerdialog.form.contract.email'
       function(event) {
 		event.preventDefault();
         
-		var email = 'print-mailing@deutschepost.de';
-    	var subject = 'Neuer Vertrag PrintMailing: <?php echo $_ENV["MAUTIC_TRIGGERDIALOG_MASID"] ?>';
-    	var emailBody = encodeURIComponent('<?php echo $message; ?>');
+		const email = '<?php echo $formConfig['parameters']['triggerdialog_contract_email'] ?>';
+    	const subject = '<?php echo $subject; ?>':
+    	const emailBody = encodeURIComponent('<?php echo $message; ?>');
     	window.location = 'mailto:' + email + '?subject=' + subject + '&body=' +   emailBody;
       }
     );
-  </script>
+</script>
