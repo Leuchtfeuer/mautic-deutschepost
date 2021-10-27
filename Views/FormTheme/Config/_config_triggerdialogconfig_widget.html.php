@@ -68,7 +68,7 @@ $subject = $view['translator']->trans('plugin.triggerdialog.form.contract.subjec
 		event.preventDefault();
         
 		const email = '<?php echo $formConfig['parameters']['triggerdialog_contract_email'] ?>';
-    	const subject = '<?php echo $subject; ?>':
+    	const subject = '<?php echo $subject; ?>';
     	const emailBody = encodeURIComponent('<?php echo $message; ?>');
     	window.location = 'mailto:' + email + '?subject=' + subject + '&body=' +   emailBody;
       }
