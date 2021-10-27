@@ -14,7 +14,7 @@ $message = $view['translator']->trans('plugin.triggerdialog.form.contract.email'
 	'%masId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASID"],
 	'%masClientId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASCLIENTID"],
 ]);
-$subject = $view['translator']->trans('plugin.triggerdialog.form.contract.subject',['%masId%' => $formConfig['parameters']['triggerdialog_masId']]);
+$subject = $view['translator']->trans('plugin.triggerdialog.form.contract.subject',['%masId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASID"]]);
 ?>
 
 <div class="panel panel-primary">
