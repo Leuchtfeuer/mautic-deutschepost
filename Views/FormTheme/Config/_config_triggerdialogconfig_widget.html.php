@@ -9,24 +9,11 @@ use Mautic\CoreBundle\Templating\Engine\PhpEngine;
 use Symfony\Component\Form\FormView;
 
 $fields    = $form->children;
-// print '<pre>';
-// error_log ('<h1>$this->coreParametersHelper->get()</h1>');
-// error_log( $this->coreParametersHelper->get('triggerdialog_masSecret') );
-// print '</pre>'; 
 
-$arrMsg[] = "Guten Tag";
-$arrMsg[] = "";
-$arrMsg[] = "Ich interessiere mich für die Nutzung von Ihrer PrintMailing Lösung mit dem Marketing Automation Tool Aivie.";
-$arrMsg[] = "";
-$arrMsg[] = "Bitte senden Sie mir einen entsprechenden Vertrag.";
-$arrMsg[] = "";
-$arrMsg[] = sprintf("MAS ID [partnerSystemIdExt]: %s",$_ENV["MAUTIC_TRIGGERDIALOG_MASID"]);
-$arrMsg[] = sprintf("MAS Client-ID [Mandanten-ID]: %s", $_ENV["MAUTIC_TRIGGERDIALOG_MASCLIENTID"]);
-$arrMsg[] = "";
-$arrMsg[] = "Vielen Dank.";
-$arrMsg[] = "";
-$arrMsg[] = "Mit freundlichen Grüssen";
-$message = implode($arrMsg,'\\r\\n');
+$message = $view['translator']->trans('plugin.triggerdialog.form.contract.email',[
+	'%masId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASID"],
+	'%masClientId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASCLIENTID"],
+]);
 ?>
 
 <div class="panel panel-primary">
@@ -36,9 +23,9 @@ $message = implode($arrMsg,'\\r\\n');
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-6 form-group">
-				<p>Um individuelle Print Mailings aus Kampagnen zu versenden benötigst du einen Vertrag mit der Deutschen Post.</p>
-				<p>Weitere Details und eine <a href="https://aivie.ch/postkarten-versenden-mit-mautic/" target="_blank">Schritt für Schritt Anleitung</a> findest du im Blog.</p>
-				<p><a href="#" class="btn btn-default btn-save btn-copy triggerdialog_mailto">Vertrag anfordern</a></p>
+				<p><?php echo $view['translator']->trans('plugin.triggerdialog.form.contract.help'); ?></p>
+				<p><a href="<?php echo $view['translator']->trans('plugin.triggerdialog.form.details.link'); ?>" target="_blank"><?php echo $view['translator']->trans('plugin.triggerdialog.form.tab.details'); ?> > </a</p>
+				<p><a href="#" class="btn btn-default btn-save btn-copy triggerdialog_mailto"><?php echo $view['translator']->trans('plugin.triggerdialog.form.contract.request'); ?></a></p>
 			</div>
 		</div>	
 		<div class="row">
