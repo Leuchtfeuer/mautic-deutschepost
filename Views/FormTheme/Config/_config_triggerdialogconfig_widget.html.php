@@ -43,10 +43,10 @@ $message = implode($arrMsg,'\\r\\n');
 		</div>	
 		<div class="row">
 			<div class="col-md-6">
-                <?php echo $view['form']->rowIfExists($fields, 'triggerdialog_masId'); ?>
+                <?php echo $view['form']->rowIfExists($fields, 'triggerdialog_masClientId'); ?>
 			</div>
 			<div class="col-md-6">
-                <?php echo $view['form']->rowIfExists($fields, 'triggerdialog_masClientId'); ?>
+                <?php echo $view['form']->rowIfExists($fields, 'triggerdialog_masId'); ?>
 			</div>
 		</div>
 		<hr />
