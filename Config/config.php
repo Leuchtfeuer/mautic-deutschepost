@@ -9,6 +9,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
 use MauticPlugin\MauticTriggerdialogBundle\Generator\ClientIdGenerator;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
+use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
 
 return [
     'name' => 'Dt. Post',
@@ -23,6 +24,13 @@ return [
                 'parent' => 'mautic.core.channels',
                 'access' => [
                     'triggerdialog:campaigns:view',
+                ],
+                'checks' => [
+                    'integration' => [
+                        'Triggerdialog' => [
+                            'enabled' => true,
+                        ],
+                    ],
                 ],
                 'priority' => 50,
             ],
