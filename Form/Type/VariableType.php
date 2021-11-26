@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
@@ -52,7 +53,7 @@ class VariableType extends AbstractType
         ]);
 
         $resolver->setDefaults([
-            'label' => false,
+            'label'          => false,
             'error_bubbling' => false,
         ]);
     }
@@ -73,10 +74,6 @@ class VariableType extends AbstractType
         return 'trigger_variable';
     }
 
-    /**
-     * @param string    $eventName
-     * @param FormEvent $event
-     */
     public function buildFiltersForm(string $eventName, FormEvent $event): void
     {
         $data = $event->getData();
@@ -86,17 +83,17 @@ class VariableType extends AbstractType
             ChoiceType::class,
             [
                 'label' => false,
-                'attr' => [
+                'attr'  => [
                     'class' => 'form-control',
                 ],
-                'data' => $data['variable'] ?? '',
+                'data'           => $data['variable'] ?? '',
                 'error_bubbling' => false,
-                'choices' => array_flip(TriggerCampaign::ALLOWED_TYPES),
-                'multiple' => false,
+                'choices'        => array_flip(TriggerCampaign::ALLOWED_TYPES),
+                'multiple'       => false,
             ]
         );
 
-        if ($eventName == FormEvents::PRE_SUBMIT) {
+        if (FormEvents::PRE_SUBMIT == $eventName) {
             $event->setData($data);
         }
     }

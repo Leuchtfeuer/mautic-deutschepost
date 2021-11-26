@@ -14,9 +14,8 @@ use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
  * @var array     $permissions
  * @var bool      $configInvalid
  */
-
-if ($template === 'index') {
-    $view->extend(TriggerCampaignController::TEMPLATES['index'] . '.html.php');
+if ('index' === $template) {
+    $view->extend(TriggerCampaignController::TEMPLATES['index'].'.html.php');
 }
 ?>
 
@@ -27,9 +26,9 @@ if ($template === 'index') {
             <tr>
                 <?php
                 echo $view->render('MauticCoreBundle:Helper:tableheader.html.php', [
-                    'checkall' => 'true',
-                    'target' => '#triggerCampaignTable',
-                    'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
+                    'checkall'        => 'true',
+                    'target'          => '#triggerCampaignTable',
+                    'routeBase'       => TriggerCampaignController::MAUTIC_CONTENT,
                     'templateButtons' => [
                         'delete' => $permissions[TriggerCampaignController::PERMISSIONS['delete']],
                     ],
@@ -37,17 +36,17 @@ if ($template === 'index') {
 
                 echo $view->render('MauticCoreBundle:Helper:tableheader.html.php', [
                     'sessionVar' => 'plugin.triggerdialog',
-                    'orderBy' => TriggerCampaignRepository::ALIAS . '.name',
-                    'text' => 'mautic.core.name',
-                    'class' => 'col-triggercampaign-name',
-                    'default' => true,
+                    'orderBy'    => TriggerCampaignRepository::ALIAS.'.name',
+                    'text'       => 'mautic.core.name',
+                    'class'      => 'col-triggercampaign-name',
+                    'default'    => true,
                 ]);
 
                 echo $view->render('MauticCoreBundle:Helper:tableheader.html.php', [
                     'sessionVar' => 'plugin.triggerdialog',
-                    'orderBy' => TriggerCampaignRepository::ALIAS . '.id',
-                    'text' => 'mautic.core.id',
-                    'class' => 'visible-md visible-lg col-triggercampaign-id',
+                    'orderBy'    => TriggerCampaignRepository::ALIAS.'.id',
+                    'text'       => 'mautic.core.id',
+                    'class'      => 'visible-md visible-lg col-triggercampaign-id',
                 ]);
                 ?>
             </tr>
@@ -57,12 +56,12 @@ if ($template === 'index') {
                 <tr>
                     <td>
                         <?php
-                        if ($configInvalid === false) {
+                        if (false === $configInvalid) {
                             echo $view->render('MauticCoreBundle:Helper:list_actions.html.php', [
-                                'item' => $item,
+                                'item'            => $item,
                                 'templateButtons' => [
-                                    'edit' => $permissions[TriggerCampaignController::PERMISSIONS['edit']],
-                                    'clone' => $permissions[TriggerCampaignController::PERMISSIONS['create']],
+                                    'edit'   => $permissions[TriggerCampaignController::PERMISSIONS['edit']],
+                                    'clone'  => $permissions[TriggerCampaignController::PERMISSIONS['create']],
                                     'delete' => $permissions[TriggerCampaignController::PERMISSIONS['delete']],
                                 ],
                                 'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
@@ -74,14 +73,14 @@ if ($template === 'index') {
                         <div>
 
                             <?php
-                            if ($configInvalid === false) {
+                            if (false === $configInvalid) {
                                 echo $view->render('MauticCoreBundle:Helper:publishstatus_icon.html.php', [
-                                    'item' => $item,
+                                    'item'  => $item,
                                     'model' => TriggerCampaignModel::NAME,
                                 ]);
                             }
                             ?>
-                            <?php if ($permissions[TriggerCampaignController::PERMISSIONS['edit']]  && $configInvalid === false): ?>
+                            <?php if ($permissions[TriggerCampaignController::PERMISSIONS['edit']] && false === $configInvalid): ?>
                                 <a href="<?php echo $view['router']->url(TriggerCampaignController::ROUTES['action'], ['objectAction' => 'edit', 'objectId' => $item->getId()]); ?>" data-toggle="ajax">
                                     <?php echo $item->getName(); ?>
                                 </a>
@@ -104,10 +103,10 @@ if ($template === 'index') {
     <div class="panel-footer">
         <?php echo $view->render('MauticCoreBundle:Helper:pagination.html.php', [
             'totalItems' => count($items),
-            'page' => $page,
-            'limit' => $limit,
+            'page'       => $page,
+            'limit'      => $limit,
             'menuLinkId' => TriggerCampaignController::ROUTES['index'],
-            'baseUrl' => $view['router']->url(TriggerCampaignController::ROUTES['index']),
+            'baseUrl'    => $view['router']->url(TriggerCampaignController::ROUTES['index']),
             'sessionVar' => 'plugin.triggerdialog',
         ]); ?>
     </div>

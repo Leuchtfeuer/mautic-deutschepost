@@ -7,22 +7,30 @@ use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
 use MauticPlugin\MauticTriggerdialogBundle\Generator\ClientIdGenerator;
+use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
 use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
 
 return [
-    'name' => 'Dt. Post',
+    'name'        => 'Dt. Post',
     'description' => 'Send postcards or letters via Print Mailing',
-    'version' => '2.0.0',
-    'author' => 'Leuchtfeuer Digital Marketing',
+    'version'     => '2.0.0',
+    'author'      => 'Leuchtfeuer Digital Marketing',
 
     'menu' => [
         'main' => [
             'plugin.triggerdialog.menu.index' => [
-                'route' => 'mautic_triggerdialog_index',
+                'route'  => 'mautic_triggerdialog_index',
                 'parent' => 'mautic.core.channels',
                 'access' => [
                     'triggerdialog:campaigns:view',
+                ],
+                'checks' => [
+                    'integration' => [
+                        'Triggerdialog' => [
+                            'enabled' => true,
+                        ],
+                    ],
                 ],
                 'priority' => 50,
             ],
@@ -32,11 +40,11 @@ return [
     'routes' => [
         'main' => [
             'mautic_triggerdialog_index' => [
-                'path' => '/triggertemplates/{page}',
+                'path'       => '/triggertemplates/{page}',
                 'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
             ],
             'mautic_triggerdialog_action' => [
-                'path' => '/triggertemplates/{objectAction}/{objectId}',
+                'path'       => '/triggertemplates/{objectAction}/{objectId}',
                 'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:execute',
             ],
         ],
@@ -45,7 +53,7 @@ return [
     'services' => [
         'integrations' => [
             'mautic.integration.triggerdialog' => [
-                'class' => TriggerdialogIntegration::class,
+                'class'     => TriggerdialogIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',
@@ -71,7 +79,7 @@ return [
                 'class' => ConfigSubscriber::class,
             ],
             'mautic.triggerdialog.campaign.subscriber' => [
-                'class' => CampaignSubscriber::class,
+                'class'     => CampaignSubscriber::class,
                 'arguments' => [
                     'mautic.helper.core_parameters',
                     'mautic.helper.ip_lookup',
@@ -86,8 +94,8 @@ return [
                 'alias' => 'triggerdialogconfig',
             ],
             'mautic.form.type.trigger_campaign' => [
-                'class' => TriggerCampaignType::class,
-                'alias' => 'trigger_campaign',
+                'class'     => TriggerCampaignType::class,
+                'alias'     => 'trigger_campaign',
                 'arguments' => [
                     'mautic.factory',
                     'mautic.lead.model.list',
@@ -98,8 +106,8 @@ return [
                 'alias' => 'trigger_variable',
             ],
             'mautic.form.type.trigger_action' => [
-                'class' => ActionType::class,
-                'alias' => 'trigger_action',
+                'class'     => ActionType::class,
+                'alias'     => 'trigger_action',
                 'arguments' => [
                     'mautic.triggerdialog.model.campaign',
                 ],
@@ -112,8 +120,8 @@ return [
         ],
         'utilities' => [
             'mautic.triggerdialog.utility.sso' => [
-                'class' => SingleSignOnUtility::class,
-                'alias' => 'sso_utility',
+                'class'     => SingleSignOnUtility::class,
+                'alias'     => 'sso_utility',
                 'arguments' => [
                     'mautic.helper.core_parameters',
                     'mautic.helper.user',
@@ -123,10 +131,10 @@ return [
     ],
 
     'parameters' => [
-        'triggerdialog_masClientId' => ClientIdGenerator::generateClientId(),
-        'triggerdialog_masSecret' => null,
-        'triggerdialog_masId' => null,
-        'triggerdialog_rest_user' => null,
+        'triggerdialog_masClientId'   => ClientIdGenerator::generateClientId(),
+        'triggerdialog_masSecret'     => null,
+        'triggerdialog_masId'         => null,
+        'triggerdialog_rest_user'     => null,
         'triggerdialog_rest_password' => null,
         'triggerdialog_contract_email' => 'print-mailing@deutschepost.de',
     ],

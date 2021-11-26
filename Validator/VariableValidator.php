@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
@@ -12,7 +13,7 @@ class VariableValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         foreach ($value as $variable) {
-            if ($variable['variable'] === Variable::REQUIRED_FIELD) {
+            if (Variable::REQUIRED_FIELD === $variable['variable']) {
                 return;
             }
         }

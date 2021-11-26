@@ -8,11 +8,11 @@ use Mautic\CoreBundle\Templating\Engine\PhpEngine;
 use Symfony\Component\Form\FormView;
 
 /** @var FormView $fields */
-$fields = $form->children['field']->parent->vars['attr'];
-$isPrototype = ($form->vars['name'] === '__name__');
+$fields       = $form->children['field']->parent->vars['attr'];
+$isPrototype  = ('__name__' === $form->vars['name']);
 $variableType = $form['field']->vars['value'];
-$object = (isset($form->vars['data']['object'])) ? $form->vars['data']['object'] : 'variable';
-$class = (isset($form->vars['data']['object']) && $form->vars['data']['object'] == 'company') ? 'fa-building' : 'fa-user';
+$object       = (isset($form->vars['data']['object'])) ? $form->vars['data']['object'] : 'variable';
+$class        = (isset($form->vars['data']['object']) && 'company' == $form->vars['data']['object']) ? 'fa-building' : 'fa-user';
 
 if (!$isPrototype && !isset($fields[$object][$variableType]['label'])) {
     return;
