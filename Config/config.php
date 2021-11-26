@@ -128,5 +128,6 @@ return [
         'triggerdialog_masId' => null,
         'triggerdialog_rest_user' => null,
         'triggerdialog_rest_password' => null,
+        'triggerdialog_contract_email' => 'print-mailing@deutschepost.de',
     ],
 ];
