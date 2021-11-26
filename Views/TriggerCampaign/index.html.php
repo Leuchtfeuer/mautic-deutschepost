@@ -11,7 +11,6 @@ use MauticPlugin\MauticTriggerdialogBundle\Controller\TriggerCampaignController;
  * @var $ssoUrl        string
  * @var $configInvalid bool
  */
-
 if (!empty($ssoUrl)) {
     $ssoButton = sprintf(
         '<a href="%s" target="_blank" class="ml-10 btn btn-primary">%s</a>',
@@ -24,8 +23,7 @@ $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', TriggerCampaignController::MAUTIC_CONTENT);
 $view['slots']->set('headerTitle', $view['translator']->trans('plugin.triggerdialog.menu.root'));
 
-
-if ($configInvalid === false) {
+if (false === $configInvalid) {
     $view['slots']->set(
         'actions',
         $view->render('MauticCoreBundle:Helper:page_actions.html.php', [
@@ -33,7 +31,7 @@ if ($configInvalid === false) {
                 'new' => $permissions[TriggerCampaignController::PERMISSIONS['create']],
             ],
             'routeBase' => TriggerCampaignController::MAUTIC_CONTENT,
-        ]) . ($ssoButton ?? '')
+        ]).($ssoButton ?? '')
     );
 } else {
     $view['slots']->set('actions', ($ssoButton ?? ''));
@@ -41,9 +39,9 @@ if ($configInvalid === false) {
 
 ?>
 
-<?php if ($configInvalid === true): ?>
+<?php if (true === $configInvalid): ?>
 <div class="alert alert-warning" role="alert">
-	<?php echo $view['translator']->trans('plugin.triggerdialog.config.invalid', ['%link%' => '<a href="' . $view['router']->url('mautic_config_action', ['objectAction' => 'edit']) . '#triggerdialog' . '">Configuration</a>']); ?>
+	<?php echo $view['translator']->trans('plugin.triggerdialog.config.invalid', ['%link%' => '<a href="'.$view['router']->url('mautic_config_action', ['objectAction' => 'edit']).'#triggerdialog'.'">Configuration</a>']); ?>
 </div>
 <?php endif; ?>
 
@@ -53,8 +51,8 @@ if ($configInvalid === false) {
         'MauticCoreBundle:Helper:list_toolbar.html.php',
         [
             'searchValue' => $searchValue,
-            'searchHelp' => 'mautic.core.help.searchcommands',
-            'action' => $currentRoute,
+            'searchHelp'  => 'mautic.core.help.searchcommands',
+            'action'      => $currentRoute,
         ]
     ); ?>
     <div class="page-list">

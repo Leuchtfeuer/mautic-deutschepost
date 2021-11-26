@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle;
 
 final class TriggerdialogEvents
@@ -10,7 +11,7 @@ final class TriggerdialogEvents
      *
      * @var string
      */
-    const TRIGGER_CAMPAIGN_PRE_SAVE = 'mautic.triggercampaign_pre_save';
+    public const TRIGGER_CAMPAIGN_PRE_SAVE = 'mautic.triggercampaign_pre_save';
 
     /**
      * The mautic.triggercampaign_post_save is thrown right after a form is persisted.
@@ -19,7 +20,7 @@ final class TriggerdialogEvents
      *
      * @var string
      */
-    const TRIGGER_CAMPAIGN_POST_SAVE = 'mautic.triggercampaign_post_save';
+    public const TRIGGER_CAMPAIGN_POST_SAVE = 'mautic.triggercampaign_post_save';
 
     /**
      * Themautic.triggercampaign_pre_delete event is thrown before a form is deleted.
@@ -28,7 +29,7 @@ final class TriggerdialogEvents
      *
      * @var string
      */
-    const TRIGGER_CAMPAIGN_PRE_DELETE = 'mautic.triggercampaign_pre_delete';
+    public const TRIGGER_CAMPAIGN_PRE_DELETE = 'mautic.triggercampaign_pre_delete';
 
     /**
      * The mautic.triggercampaign_post_delete event is thrown after a form is deleted.
@@ -37,7 +38,7 @@ final class TriggerdialogEvents
      *
      * @var string
      */
-    const TRIGGER_CAMPAIGN_POST_DELETE = 'mautic.triggercampaign_post_delete';
+    public const TRIGGER_CAMPAIGN_POST_DELETE = 'mautic.triggercampaign_post_delete';
 
     /**
      * The mautic.triggerdialog.on_campaign_trigger_action event is fired when the campaign action triggers.
@@ -46,5 +47,5 @@ final class TriggerdialogEvents
      *
      * @var string
      */
-    const ON_CAMPAIGN_TRIGGER_ACTION = 'mautic.triggerdialog.on_campaign_trigger_action';
+    public const ON_CAMPAIGN_TRIGGER_ACTION = 'mautic.triggerdialog.on_campaign_trigger_action';
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Security\Permissions;
 
 use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
@@ -28,9 +29,6 @@ class TriggerdialogPermissions extends AbstractPermissions
 
     /**
      * {@inheritdoc}
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
     public function buildForm(FormBuilderInterface &$builder, array $options, array $data)
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Service;
 
 use GuzzleHttp\Client;
@@ -11,25 +12,25 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class TriggerdialogService
 {
-    const LOCALE = 'de';
+    public const LOCALE = 'de';
 
-    const SESSION_KEY = 'triggerdialog';
+    public const SESSION_KEY = 'triggerdialog';
 
-    const STATE_DRAFT = 110;
-    const STATE_ACTIVE = 120;
-    const STATE_PAUSED = 125;
-    const STATE_FINISHED = 130;
-    const STATE_DELETED = 140;
+    public const STATE_DRAFT    = 110;
+    public const STATE_ACTIVE   = 120;
+    public const STATE_PAUSED   = 125;
+    public const STATE_FINISHED = 130;
+    public const STATE_DELETED  = 140;
 
-    const LOOKUP_ALL = 'All';
-    const LOOKUP_ESTIMATION_OPTION = 'EstimationOption';
-    const LOOKUP_INDIVIDUALIZATION = 'Individualization';
-    const LOOKUP_VARIABLE_DEF_DATA_TYPE = 'VariableDefDataType';
-    const LOOKUP_PRINT_PROCESS = 'PrintingProcess';
-    const LOOKUP_CAMPAIGN_STATE = 'CampaignState';
-    const LOOKUP_DELIVERY_PRODUCT = 'DeliveryProduct';
-    const LOOKUP_SENDING_REASON = 'SendingReason';
-    const LOOKUP_DELIVERY_CHECK_STATE = 'DeliveryCheckState';
+    public const LOOKUP_ALL                    = 'All';
+    public const LOOKUP_ESTIMATION_OPTION      = 'EstimationOption';
+    public const LOOKUP_INDIVIDUALIZATION      = 'Individualization';
+    public const LOOKUP_VARIABLE_DEF_DATA_TYPE = 'VariableDefDataType';
+    public const LOOKUP_PRINT_PROCESS          = 'PrintingProcess';
+    public const LOOKUP_CAMPAIGN_STATE         = 'CampaignState';
+    public const LOOKUP_DELIVERY_PRODUCT       = 'DeliveryProduct';
+    public const LOOKUP_SENDING_REASON         = 'SendingReason';
+    public const LOOKUP_DELIVERY_CHECK_STATE   = 'DeliveryCheckState';
 
     /**
      * @var static
@@ -53,25 +54,25 @@ class TriggerdialogService
 
     protected $config = [
         RequestOptions::HTTP_ERRORS => false,
-        RequestOptions::HEADERS => [
+        RequestOptions::HEADERS     => [
             'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'User-Agent' => 'mautic-td/2.0',
+            'Accept'       => 'application/json',
+            'User-Agent'   => 'mautic-td/2.0',
         ],
     ];
 
     protected function __construct(int $partnerSystemIdExt, string $partnerSystemCustomerIdExt, string $authenticationSecret)
     {
-        $this->client = new Client(array_merge($this->config, ['base_uri' => AudienceHelper::getAudience()]));
-        $this->partnerSystemIdExt = $partnerSystemIdExt;
+        $this->client                     = new Client(array_merge($this->config, ['base_uri' => AudienceHelper::getAudience()]));
+        $this->partnerSystemIdExt         = $partnerSystemIdExt;
         $this->partnerSystemCustomerIdExt = $partnerSystemCustomerIdExt;
-        $this->authenticationSecret = $authenticationSecret;
+        $this->authenticationSecret       = $authenticationSecret;
         $this->loadAccessToken();
     }
 
     public static function makeInstance(int $masId, string $masClientId, string $authenticationSecret): self
     {
-        if (self::$_instance === null) {
+        if (null === self::$_instance) {
             self::$_instance = new self($masId, $masClientId, $authenticationSecret);
         }
 
@@ -88,19 +89,19 @@ class TriggerdialogService
             'POST',
             '/gateway/longtermcampaigns',
             [
-                RequestOptions::JSON => $this->transformTriggerCampaign($triggerCampaign),
+                RequestOptions::JSON    => $this->transformTriggerCampaign($triggerCampaign),
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 201) {
+        if (201 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605027739);
         }
 
         $content = json_decode($response->getBody()->getContents(), true);
-        $triggerCampaign->setTriggerId((int)$content['id']);
+        $triggerCampaign->setTriggerId((int) $content['id']);
 
         $this->createMailing($triggerCampaign);
         $this->createVariableDefinitions($triggerCampaign);
@@ -118,12 +119,12 @@ class TriggerdialogService
                     'customerId' => $this->customerId,
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605089364);
         }
 
@@ -136,14 +137,14 @@ class TriggerdialogService
             'PUT',
             sprintf('/gateway/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
             [
-                RequestOptions::JSON => $this->transformTriggerCampaign($triggerCampaign, false),
+                RequestOptions::JSON    => $this->transformTriggerCampaign($triggerCampaign, false),
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605089364);
         }
     }
@@ -156,15 +157,15 @@ class TriggerdialogService
             [
                 RequestOptions::JSON => [
                     'customerId' => $this->customerId,
-                    'stateId' => $state,
+                    'stateId'    => $state,
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605089193);
         }
     }
@@ -176,21 +177,21 @@ class TriggerdialogService
             '/gateway/longtermcampaigns',
             [
                 RequestOptions::QUERY => [
-                    'customerId' => $this->customerId,
-                    'offset' => $offset,
-                    'pageNumber' => $pageNumber,
-                    'pageSize' => $pageSize,
-                    'paged' => $paged,
-                    'unpaged' => $unpaged,
+                    'customerId'            => $this->customerId,
+                    'offset'                => $offset,
+                    'pageNumber'            => $pageNumber,
+                    'pageSize'              => $pageSize,
+                    'paged'                 => $paged,
+                    'unpaged'               => $unpaged,
                     'forceFirstAndLastRels' => $forceFirstAndLastRels,
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605089364);
         }
 
@@ -212,17 +213,17 @@ class TriggerdialogService
                     'campaignId' => $triggerCampaign->getTriggerId(),
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605027608);
         }
 
         $content = json_decode($response->getBody()->getContents(), true);
-        $triggerCampaign->setMailingId((int)$content['id']);
+        $triggerCampaign->setMailingId((int) $content['id']);
     }
 
     public function getAddressVariables(): array
@@ -232,12 +233,12 @@ class TriggerdialogService
             '/gateway/mailings/addressvariables',
             [
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605090809);
         }
 
@@ -255,12 +256,12 @@ class TriggerdialogService
                     'campaignId' => $triggerCampaign->getTriggerId(),
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605090762);
         }
 
@@ -278,12 +279,12 @@ class TriggerdialogService
                     'campaignId' => $triggerCampaign->getTriggerId(),
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605090777);
         }
     }
@@ -295,16 +296,16 @@ class TriggerdialogService
             sprintf('/gateway/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
             [
                 RequestOptions::JSON => [
-                    'customerId' => $this->customerId,
+                    'customerId'                      => $this->customerId,
                     'createVariableDefRequestRepList' => $this->transformVariableDefinitions($triggerCampaign),
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 201) {
+        if (201 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605027701);
         }
     }
@@ -316,16 +317,16 @@ class TriggerdialogService
             sprintf('/gateway/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
             [
                 RequestOptions::JSON => [
-                    'customerId' => $this->customerId,
+                    'customerId'                      => $this->customerId,
                     'updateVariableDefRequestRepList' => $this->transformVariableDefinitions($triggerCampaign),
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1569423229);
         }
     }
@@ -341,18 +342,18 @@ class TriggerdialogService
             '/gateway/campaignlookups',
             [
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605090809);
         }
 
         $content = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
 
-        return $type === self::LOOKUP_ALL ? $content : $this->flipLookup($content[$type]);
+        return self::LOOKUP_ALL === $type ? $content : $this->flipLookup($content[$type]);
     }
 
     public function createRecipient(TriggerCampaign $triggerCampaign, Lead $lead): void
@@ -369,12 +370,12 @@ class TriggerdialogService
                     ],
                 ],
                 RequestOptions::HEADERS => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
+                    'Authorization' => 'Bearer '.$this->accessToken,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 202) {
+        if (202 !== $response->getStatusCode()) {
             throw new RequestException($response, 1569423375);
         }
     }
@@ -392,17 +393,17 @@ class TriggerdialogService
 
             // Since we have no secret and Deutsche Post will not provide one, we have to decode the token ourself.
             [$header, $payload, $signature] = explode('.', $this->accessToken);
-            $data = \GuzzleHttp\json_decode(base64_decode($payload), true);
-            $this->customerId = (string)($data['customerIds'][0] ?? 0);
+            $data                           = \GuzzleHttp\json_decode(base64_decode($payload), true);
+            $this->customerId               = (string) ($data['customerIds'][0] ?? 0);
 
-            if ($this->customerId === '0') {
+            if ('0' === $this->customerId) {
                 throw new \Exception('No customer ID given in response.', 1605084861);
             }
 
             $session->set(self::SESSION_KEY, [
                 'accessToken' => $this->accessToken,
-                'customerId' => $this->customerId,
-                'exp' => $data['exp'],
+                'customerId'  => $this->customerId,
+                'exp'         => $data['exp'],
             ]);
         }
     }
@@ -416,7 +417,7 @@ class TriggerdialogService
 
             if (($settings['exp'] ?? 0) > $validUntil) {
                 $this->accessToken = $settings['accessToken'];
-                $this->customerId = $settings['customerId'];
+                $this->customerId  = $settings['customerId'];
 
                 return true;
             }
@@ -433,19 +434,19 @@ class TriggerdialogService
             '/gateway/authentication/partnersystem/credentialsbased',
             [
                 RequestOptions::JSON => [
-                    'partnerSystemIdExt' => $this->partnerSystemIdExt,
+                    'partnerSystemIdExt'         => $this->partnerSystemIdExt,
                     'partnerSystemCustomerIdExt' => $this->partnerSystemCustomerIdExt,
-                    'authenticationSecret' => $this->authenticationSecret,
-                    'locale' => self::LOCALE,
+                    'authenticationSecret'       => $this->authenticationSecret,
+                    'locale'                     => self::LOCALE,
                 ],
             ]
         );
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new RequestException($response, 1605082783);
         }
 
-        $contents = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        $contents    = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
         $accessToken = $contents['jwtToken'] ?? '';
 
         if (empty($accessToken)) {
@@ -474,11 +475,11 @@ class TriggerdialogService
     {
         $data = [
             'campaignName' => $triggerCampaign->getName(),
-            'customerId' => $this->customerId,
-            'startDate' => $triggerCampaign->getStartDate()->format('Y-m-d'),
+            'customerId'   => $this->customerId,
+            'startDate'    => $triggerCampaign->getStartDate()->format('Y-m-d'),
         ];
 
-        if ($includeId === true) {
+        if (true === $includeId) {
             $data['campaignIdExt'] = $triggerCampaign->getId();
         }
 
@@ -491,10 +492,10 @@ class TriggerdialogService
 
     protected function transformVariableDefinitions(TriggerCampaign $triggerCampaign): array
     {
-        $variables = [];
+        $variables          = [];
         $processedVariables = [];
-        $dataTypes = array_map([$this, 'transformVariable'], $this->dataLookup(self::LOOKUP_VARIABLE_DEF_DATA_TYPE));
-        $dataTypes = array_flip($dataTypes);
+        $dataTypes          = array_map([$this, 'transformVariable'], $this->dataLookup(self::LOOKUP_VARIABLE_DEF_DATA_TYPE));
+        $dataTypes          = array_flip($dataTypes);
 
         foreach ($triggerCampaign->getVariables() as $sortOrder => $variable) {
             $label = $variable['field'];
@@ -505,9 +506,9 @@ class TriggerdialogService
             }
 
             $processedVariables[$label] = true;
-            $variables[] = [
-                'label' => $label,
-                'sortOrder' => $sortOrder,
+            $variables[]                = [
+                'label'      => $label,
+                'sortOrder'  => $sortOrder,
                 'dataTypeId' => $dataTypes[$variable['variable']],
             ];
         }
@@ -525,7 +526,7 @@ class TriggerdialogService
         $recipientData = [];
 
         foreach ($triggerCampaign->getVariables() as $variable) {
-            $field = $variable['field'];
+            $field           = $variable['field'];
             $recipientData[] = [
                 'label' => $field,
                 'value' => $lead->getFieldValue($field),
@@ -534,7 +535,7 @@ class TriggerdialogService
 
         return [
             'recipientIdExt' => $lead->getId(),
-            'recipientData' => $recipientData,
+            'recipientData'  => $recipientData,
         ];
     }
 }

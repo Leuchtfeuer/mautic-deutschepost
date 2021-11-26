@@ -1,11 +1,12 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
 class AllowedCharacters extends Constraint
 {
-    const DISALLOWED_CHARACTERS = '/[\<\>\?\"\:\|\/\\\*]/';
+    public const DISALLOWED_CHARACTERS = '/[\<\>\?\"\:\|\/\\\*]/';
 
-    const ERROR_CODE = 1571659503;
+    public const ERROR_CODE = 1571659503;
 }

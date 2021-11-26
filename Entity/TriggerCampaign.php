@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Entity;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -12,15 +13,15 @@ use Symfony\Component\Validator\Mapping\ClassMetadata as SymfonyClassMetadata;
 
 class TriggerCampaign extends FormEntity
 {
-    const ALLOWED_TYPES = [
-        'string' => 'plugin.triggerdialog.form.types.string',
-        'integer' => 'plugin.triggerdialog.form.types.integer',
-        'boolean' => 'plugin.triggerdialog.form.types.boolean',
-        'date' => 'plugin.triggerdialog.form.types.date',
-        'image' => 'plugin.triggerdialog.form.types.image',
-        'imageurl' => 'plugin.triggerdialog.form.types.imageurl',
-        'float' => 'plugin.triggerdialog.form.types.float',
-        'zip' => 'plugin.triggerdialog.form.types.zip',
+    public const ALLOWED_TYPES = [
+        'string'      => 'plugin.triggerdialog.form.types.string',
+        'integer'     => 'plugin.triggerdialog.form.types.integer',
+        'boolean'     => 'plugin.triggerdialog.form.types.boolean',
+        'date'        => 'plugin.triggerdialog.form.types.date',
+        'image'       => 'plugin.triggerdialog.form.types.image',
+        'imageurl'    => 'plugin.triggerdialog.form.types.imageurl',
+        'float'       => 'plugin.triggerdialog.form.types.float',
+        'zip'         => 'plugin.triggerdialog.form.types.zip',
         'countrycode' => 'plugin.triggerdialog.form.types.countrycode',
     ];
 
@@ -40,7 +41,7 @@ class TriggerCampaign extends FormEntity
     private $startDate;
 
     /**
-     * @var null|\DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     private $endDate;
 
@@ -76,8 +77,6 @@ class TriggerCampaign extends FormEntity
 
     /**
      * {@inheritdoc}
-     *
-     * @param ClassMetadata $metadata
      */
     public static function loadMetadata(ClassMetadata $metadata)
     {
@@ -93,9 +92,6 @@ class TriggerCampaign extends FormEntity
         $builder->createField('variables', 'array')->build();
     }
 
-    /**
-     * @param SymfonyClassMetadata $metadata
-     */
     public static function loadValidatorMetadata(SymfonyClassMetadata $metadata)
     {
         $metadata->addPropertyConstraints('name', [
@@ -152,7 +148,7 @@ class TriggerCampaign extends FormEntity
 
     public function setDescription(?string $description): void
     {
-        $description = (string)$description;
+        $description = (string) $description;
         $this->isChanged('description', $description);
         $this->description = $description;
     }
@@ -164,9 +160,9 @@ class TriggerCampaign extends FormEntity
 
     public function setStartDate(?\DateTimeInterface $startDate = null): void
     {
-        if ($startDate instanceof \DateTimeInterface === false) {
+        if (false === $startDate instanceof \DateTimeInterface) {
             $startDate = new \DateTime();
-        } elseif ($startDate === null) {
+        } elseif (null === $startDate) {
             $this->isChanged('startDate', $startDate);
         }
         $this->startDate = $startDate;

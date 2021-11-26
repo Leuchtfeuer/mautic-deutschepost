@@ -2,12 +2,11 @@
 
 namespace MauticPlugin\MauticTriggerdialogBundle\Integration;
 
-use Mautic\IntegrationsBundle\Integration\BasicIntegration;
 use Mautic\PluginBundle\Integration\AbstractIntegration;
 
 class TriggerdialogIntegration extends AbstractIntegration
 {
-    const PLUGIN_NAME = 'Triggerdialog';
+    public const PLUGIN_NAME = 'Triggerdialog';
 
     public function getName(): string
     {
@@ -23,8 +22,4 @@ class TriggerdialogIntegration extends AbstractIntegration
     {
         return 'none';
     }
-
-
-
-
 }
