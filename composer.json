@@ -4,6 +4,7 @@
   "license": "GPL-3.0-or-later",
   "type": "mautic-plugin",
   "homepage": "https://www.Leuchtfeuer.com",
+  "minimum-stability": "dev",
   "authors": [
     {
       "name": "Florian Wessels",
@@ -16,7 +17,11 @@
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-openssl": "*",
-    "firebase/php-jwt": "^5.0"
+    "firebase/php-jwt": "^5.0",
+    "mautic/core-lib": "^4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5.0"
   },
   "support": {
     "issues": "https://github.com/Leuchtfeuer/mautic-deutschepost/issues",
@@ -28,7 +33,13 @@
   },
   "autoload": {
     "psr-4": {
-      "MauticPlugin\\MauticTriggerdialogBundle\\": "/"
+      "MauticPlugin\\MauticTriggerdialogBundle\\": ""
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/dennisameling/FOSOAuthServerBundle.git"
+    }
+  ]
 }
