@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;

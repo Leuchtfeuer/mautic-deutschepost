@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Event;
 
 use Mautic\CoreBundle\Event\CommonEvent;
@@ -13,7 +12,7 @@ class TriggerCampaignEvent extends CommonEvent
     public function __construct(TriggerCampaign &$triggerCampaign, $isNew = false)
     {
         $this->entity = &$triggerCampaign;
-        $this->isNew  = $isNew;
+        $this->isNew = $isNew;
     }
 
     /**

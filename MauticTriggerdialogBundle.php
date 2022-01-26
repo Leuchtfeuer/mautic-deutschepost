@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle;
 
 use Doctrine\DBAL\Schema\Schema;
@@ -11,9 +10,9 @@ class MauticTriggerdialogBundle extends PluginBundleBase
 {
     public static function onPluginUpdate(Plugin $plugin, MauticFactory $factory, $metadata = null, Schema $installedSchema = null)
     {
-        $database    = $factory->getDatabase();
-        $platform    = $database->getDatabasePlatform()->getName();
-        $queries     = [];
+        $database = $factory->getDatabase();
+        $platform = $database->getDatabasePlatform()->getName();
+        $queries = [];
         $fromVersion = $plugin->getVersion();
 
         switch ($fromVersion) {

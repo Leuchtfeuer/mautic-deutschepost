@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
@@ -16,24 +15,24 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class TriggerCampaignController extends AbstractFormController
 {
     public const PERMISSIONS = [
-        'create'  => 'triggerdialog:campaigns:create',
-        'delete'  => 'triggerdialog:campaigns:delete',
-        'edit'    => 'triggerdialog:campaigns:edit',
+        'create' => 'triggerdialog:campaigns:create',
+        'delete' => 'triggerdialog:campaigns:delete',
+        'edit' => 'triggerdialog:campaigns:edit',
         'publish' => 'triggerdialog:campaigns:publish',
-        'view'    => 'triggerdialog:campaigns:view',
+        'view' => 'triggerdialog:campaigns:view',
     ];
 
     public const ROUTES = [
         'action' => 'mautic_triggerdialog_action',
-        'index'  => 'mautic_triggerdialog_index',
+        'index' => 'mautic_triggerdialog_index',
     ];
 
     public const SESSION_VARS = [
-        'limit'      => 'plugin.triggerdialog.limit',
-        'orderBy'    => 'plugin.triggerdialog.orderby',
+        'limit' => 'plugin.triggerdialog.limit',
+        'orderBy' => 'plugin.triggerdialog.orderby',
         'orderByDir' => 'plugin.triggerdialog.orderbydir',
-        'page'       => 'plugin.triggerdialog.page',
-        'search'     => 'plugin.triggerdialog.search',
+        'page' => 'plugin.triggerdialog.page',
+        'search' => 'plugin.triggerdialog.search',
     ];
 
     public const THEMES = [
@@ -41,9 +40,9 @@ class TriggerCampaignController extends AbstractFormController
     ];
 
     public const TEMPLATES = [
-        'form'  => 'MauticTriggerdialogBundle:TriggerCampaign:form.html.php',
+        'form' => 'MauticTriggerdialogBundle:TriggerCampaign:form.html.php',
         'index' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
-        'list'  => 'MauticTriggerdialogBundle:TriggerCampaign:list.html.php',
+        'list' => 'MauticTriggerdialogBundle:TriggerCampaign:list.html.php',
     ];
 
     public const ACTIVE_LINK = '#mautic_triggerdialog_index';
@@ -65,23 +64,23 @@ class TriggerCampaignController extends AbstractFormController
             return $this->accessDenied();
         }
 
-        $viewParameters                = [];
+        $viewParameters = [];
         $viewParameters['permissions'] = $permissions;
 
         $this->setSession();
-        $coreParametersHelper            = $this->getCoreParametersHelper();
-        $viewParameters['ssoUrl']        = (new SingleSignOnUtility($coreParametersHelper, $this->container->get('mautic.helper.user')))->getSingleSignOnUrl();
-        $viewParameters['template']      = $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index';
+        $coreParametersHelper = $this->getCoreParametersHelper();
+        $viewParameters['ssoUrl'] = (new SingleSignOnUtility($coreParametersHelper, $this->container->get('mautic.helper.user')))->getSingleSignOnUrl();
+        $viewParameters['template'] = $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index';
         $viewParameters['configInvalid'] = !$this->checkConfiguration($coreParametersHelper);
 
-        $limit      = $this->getLimit();
-        $start      = $this->getStart($limit, $page);
-        $search     = $this->getSearch();
-        $orderBy    = $this->getOrderBy();
+        $limit = $this->getLimit();
+        $start = $this->getStart($limit, $page);
+        $search = $this->getSearch();
+        $orderBy = $this->getOrderBy();
         $orderByDir = $this->getOrderByDir();
 
         $triggerCampaigns = $this->getTriggerCampaigns($this->getFilter($search), $start, $limit, $orderBy, $orderByDir);
-        $count            = count($triggerCampaigns);
+        $count = count($triggerCampaigns);
 
         if ($count && $count < ($start + 1)) {
             return $this->redirectToLastPage($count, $limit);
@@ -90,18 +89,18 @@ class TriggerCampaignController extends AbstractFormController
         $this->setPage($page);
 
         $viewParameters['searchValue'] = $search;
-        $viewParameters['items']       = $triggerCampaigns;
+        $viewParameters['items'] = $triggerCampaigns;
         $viewParameters['searchValue'] = $search;
-        $viewParameters['page']        = $page;
-        $viewParameters['limit']       = $limit;
+        $viewParameters['page'] = $page;
+        $viewParameters['limit'] = $limit;
 
         return $this->delegateView([
-            'viewParameters'  => $viewParameters,
+            'viewParameters' => $viewParameters,
             'contentTemplate' => self::TEMPLATES['list'],
             'passthroughVars' => [
-                'activeLink'    => self::ACTIVE_LINK,
+                'activeLink' => self::ACTIVE_LINK,
                 'mauticContent' => self::MAUTIC_CONTENT,
-                'route'         => $this->generateUrl(self::ROUTES['index'], ['page' => $page]),
+                'route' => $this->generateUrl(self::ROUTES['index'], ['page' => $page]),
             ],
         ]);
     }
@@ -117,30 +116,30 @@ class TriggerCampaignController extends AbstractFormController
             return $this->accessDenied();
         }
 
-        $model           = $this->getModel(TriggerCampaignModel::NAME);
+        $model = $this->getModel(TriggerCampaignModel::NAME);
         $triggerCampaign = $model->getEntity();
-        $form            = $model->createForm(
+        $form = $model->createForm(
             $triggerCampaign,
             $this->get('form.factory'),
             $this->generateUrl(self::ROUTES['action'], ['objectAction' => 'new'])
         );
 
         if ('POST' === $this->request->getMethod()) {
-            $template       = self::TEMPLATES['index'];
+            $template = self::TEMPLATES['index'];
             $viewParameters = ['page' => $this->session->get(self::SESSION_VARS['page'], 1)];
-            $returnUrl      = $this->generateUrl(self::ROUTES['index'], $viewParameters);
-            $valid          = false;
+            $returnUrl = $this->generateUrl(self::ROUTES['index'], $viewParameters);
+            $valid = false;
 
             if (!$cancelled = $this->isFormCancelled($form)) {
                 if ($valid = $this->isFormValid($form)) {
                     $model->saveEntity($triggerCampaign);
 
                     $this->addFlash('mautic.core.notice.created', [
-                        '%name%'      => $triggerCampaign->getName(),
+                        '%name%' => $triggerCampaign->getName(),
                         '%menu_link%' => self::ROUTES['index'],
-                        '%url%'       => $this->generateUrl(self::ROUTES['index'], [
+                        '%url%' => $this->generateUrl(self::ROUTES['index'], [
                             'objectAction' => 'edit',
-                            'objectId'     => $triggerCampaign->getId(),
+                            'objectId' => $triggerCampaign->getId(),
                         ]),
                     ]);
 
@@ -154,11 +153,11 @@ class TriggerCampaignController extends AbstractFormController
             if ($cancelled || ($valid && $form->get('buttons')->get('save')->isClicked())) {
                 return $this->postActionRedirect(
                     [
-                        'returnUrl'       => $returnUrl,
-                        'viewParameters'  => $viewParameters,
+                        'returnUrl' => $returnUrl,
+                        'viewParameters' => $viewParameters,
                         'contentTemplate' => $template,
                         'passthroughVars' => [
-                            'activeLink'    => self::ACTIVE_LINK,
+                            'activeLink' => self::ACTIVE_LINK,
                             'mauticContent' => self::MAUTIC_CONTENT,
                         ],
                     ]
@@ -172,9 +171,9 @@ class TriggerCampaignController extends AbstractFormController
             ],
             'contentTemplate' => self::TEMPLATES['form'],
             'passthroughVars' => [
-                'activeLink'    => self::ACTIVE_LINK,
+                'activeLink' => self::ACTIVE_LINK,
                 'mauticContent' => self::MAUTIC_CONTENT,
-                'route'         => $this->generateUrl(self::ROUTES['action'], ['objectAction' => 'new']),
+                'route' => $this->generateUrl(self::ROUTES['action'], ['objectAction' => 'new']),
             ],
         ]);
     }
@@ -193,11 +192,11 @@ class TriggerCampaignController extends AbstractFormController
 
         try {
             $triggerCampaign = $this->getTriggerCampaign($objectId);
-            $objectAction    = 'edit';
+            $objectAction = 'edit';
 
             if (true === $clone) {
                 $triggerCampaign = clone $triggerCampaign;
-                $objectAction    = 'clone';
+                $objectAction = 'clone';
             }
 
             return $this->createTriggerCampaignModifyRequest(
@@ -212,8 +211,8 @@ class TriggerCampaignController extends AbstractFormController
             return $this->postActionRedirect(array_merge($postActionVars, [
                 'flashes' => [
                     [
-                        'type'    => 'error',
-                        'msg'     => 'plugin.triggerdialog.campaign.error.notfound',
+                        'type' => 'error',
+                        'msg' => 'plugin.triggerdialog.campaign.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -241,17 +240,17 @@ class TriggerCampaignController extends AbstractFormController
     public function deleteAction($objectId, $batch = false)
     {
         $this->setSession();
-        $page           = $this->session->get(self::SESSION_VARS['page'], 1);
+        $page = $this->session->get(self::SESSION_VARS['page'], 1);
         $viewParameters = ['page' => $page];
-        $returnUrl      = $this->generateUrl(self::ROUTES['index'], $viewParameters);
-        $flashes        = [];
+        $returnUrl = $this->generateUrl(self::ROUTES['index'], $viewParameters);
+        $flashes = [];
 
         $postActionVars = [
-            'returnUrl'       => $returnUrl,
-            'viewParameters'  => $viewParameters,
+            'returnUrl' => $returnUrl,
+            'viewParameters' => $viewParameters,
             'contentTemplate' => self::TEMPLATES['index'],
             'passthroughVars' => [
-                'activeLink'    => self::ACTIVE_LINK,
+                'activeLink' => self::ACTIVE_LINK,
                 'mauticContent' => self::MAUTIC_CONTENT,
             ],
         ];
@@ -375,7 +374,7 @@ class TriggerCampaignController extends AbstractFormController
     {
         return [
             'string' => $search,
-            'force'  => [],
+            'force' => [],
         ];
     }
 
@@ -384,7 +383,7 @@ class TriggerCampaignController extends AbstractFormController
      */
     protected function getOrderBy()
     {
-        return $this->session->get(self::SESSION_VARS['orderBy'], TriggerCampaignRepository::ALIAS.'.name');
+        return $this->session->get(self::SESSION_VARS['orderBy'], TriggerCampaignRepository::ALIAS . '.name');
     }
 
     /**
@@ -408,10 +407,10 @@ class TriggerCampaignController extends AbstractFormController
     {
         return $this->getModel(TriggerCampaignModel::NAME)
                     ->getEntities([
-                        'start'      => $start,
-                        'limit'      => $limit,
-                        'filter'     => $filter,
-                        'orderBy'    => $orderBy,
+                        'start' => $start,
+                        'limit' => $limit,
+                        'filter' => $filter,
+                        'orderBy' => $orderBy,
                         'orderByDir' => $orderByDir,
                     ]);
     }
@@ -424,11 +423,11 @@ class TriggerCampaignController extends AbstractFormController
 
         return $this->postActionRedirect(
             [
-                'returnUrl'       => $this->generateUrl(self::ROUTES['index'], $viewParameters),
-                'viewParameters'  => $viewParameters,
+                'returnUrl' => $this->generateUrl(self::ROUTES['index'], $viewParameters),
+                'viewParameters' => $viewParameters,
                 'contentTemplate' => self::TEMPLATES['index'],
                 'passthroughVars' => [
-                    'activeLink'    => self::ACTIVE_LINK,
+                    'activeLink' => self::ACTIVE_LINK,
                     'mauticContent' => self::MAUTIC_CONTENT,
                 ],
             ]
@@ -451,11 +450,11 @@ class TriggerCampaignController extends AbstractFormController
         $viewParameters = ['page' => $this->session->get(self::SESSION_VARS['page'], 1)];
 
         return [
-            'returnUrl'       => $this->generateUrl(self::ROUTES['index'], $viewParameters),
-            'viewParameters'  => $viewParameters,
+            'returnUrl' => $this->generateUrl(self::ROUTES['index'], $viewParameters),
+            'viewParameters' => $viewParameters,
             'contentTemplate' => self::TEMPLATES['index'],
             'passthroughVars' => [
-                'activeLink'    => self::ACTIVE_LINK,
+                'activeLink' => self::ACTIVE_LINK,
                 'mauticContent' => self::MAUTIC_CONTENT,
             ],
         ];
@@ -515,23 +514,23 @@ class TriggerCampaignController extends AbstractFormController
                 $triggerCampaignModel->saveEntity($triggerCampaign, $form->get('buttons')->get('save')->isClicked());
 
                 $this->addFlash('mautic.core.notice.updated', [
-                        '%name%'      => $triggerCampaign->getName(),
+                        '%name%' => $triggerCampaign->getName(),
                         '%menu_link%' => self::ROUTES['index'],
-                        '%url%'       => $this->generateUrl(self::ROUTES['action'], [
+                        '%url%' => $this->generateUrl(self::ROUTES['action'], [
                             'objectAction' => 'edit',
-                            'objectId'     => $triggerCampaign->getId(),
+                            'objectId' => $triggerCampaign->getId(),
                         ]),
                     ]);
 
                 if ($form->get('buttons')->get('apply')->isClicked()) {
-                    $contentTemplate                     = self::TEMPLATES['form'];
-                    $postActionVars['contentTemplate']   = $contentTemplate;
+                    $contentTemplate = self::TEMPLATES['form'];
+                    $postActionVars['contentTemplate'] = $contentTemplate;
                     $postActionVars['forwardController'] = false;
-                    $postActionVars['returnUrl']         = $this->generateUrl(
+                    $postActionVars['returnUrl'] = $this->generateUrl(
                         self::ROUTES['action'],
                         [
                             'objectAction' => 'edit',
-                            'objectId'     => $triggerCampaign->getId(),
+                            'objectId' => $triggerCampaign->getId(),
                         ]
                     );
 
@@ -544,15 +543,15 @@ class TriggerCampaignController extends AbstractFormController
                             self::ROUTES['action'],
                             [
                                 'objectAction' => 'edit',
-                                'objectId'     => $triggerCampaign->getId(),
+                                'objectId' => $triggerCampaign->getId(),
                             ]
                         )
                     );
 
                     $postActionVars['viewParameters'] = [
                             'objectAction' => 'edit',
-                            'objectId'     => $triggerCampaign->getId(),
-                            'form'         => $this->setFormTheme($form, $contentTemplate, self::THEMES['variables']),
+                            'objectId' => $triggerCampaign->getId(),
+                            'form' => $this->setFormTheme($form, $contentTemplate, self::THEMES['variables']),
                         ];
 
                     return $this->postActionRedirect($postActionVars);
@@ -567,13 +566,13 @@ class TriggerCampaignController extends AbstractFormController
 
         return $this->delegateView([
             'viewParameters' => [
-                'form'          => $this->setFormTheme($form, self::TEMPLATES['form'], self::THEMES['variables']),
+                'form' => $this->setFormTheme($form, self::TEMPLATES['form'], self::THEMES['variables']),
                 'currentListId' => $triggerCampaign->getId(),
             ],
             'contentTemplate' => self::TEMPLATES['form'],
             'passthroughVars' => [
-                'activeLink'    => self::ACTIVE_LINK,
-                'route'         => $action,
+                'activeLink' => self::ACTIVE_LINK,
+                'route' => $action,
                 'mauticContent' => self::MAUTIC_CONTENT,
             ],
         ]);
@@ -587,8 +586,8 @@ class TriggerCampaignController extends AbstractFormController
     {
         /** @var TriggerCampaignModel $triggerCampaignModel */
         $triggerCampaignModel = $this->getModel(TriggerCampaignModel::NAME);
-        $triggerCampaignIds   = json_decode($this->request->query->get('ids', '{}'));
-        $deleteIds            = [];
+        $triggerCampaignIds = json_decode($this->request->query->get('ids', '{}'));
+        $deleteIds = [];
 
         // Loop over the IDs to perform access checks pre-delete
         foreach ($triggerCampaignIds as $triggerCampaignId) {
@@ -596,8 +595,8 @@ class TriggerCampaignController extends AbstractFormController
 
             if (null === $triggerCampaign) {
                 $flashes[] = [
-                    'type'    => 'error',
-                    'msg'     => 'plugin.triggerdialog.campaign.error.notfound',
+                    'type' => 'error',
+                    'msg' => 'plugin.triggerdialog.campaign.error.notfound',
                     'msgVars' => ['%id%' => $triggerCampaignId],
                 ];
             } elseif (!$this->get('mautic.security')->hasEntityAccess(true, self::PERMISSIONS['delete'], $triggerCampaign->getCreatedBy())) {
@@ -614,8 +613,8 @@ class TriggerCampaignController extends AbstractFormController
             $triggerCampaigns = $triggerCampaignModel->deleteEntities($deleteIds);
 
             $flashes[] = [
-                'type'    => 'notice',
-                'msg'     => 'plugin.triggerdialog.campaign.notice.batch_deleted',
+                'type' => 'notice',
+                'msg' => 'plugin.triggerdialog.campaign.notice.batch_deleted',
                 'msgVars' => [
                     '%count%' => count($triggerCampaigns),
                 ],
@@ -634,12 +633,12 @@ class TriggerCampaignController extends AbstractFormController
     {
         /** @var TriggerCampaignModel $triggerCampaignModel */
         $triggerCampaignModel = $this->getModel(TriggerCampaignModel::NAME);
-        $triggerCampaign      = $triggerCampaignModel->getEntity($objectId);
+        $triggerCampaign = $triggerCampaignModel->getEntity($objectId);
 
         if (null === $triggerCampaign) {
             $flashes[] = [
-                'type'    => 'error',
-                'msg'     => 'plugin.triggerdialog.campaign.error.notfound',
+                'type' => 'error',
+                'msg' => 'plugin.triggerdialog.campaign.error.notfound',
                 'msgVars' => ['%id%' => $objectId],
             ];
         } elseif (!$this->get('mautic.security')->hasEntityAccess(true, self::PERMISSIONS['delete'], $triggerCampaign->getCreatedBy())) {
@@ -651,11 +650,11 @@ class TriggerCampaignController extends AbstractFormController
         $triggerCampaignModel->deleteEntity($triggerCampaign);
 
         $flashes[] = [
-            'type'    => 'notice',
-            'msg'     => 'mautic.core.notice.deleted',
+            'type' => 'notice',
+            'msg' => 'mautic.core.notice.deleted',
             'msgVars' => [
                 '%name%' => $triggerCampaign->getName(),
-                '%id%'   => $objectId,
+                '%id%' => $objectId,
             ],
         ];
 

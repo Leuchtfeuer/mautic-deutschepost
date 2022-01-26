@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -15,63 +14,63 @@ class ConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('triggerdialog_masId', IntegerType::class, [
-            'label'      => 'plugin.triggerdialog.form.masId',
+            'label' => 'plugin.triggerdialog.form.masId',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'required' => true,
-            'attr'     => [
+            'attr' => [
                 'class' => 'form-control',
-                'rows'  => '6',
+                'rows' => '6',
             ],
         ]);
 
         $builder->add('triggerdialog_masClientId', TextType::class, [
-            'label'      => 'plugin.triggerdialog.form.masClientId',
+            'label' => 'plugin.triggerdialog.form.masClientId',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'required' => true,
-            'attr'     => [
-                'class'    => 'form-control',
-                'rows'     => '6',
+            'attr' => [
+                'class' => 'form-control',
+                'rows' => '6',
                 'readonly' => 'readonly',
             ],
         ]);
 
         $builder->add('triggerdialog_masSecret', TextType::class, [
-            'label'      => 'plugin.triggerdialog.form.masSecret',
+            'label' => 'plugin.triggerdialog.form.masSecret',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'required' => true,
-            'attr'     => [
+            'attr' => [
                 'class' => 'form-control',
-                'rows'  => '6',
+                'rows' => '6',
             ],
         ]);
 
         $builder->add('triggerdialog_rest_user', TextType::class, [
-            'label'      => 'plugin.triggerdialog.form.rest.user',
+            'label' => 'plugin.triggerdialog.form.rest.user',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'required' => true,
-            'attr'     => [
+            'attr' => [
                 'class' => 'form-control',
-                'rows'  => '6',
+                'rows' => '6',
             ],
         ]);
 
         $builder->add('triggerdialog_rest_password', TextType::class, [
-            'label'      => 'plugin.triggerdialog.form.rest.password',
+            'label' => 'plugin.triggerdialog.form.rest.password',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'required' => true,
-            'attr'     => [
-                'class'       => 'form-control',
-                'rows'        => '6',
+            'attr' => [
+                'class' => 'form-control',
+                'rows' => '6',
                 'placeholder' => '********',
             ],
         ]);

@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Model;
 
 use Mautic\CoreBundle\Model\FormModel;

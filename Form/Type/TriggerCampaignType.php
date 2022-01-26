@@ -1,5 +1,4 @@
 <?php
-
 namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use Mautic\CoreBundle\Factory\MauticFactory;
@@ -52,9 +51,9 @@ class TriggerCampaignType extends AbstractType
      */
     public function __construct(MauticFactory $factory, ListModel $listModel)
     {
-        $this->translator   = $factory->getTranslator();
-        $this->security     = $factory->getSecurity();
-        $this->factory      = $factory;
+        $this->translator = $factory->getTranslator();
+        $this->security = $factory->getSecurity();
+        $this->factory = $factory;
         $this->fieldChoices = $listModel->getChoiceFields();
     }
 
@@ -73,18 +72,18 @@ class TriggerCampaignType extends AbstractType
         }
 
         $builder->add('name', TextType::class, [
-            'label'      => 'mautic.core.name',
+            'label' => 'mautic.core.name',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'attr' => [
-                'class'    => 'form-control',
+                'class' => 'form-control',
                 'required' => 'required',
             ],
         ]);
 
         $builder->add('description', TextareaType::class, [
-            'label'      => 'mautic.core.description',
+            'label' => 'mautic.core.description',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -95,30 +94,30 @@ class TriggerCampaignType extends AbstractType
         ]);
 
         $builder->add('startDate', DateType::class, [
-            'widget'     => 'single_text',
-            'label'      => 'mautic.core.form.publishup',
+            'widget' => 'single_text',
+            'label' => 'mautic.core.form.publishup',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'attr' => [
-                'class'       => 'form-control',
+                'class' => 'form-control',
                 'data-toggle' => 'date',
             ],
-            'format'   => 'yyyy-MM-dd',
+            'format' => 'yyyy-MM-dd',
             'required' => true,
         ]);
 
         $builder->add('endDate', DateType::class, [
-            'widget'     => 'single_text',
-            'label'      => 'mautic.core.form.publishdown',
+            'widget' => 'single_text',
+            'label' => 'mautic.core.form.publishdown',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'attr' => [
-                'class'       => 'form-control',
+                'class' => 'form-control',
                 'data-toggle' => 'date',
             ],
-            'format'   => 'yyyy-MM-dd',
+            'format' => 'yyyy-MM-dd',
             'required' => false,
         ]);
 
@@ -132,10 +131,10 @@ class TriggerCampaignType extends AbstractType
             $data = $options['data']->isPublished(false);
         } elseif (!$this->security->isGranted(TriggerCampaignController::PERMISSIONS['publish'])) {
             $readonly = true;
-            $data     = false;
+            $data = false;
         } else {
             $readonly = false;
-            $data     = true;
+            $data = true;
         }
 
         $builder->add('isPublished', YesNoButtonGroupType::class, [
@@ -147,17 +146,17 @@ class TriggerCampaignType extends AbstractType
 
         $builder->add(
             $builder->create('variables', CollectionType::class, [
-                'entry_type'    => VariableType::class,
+                'entry_type' => VariableType::class,
                 'entry_options' => [
                     'label' => false,
-                    'attr'  => $this->fieldChoices,
+                    'attr' => $this->fieldChoices,
                 ],
                 'error_bubbling' => false,
-                'mapped'         => true,
-                'allow_add'      => true,
-                'allow_delete'   => true,
-                'label'          => false,
-                'constraints'    => [
+                'mapped' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'constraints' => [
                     new CircularDependency([
                         'message' => 'mautic.core.segment.circular_dependency_exists',
                     ]),
