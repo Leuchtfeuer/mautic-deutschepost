@@ -131,11 +131,11 @@ return [
     ],
 
     'parameters' => [
-        'triggerdialog_masClientId'   => ClientIdGenerator::generateClientId(),
-        'triggerdialog_masSecret'     => null,
-        'triggerdialog_masId'         => null,
-        'triggerdialog_rest_user'     => null,
-        'triggerdialog_rest_password' => null,
+        'triggerdialog_masClientId'    => ClientIdGenerator::generateClientId(),
+        'triggerdialog_masSecret'      => null,
+        'triggerdialog_masId'          => null,
+        'triggerdialog_rest_user'      => null,
+        'triggerdialog_rest_password'  => null,
         'triggerdialog_contract_email' => 'print-mailing@deutschepost.de',
     ],
 ];
