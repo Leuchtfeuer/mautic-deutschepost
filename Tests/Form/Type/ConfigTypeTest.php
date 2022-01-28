@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Tests\Form\Type;
 
 use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
@@ -23,10 +25,10 @@ class ConfigTypeTest extends TypeTestCase
     public function testFieldsAreNotFilledIn(): void
     {
         $dataToForm = [
-            'triggerdialog_masId' => '123',
-            'triggerdialog_masClientId' => 'masClientId',
-            'triggerdialog_masSecret' => 'masSecret',
-            'triggerdialog_rest_user' => 'rest_user',
+            'triggerdialog_masId'         => '123',
+            'triggerdialog_masClientId'   => 'masClientId',
+            'triggerdialog_masSecret'     => 'masSecret',
+            'triggerdialog_rest_user'     => 'rest_user',
             'triggerdialog_rest_password' => 'rest_password',
         ];
 
@@ -43,20 +45,20 @@ class ConfigTypeTest extends TypeTestCase
     public function testFieldsAreSaved(): void
     {
         $dataToForm = [
-            'triggerdialog_masId' => '123',
-            'triggerdialog_masClientId' => 'masClientId',
-            'triggerdialog_masSecret' => 'masSecret',
-            'triggerdialog_rest_user' => 'rest_user',
+            'triggerdialog_masId'         => '123',
+            'triggerdialog_masClientId'   => 'masClientId',
+            'triggerdialog_masSecret'     => 'masSecret',
+            'triggerdialog_rest_user'     => 'rest_user',
             'triggerdialog_rest_password' => 'rest_password',
         ];
 
         $form = $this->factory->create(ConfigType::class, $dataToForm);
 
         $formData = [
-            'triggerdialog_masId' => '321',
-            'triggerdialog_masClientId' => 'masClientId_1',
-            'triggerdialog_masSecret' => 'masSecret_1',
-            'triggerdialog_rest_user' => 'rest_user_1',
+            'triggerdialog_masId'         => '321',
+            'triggerdialog_masClientId'   => 'masClientId_1',
+            'triggerdialog_masSecret'     => 'masSecret_1',
+            'triggerdialog_rest_user'     => 'rest_user_1',
             'triggerdialog_rest_password' => 'rest_password_1',
         ];
 
