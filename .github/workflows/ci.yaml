@@ -9,10 +9,10 @@ on:
 jobs:
   integration:
     name: Integration tests
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        php-version: [7.4]
+        php-version: [ 7.4 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -20,10 +20,10 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          tools: php-cs-fixer:2.17.1
+          tools: php-cs-fixer:3.5
       - name: Composer install
         run: composer install
       - name: Check PHP CS
-        run: php-cs-fixer fix --config .php_cs --dry-run --using-cache false --show-progress dots -v
+        run: php-cs-fixer fix --config .php-cs-fixer.php --dry-run --using-cache no --show-progress dots -v
       - name: Test
         run: ./vendor/bin/phpunit
