@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Entity;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -13,14 +14,14 @@ use Symfony\Component\Validator\Mapping\ClassMetadata as SymfonyClassMetadata;
 class TriggerCampaign extends FormEntity
 {
     public const ALLOWED_TYPES = [
-        'string' => 'plugin.triggerdialog.form.types.string',
-        'integer' => 'plugin.triggerdialog.form.types.integer',
-        'boolean' => 'plugin.triggerdialog.form.types.boolean',
-        'date' => 'plugin.triggerdialog.form.types.date',
-        'image' => 'plugin.triggerdialog.form.types.image',
-        'imageurl' => 'plugin.triggerdialog.form.types.imageurl',
-        'float' => 'plugin.triggerdialog.form.types.float',
-        'zip' => 'plugin.triggerdialog.form.types.zip',
+        'string'      => 'plugin.triggerdialog.form.types.string',
+        'integer'     => 'plugin.triggerdialog.form.types.integer',
+        'boolean'     => 'plugin.triggerdialog.form.types.boolean',
+        'date'        => 'plugin.triggerdialog.form.types.date',
+        'image'       => 'plugin.triggerdialog.form.types.image',
+        'imageurl'    => 'plugin.triggerdialog.form.types.imageurl',
+        'float'       => 'plugin.triggerdialog.form.types.float',
+        'zip'         => 'plugin.triggerdialog.form.types.zip',
         'countrycode' => 'plugin.triggerdialog.form.types.countrycode',
     ];
 

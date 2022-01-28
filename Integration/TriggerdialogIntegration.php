@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Integration;
 
 use Mautic\PluginBundle\Integration\AbstractIntegration;

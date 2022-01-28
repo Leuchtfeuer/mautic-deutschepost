@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Entity;
 
 use Mautic\CoreBundle\Entity\CommonRepository;
@@ -22,7 +23,7 @@ class TriggerCampaignRepository extends CommonRepository
     {
         return [
             [
-                self::ALIAS . '.name',
+                self::ALIAS.'.name',
                 'ASC',
             ],
         ];

@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\EventListener;
 
 use Mautic\ConfigBundle\ConfigEvents;
@@ -21,10 +22,10 @@ class ConfigSubscriber implements EventSubscriberInterface
     public function onConfigGenerate(ConfigBuilderEvent $event): void
     {
         $event->addForm([
-            'bundle' => 'MauticTriggerdialogBundle',
-            'formType' => ConfigType::class,
-            'formAlias' => 'triggerdialogconfig',
-            'formTheme' => 'MauticTriggerdialogBundle:FormTheme\Config',
+            'bundle'     => 'MauticTriggerdialogBundle',
+            'formType'   => ConfigType::class,
+            'formAlias'  => 'triggerdialogconfig',
+            'formTheme'  => 'MauticTriggerdialogBundle:FormTheme\Config',
             'parameters' => $event->getParametersFromConfig('MauticTriggerdialogBundle'),
         ]);
     }

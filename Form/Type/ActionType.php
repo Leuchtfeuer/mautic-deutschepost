@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
@@ -29,14 +30,14 @@ class ActionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('trigger_campaign', ChoiceType::class, [
-            'choices' => array_flip($this->fieldChoices),
-            'label' => 'plugin.triggerdialog.campaign.formlabel',
+            'choices'    => array_flip($this->fieldChoices),
+            'label'      => 'plugin.triggerdialog.campaign.formlabel',
             'label_attr' => ['class' => 'control-label'],
-            'required' => true,
-            'multiple' => false,
-            'expanded' => false,
-            'attr' => [
-                'class' => 'form-control',
+            'required'   => true,
+            'multiple'   => false,
+            'expanded'   => false,
+            'attr'       => [
+                'class'         => 'form-control',
                 'data-sortable' => 'true',
             ],
             'constraints' => [

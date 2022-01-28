@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
@@ -52,7 +53,7 @@ class VariableType extends AbstractType
         ]);
 
         $resolver->setDefaults([
-            'label' => false,
+            'label'          => false,
             'error_bubbling' => false,
         ]);
     }
@@ -82,13 +83,13 @@ class VariableType extends AbstractType
             ChoiceType::class,
             [
                 'label' => false,
-                'attr' => [
+                'attr'  => [
                     'class' => 'form-control',
                 ],
-                'data' => $data['variable'] ?? '',
+                'data'           => $data['variable'] ?? '',
                 'error_bubbling' => false,
-                'choices' => array_flip(TriggerCampaign::ALLOWED_TYPES),
-                'multiple' => false,
+                'choices'        => array_flip(TriggerCampaign::ALLOWED_TYPES),
+                'multiple'       => false,
             ]
         );
 

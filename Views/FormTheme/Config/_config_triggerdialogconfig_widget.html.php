@@ -10,11 +10,11 @@ use Symfony\Component\Form\FormView;
 
 $fields    = $form->children;
 
-$message = $view['translator']->trans('plugin.triggerdialog.form.contract.email',[
-	'%masId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASID"],
-	'%masClientId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASCLIENTID"],
+$message = $view['translator']->trans('plugin.triggerdialog.form.contract.email', [
+    '%masId%'       => $_ENV['MAUTIC_TRIGGERDIALOG_MASID'],
+    '%masClientId%' => $_ENV['MAUTIC_TRIGGERDIALOG_MASCLIENTID'],
 ]);
-$subject = $view['translator']->trans('plugin.triggerdialog.form.contract.subject',['%masId%' => $_ENV["MAUTIC_TRIGGERDIALOG_MASID"]]);
+$subject = $view['translator']->trans('plugin.triggerdialog.form.contract.subject', ['%masId%' => $_ENV['MAUTIC_TRIGGERDIALOG_MASID']]);
 ?>
 
 <div class="panel panel-primary">
@@ -67,7 +67,7 @@ $subject = $view['translator']->trans('plugin.triggerdialog.form.contract.subjec
       function(event) {
 		event.preventDefault();
         
-		const email = '<?php echo $formConfig['parameters']['triggerdialog_contract_email'] ?>';
+		const email = '<?php echo $formConfig['parameters']['triggerdialog_contract_email']; ?>';
     	const subject = '<?php echo $subject; ?>';
     	const emailBody = encodeURIComponent('<?php echo $message; ?>');
     	window.location = 'mailto:' + email + '?subject=' + subject + '&body=' +   emailBody;

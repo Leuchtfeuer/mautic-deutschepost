@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Exception;
 
 use Psr\Http\Message\ResponseInterface;
@@ -14,7 +15,7 @@ class RequestException extends \Exception
     public function __construct(ResponseInterface $response, $code = 0, Throwable $previous = null)
     {
         $responseContent = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
-        $error = $responseContent['errors'][0] ?? ['errorMessage' => $responseContent['error']];
+        $error           = $responseContent['errors'][0] ?? ['errorMessage' => $responseContent['error']];
 
         parent::__construct($error['errorMessage'], $code, $previous);
     }
