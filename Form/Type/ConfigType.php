@@ -4,6 +4,7 @@ namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -39,7 +40,7 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_masSecret', TextType::class, [
+        $builder->add('triggerdialog_masSecret', PasswordType::class, [
             'label'      => 'plugin.triggerdialog.form.masSecret',
             'label_attr' => [
                 'class' => 'control-label',
@@ -63,7 +64,7 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_rest_password', TextType::class, [
+        $builder->add('triggerdialog_rest_password', PasswordType::class, [
             'label'      => 'plugin.triggerdialog.form.rest.password',
             'label_attr' => [
                 'class' => 'control-label',
