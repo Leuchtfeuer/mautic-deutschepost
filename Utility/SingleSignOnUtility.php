@@ -36,7 +36,7 @@ class SingleSignOnUtility
     public function getSingleSignOnUrl(): string
     {
         if ($this->isValid()) {
-            return sprintf(self::SSO_URL, AudienceHelper::getAudience(), $this->generateJsonWebToken());
+            return sprintf(self::SSO_URL, AudienceHelper::getFrontend(), $this->generateJsonWebToken());
         }
 
         return '';

@@ -8,8 +8,15 @@ class AudienceHelper
 
     private const TEST_AUDIENCE = 'https://uat.print-mailing-api-test.deutschepost.de';
 
+    private const FRONTEND = 'https://print-mailing.deutschepost.de';
+
     public static function getAudience(): string
     {
         return MAUTIC_ENV === 'prod' ? self::AUDIENCE : self::TEST_AUDIENCE;
+    }
+
+    public static function getFrontend(): string
+    {
+        return self::FRONTEND;
     }
 }
