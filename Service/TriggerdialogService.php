@@ -87,7 +87,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'POST',
-            '/gateway/longtermcampaigns',
+            '/automation/longtermcampaigns',
             [
                 RequestOptions::JSON    => $this->transformTriggerCampaign($triggerCampaign),
                 RequestOptions::HEADERS => [
@@ -113,7 +113,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'GET',
-            sprintf('/gateway/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
+            sprintf('/automation/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
             [
                 RequestOptions::QUERY => [
                     'customerId' => $this->customerId,
@@ -135,7 +135,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'PUT',
-            sprintf('/gateway/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
+            sprintf('/automation/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
             [
                 RequestOptions::JSON    => $this->transformTriggerCampaign($triggerCampaign, false),
                 RequestOptions::HEADERS => [
@@ -153,7 +153,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'PUT',
-            sprintf('/gateway/longtermcampaigns/%d/state', $triggerCampaign->getTriggerId()),
+            sprintf('/automation/longtermcampaigns/%d/state', $triggerCampaign->getTriggerId()),
             [
                 RequestOptions::JSON => [
                     'customerId' => $this->customerId,
@@ -174,7 +174,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'GET',
-            '/gateway/longtermcampaigns',
+            '/automation/longtermcampaigns',
             [
                 RequestOptions::QUERY => [
                     'customerId'            => $this->customerId,
@@ -206,7 +206,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'POST',
-            '/gateway/mailings',
+            '/automation/mailings',
             [
                 RequestOptions::JSON => [
                     'customerId' => $this->customerId,
@@ -230,7 +230,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'GET',
-            '/gateway/mailings/addressvariables',
+            '/automation/mailings/addressvariables',
             [
                 RequestOptions::HEADERS => [
                     'Authorization' => 'Bearer '.$this->accessToken,
@@ -249,7 +249,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'GET',
-            '/gateway/mailings',
+            '/automation/mailings',
             [
                 RequestOptions::QUERY => [
                     'customerId' => $this->customerId,
@@ -272,7 +272,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'DELETE',
-            '/gateway/mailings',
+            '/automation/mailings',
             [
                 RequestOptions::QUERY => [
                     'customerId' => $this->customerId,
@@ -293,7 +293,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'POST',
-            sprintf('/gateway/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
+            sprintf('/automation/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
             [
                 RequestOptions::JSON => [
                     'customerId'                      => $this->customerId,
@@ -314,7 +314,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'PUT',
-            sprintf('/gateway/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
+            sprintf('/automation/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
             [
                 RequestOptions::JSON => [
                     'customerId'                      => $this->customerId,
@@ -339,7 +339,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'GET',
-            '/gateway/campaignlookups',
+            '/automation/campaignlookups',
             [
                 RequestOptions::HEADERS => [
                     'Authorization' => 'Bearer '.$this->accessToken,
@@ -360,7 +360,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'POST',
-            '/gateway/recipients/',
+            '/automation/recipients/',
             [
                 RequestOptions::JSON => [
                     'campaignId' => $triggerCampaign->getTriggerId(),
@@ -431,7 +431,7 @@ class TriggerdialogService
     {
         $response = $this->client->request(
             'POST',
-            '/gateway/authentication/partnersystem/credentialsbased',
+            '/user/authentication/partnersystem/credentialsbased',
             [
                 RequestOptions::JSON => [
                     'partnerSystemIdExt'         => $this->partnerSystemIdExt,

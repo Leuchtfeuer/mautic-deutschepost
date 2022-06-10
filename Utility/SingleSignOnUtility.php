@@ -13,7 +13,7 @@ use MauticPlugin\MauticTriggerdialogBundle\Helper\AudienceHelper;
 
 class SingleSignOnUtility
 {
-    public const SSO_URL = '%s?partnersystem=%s';
+    public const SSO_URL = '%s/planen?partnersystem=%s';
 
     public const PAYLOAD_ISS = 'issuer';
 

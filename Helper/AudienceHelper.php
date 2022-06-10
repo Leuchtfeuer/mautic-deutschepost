@@ -4,9 +4,9 @@ namespace MauticPlugin\MauticTriggerdialogBundle\Helper;
 
 class AudienceHelper
 {
-    private const AUDIENCE = 'https://dm.deutschepost.de';
+    private const AUDIENCE = 'https://print-mailing-api.deutschepost.de';
 
-    private const TEST_AUDIENCE = 'https://dm-uat.deutschepost.de';
+    private const TEST_AUDIENCE = 'https://uat.print-mailing-api-test.deutschepost.de';
 
     public static function getAudience(): string
     {
