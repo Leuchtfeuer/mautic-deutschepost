@@ -1,104 +1,102 @@
-Deutsche Post TRIGGERDIALOG Bundle for Mautic
-=============================================
 
-[![Latest Stable Version](https://poser.pugx.org/bitmotion/mautic-deutschepost/v/stable)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
-[![Total Downloads](https://poser.pugx.org/bitmotion/mautic-deutschepost/downloads)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
-[![Latest Unstable Version](https://poser.pugx.org/bitmotion/mautic-deutschepost/v/unstable)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
-[![Code Climate](https://codeclimate.com/github/bitmotion/mautic-deutschepost/badges/gpa.svg)](https://codeclimate.com/github/bitmotion/mautic-deutschepost)
-[![License](https://poser.pugx.org/bitmotion/mautic-deutschepost/license)](https://packagist.org/packages/bitmotion/mautic-deutschepost)
+[![Latest Stable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/stable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Build Status](https://github.com/Leuchtfeuer/mautic-deutschepost/workflows/Continous%20Integration/badge.svg)](https://github.com/Leuchtfeuer/mautic-deutschepost/actions)
+[![Total Downloads](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/downloads)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Latest Unstable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/unstable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
+[![Code Climate](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost/badges/gpa.svg)](https://codeclimate.com/github/Leuchtfeuer/mautic-deutschepost)
+[![License](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/license)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
 
-## About
+With our plugin, print mailings can be personalized using Deutsche Post's „Print-Mailing Automation" (a.k.a. "Print Mailing") product, to be integrated directly into your Mautic campaign - and automatically sent when it makes the most sense.
 
-Send postcards or letters with Mautic via Deutsche Post TRIGGERDIALOG.
+
+#### What is the plugin for?
+
+Leuchtfeuer has developed the Print Mailing-Plugin in cooperation with Deutsche Post AG to enable the sending of postcards directly from the Marketing Automation Tool, personalized and at the individually perfect time.  
+Mautic users can use the plugin to integrate the sending of a print mailing as a new action directly into their Mautic campaign - based on the normal logic modules (e.g. "email unopened?" or "booking cancelled?"). The corresponding postcards can, of course, be completely designed and personalized for each recipient, so that he can be addressed directly or, for example, given a special discount code. You can find out more about the benefits and possible applications of the Print Mailing-Plugin here.
+
+## Installation and Basic Configuration
+
+The installation of the plugin requires, in addition to a Mautic account, a customer account for the Print Mailing administration website of Deutsche Post - more information can be found on the website [Print Mailing by Deutschen Post AG](https://www.deutschepost.de/de/t/triggerdialog.html). 
 
 ### Requirements
 
-The installation of the plugin requires, in addition to a Mautic 
-account, a customer account for the TRIGGERDIALOG administration 
-website of Deutsche Post - more information can be found on the website 
-[TRIGGERDIALOG by Deutsche Post AG](https://www.deutschepost.de/de/t/triggerdialog.html).
 
-To register, you need a valid [TRIGGERDIALOG Client ID](#before-start), 
-which is provided in the Mautic settings after installing this bundle.
+*   Mautic Version 3.x // 4.x
+    
+*   Command line access to the server
+    
+### Installation
 
-## Installation
+*   Download plugin "mautic-deutschepost" from [Github](https://ma.leuchtfeuer.com/asset/6:as051-`triggerdialog`-mautic-integration) (as ZIP archive) to the Mautic-Server
+    
+*   Unpack the file, rename the directory and move it to the plugin directory of the Mautic installation  
+    `mv mautic-deutschepost-master <path-to-mautic>/plugins/MauticTriggerdialogBundle`
+    
+*   Clear cache, typically:  
+    `sudo -u www-data php <path-to-mautic>/bin/console cache:clear`
+    
+*   adjust file permissions if needed:  
+    `chown -R www-data:www-data <path-to-mautic>/plugins/MauticTriggerdialogBundle`
+    
+*   Go to "Settings" -> "Plugins" in the Mautic-Backend, klick on "Install/Update Plugins"
+    
+*   "Dt. Post" is now in the Plugin list, and is already activated
+    
 
-To install the plugin for Mautic, the following steps are necessary 
-(requires command line access):
+The following configuration is easy: You can make all necessary settings under _"Settings" -> "Configuration" -> "Print Mailing Settings"_.
 
-* Download the latest release of this bundle either as .tar.gz or as
-.zip archive from [GitHub](https://github.com/bitmotion/mautic-deutschepost/releases)
-and upload the archive to the Mautic server or fetch the source directly
-on the server e.g. by using `wget`.
-* Unpack the file, rename the directory and move it to the plugin.
-directory of the mautic installation: `mv mautic-deutschepost-master <path-to-mautic>/plugins/MauticTriggerdialogBundle`.
-* Clear cache, e.g. in the Mautic backend, or also directly via command line: `rm -rf <path-to-mautic>/app/cache/prod/*`.
-* Open the Mautic backend and go to "Settings" -> "Plugins", click on 
-"Install/Update Plugins".
+*   MAS ID (technical name is _"partnerSystemIdExt"_) - identifies the remote system (i.e. Deutsche Post)
+    
+*   _"Mandanten-ID"_ - identifies your own System. IMPORTANT: You need to submit this ID to Deutsche Post, or else you will not have access!
+    
+*   _"Prod JWT Secret"_ - allows for Single Sign-On from Mautic into Deutsche Post
+    
+*   _User_ und password (_"Authentication Secret"_) - required for data transfer from your system to Deutsche Post
+    
 
-Now you are all set. "Dt. Post" appears now in the plugin list and is 
-already activated.
+![](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Mautic-Config.png)
 
-## Configuration
+Configuration done, and "Mandanten-ID" (see above) reported to Deutsche Post?
 
-You can configure the bundle within the configuration section of your
-Mautic Backend. All relevant configuration can be found underneath the
-tab "TRIGGERDIALOG Settings".
+Now it gets exciting: In "_Channels" -> "Print Mailing"_, click on the blue button _"Print Mailing-MANAGER"_ (top right) to switch to the Deutsche Post interface, and thus verify your configuration.
 
-![Backend view of TRIGGERDIALOG settings](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/configure-bundle.png "Backend view of Deutsche Post TRIGGERDIALOG for Mautic settings.")
+If you arrive there - in the "yellow surface" - and see your name in the top right corner, everything worked!
 
-### Before Start
-
-The "Marketing Autmoation System ID" and the "Client ID" cannot be
-changed. The value of the system identifier must be set to "8". The 
-client identifier is your specific "TRIGGERDIALOG Client ID". You need 
-this ID for becoming a [Deutsche Post TRIGGERDIALOG]((https://www.deutschepost.de/de/t/triggerdialog.html)) user.
-
-### Plugin Configuration
-
-All other fields are self-explanatory - you will find the required 
-access data on your TRIGGERDIALOG adminstration website of Deutsche Post.
+![](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Manager-Button.png) 
+![](https://www.leuchtfeuer.com/fileadmin/_processed_/0/7/csm_TD-SSO_5e0671e54c.png)
 
 ## Usage
 
-Everything else now works exactly like for e-mails: Before you can 
-integrate the first TRIGGERDIALOG action into your campaign, you have to
-create a template. You can find the "Deutsche Post" Plugin within the 
-Channels section in the main navigation (close to "Emails" or 
-"Focus Items").
+### Creating a Mapping Template in Mautic
 
-From here you also have the possibility to open the TRIGGERDIALOG 
-Manager.
+Everything else now works pretty much like for emails: Before you can integrate the first Print Mailing action into your campaign, you have to create a template.
 
-### Creating Templates in Mautic
+In _"Channels" -> "Print Mailing",_ click _"+New"_ to create a new Print Mailing mapping template in Mautic.
 
-You can create a new TRIGGERDIALOG template in Maugic by clicking the 
-"+ NEW" button.
+In the tab _"Data Mapping"_, the desired data can be selected for transfer when a postcard is initiated. One field of type "_Zip code_" is mandatory; and of course that complete address data is required for successful postal delivery. Therefore, a basic set of data is already pre-assigned in every new template (which can of course be changed).
 
-Under the tab "Data Mapping", the desired links are made in order to 
-assign the contact data in Mautic to the corresponding fields in 
-TRIGGERDIALOG - ZIP-Code is a mandatory field. It goes without saying 
-that complete address data is required for successful postcard dispatch.
+For each mapping template, you will be able to assign design etc. in the next steps, through Deutsche Post's Print Mailing Manager.
 
-![Backend view of creating a TRIGGERDIALOG template](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/create-triggerdialog-template.png "Backend view of creating a TRIGGERDIALOG template in Mautic.")
+![](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Template.png)
 
-Please note: The optical design (InDesign, ...) and other configuration
-of the postcard are not stored in Mautic, but directly on the
-TRIGGERDIALOG administration website of Deutsche Post.
+That's it with the preparations within Mautic. The visual design (e.g. using InDesign or the modern online editor) and other configuration of the postcard are not happending in Mautic, but directly in the Print Mailing Manager.
 
-### Integration in Mautic Campaigns
+So press the blue button - see above - and you can continue in Deutsche Post's Print Mailing Manager, where you will see the mapping templates that you created, and can set up design, product properties etc for each of them.
 
-Via the plugin, a new campaign action is now available: 
-"Send via Deutsche Post". In this action you can select the desired 
-postcard template from the TRIGGERDIALOG templates stored in Mautic.
+If you are using the online editor, you can also create or edit designs directly in your browser:
 
-![Add campaign action](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/add-campaign-action.png "Add campaign action.")
+![](https://www.leuchtfeuer.com/fileadmin/_processed_/3/1/csm_TD-Manager_383ad2e208.jpg)
 
-![Configure campaign action](https://www.bitmotion.de/fileadmin/github/mautic-deutschepost/configure-campaign-action.png "Configure campaign action.")
+### Integration in Mautic campaigns
 
-Mautic then uses the plugin to send the data to Deutsche Post for
-printing and delivery - and shortly afterwards your contact has his
-individual postcard in his mailbox.
+The plugin comes with a new campaign action: “Send via Print Mailing”.
+
+Again, just like with email, you can now select from your existing templates - i.e. from the Print Mailing mapping templates that you created in Mautic.
+
+![Add campaign action](https://www.leuchtfeuer.com/fileadmin/_processed_/4/5/csm_TD-Beispielkampagne_748801a493.png)
+![Configure campaign action](https://www.leuchtfeuer.com/fileadmin/knowledge/Mautic/td/TD-Aktionen.png)
+
+Mautic then uses the plugin to send the data to Deutsche Post for printing and delivery - and shortly afterwards your contact has his individual postcard in his mailbox.
 
 ## Contributing
 

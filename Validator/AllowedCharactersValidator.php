@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
@@ -11,7 +12,7 @@ class AllowedCharactersValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (preg_match(AllowedCharacters::DISALLOWED_CHARACTERS, $value) === 0) {
+        if (0 === preg_match(AllowedCharacters::DISALLOWED_CHARACTERS, $value)) {
             return;
         }
 

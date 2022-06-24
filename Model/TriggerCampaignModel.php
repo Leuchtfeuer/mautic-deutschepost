@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Model;
 
 use Mautic\CoreBundle\Model\FormModel;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class TriggerCampaignModel extends FormModel
 {
-    const NAME = 'triggerdialog.campaign';
+    public const NAME = 'triggerdialog.campaign';
 
     /**
      * {@inheritDoc}
@@ -55,7 +56,7 @@ class TriggerCampaignModel extends FormModel
      */
     public function getEntity($id = null)
     {
-        if ($id === null) {
+        if (null === $id) {
             return new TriggerCampaign();
         }
 

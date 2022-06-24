@@ -13,14 +13,13 @@ use Symfony\Component\Form\FormView;
  * @var LeadField[]     $fields
  * @var array           $formFields
  */
-
 echo $view['assets']->includeScript('plugins/MauticTriggerdialogBundle/Assets/js/triggerdialog.js', 'td', 'td');
 $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', TriggerCampaignController::MAUTIC_CONTENT);
-$fields = $form->vars['fields'];
-$id = $form->vars['data']->getId();
-$index = count($form['variables']->vars['value']) ? max(array_keys($form['variables']->vars['value'])) : 0;
-$mainErrors = ($view['form']->containsErrors($form, ['variables'])) ? 'class="text-danger"' : '';
+$fields         = $form->vars['fields'];
+$id             = $form->vars['data']->getId();
+$index          = count($form['variables']->vars['value']) ? max(array_keys($form['variables']->vars['value'])) : 0;
+$mainErrors     = ($view['form']->containsErrors($form, ['variables'])) ? 'class="text-danger"' : '';
 $variableErrors = ($view['form']->containsErrors($form['variables'])) ? 'class="text-danger"' : '';
 
 if (!empty($id)) {
@@ -80,18 +79,18 @@ echo $view['form']->start($form);
                                     <?php
                                     foreach ($fields as $object => $field):
                                         $header = $object;
-                                        $icon = ($object === 'company') ? 'building' : 'user';
+                                        $icon   = ('company' === $object) ? 'building' : 'user';
                                         ?>
-										<optgroup label="<?php echo $view['translator']->trans('mautic.lead.' . $header); ?>">
+										<optgroup label="<?php echo $view['translator']->trans('mautic.lead.'.$header); ?>">
                                             <?php foreach ($field as $value => $params):
-                                                $list = (!empty($params['properties']['list'])) ? $params['properties']['list'] : [];
-                                                $choices = \Mautic\LeadBundle\Helper\FormFieldHelper::parseList($list, true, ('boolean' === $params['properties']['type']));
-                                                $list = json_encode($choices);
-                                                $callback = (!empty($params['properties']['callback'])) ? $params['properties']['callback'] : '';
+                                                $list      = (!empty($params['properties']['list'])) ? $params['properties']['list'] : [];
+                                                $choices   = \Mautic\LeadBundle\Helper\FormFieldHelper::parseList($list, true, ('boolean' === $params['properties']['type']));
+                                                $list      = json_encode($choices);
+                                                $callback  = (!empty($params['properties']['callback'])) ? $params['properties']['callback'] : '';
                                                 $operators = (!empty($params['operators'])) ? $view->escape(json_encode($params['operators'])) : '{}';
                                                 ?>
 												<option value="<?php echo $view->escape($value); ?>"
-												        id="available_<?php echo $object . '_' . $value; ?>"
+												        id="available_<?php echo $object.'_'.$value; ?>"
 												        data-field-object="<?php echo $object; ?>"
 												        data-field-type="<?php echo $params['properties']['type']; ?>"
 												        data-field-list="<?php echo $view->escape($list); ?>"
@@ -113,7 +112,8 @@ echo $view['form']->start($form);
 								<div class="alert alert-danger has-error">
                                     <?php echo $view['form']->errors($form['variables']); ?>
 								</div>
-                            <?php endif ?>
+                            <?php endif; ?>
+
                             <?php echo $view['form']->widget($form['variables']); ?>
 						</div>
 					</div>

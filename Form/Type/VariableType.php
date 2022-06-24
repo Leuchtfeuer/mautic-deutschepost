@@ -1,4 +1,5 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
 
 use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
@@ -52,7 +53,7 @@ class VariableType extends AbstractType
         ]);
 
         $resolver->setDefaults([
-            'label' => false,
+            'label'          => false,
             'error_bubbling' => false,
         ]);
     }
@@ -62,7 +63,7 @@ class VariableType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['fields'] = $options['fields'];
+        $view->vars['attr'] = $options['attr'];
     }
 
     /**
@@ -73,26 +74,26 @@ class VariableType extends AbstractType
         return 'trigger_variable';
     }
 
-    /**
-     * @param string    $eventName
-     * @param FormEvent $event
-     */
-    public function buildFiltersForm($eventName, FormEvent $event)
+    public function buildFiltersForm(string $eventName, FormEvent $event): void
     {
         $data = $event->getData();
 
-        $event->getForm()->add('variable', ChoiceType::class, [
-            'label' => false,
-            'attr' => [
-                'class' => 'form-control',
-            ],
-            'data' => isset($data['variable']) ? $data['variable'] : '',
-            'error_bubbling' => false,
-            'choices' => TriggerCampaign::ALLOWED_TYPES,
-            'multiple' => false,
-        ]);
+        $event->getForm()->add(
+            'variable',
+            ChoiceType::class,
+            [
+                'label' => false,
+                'attr'  => [
+                    'class' => 'form-control',
+                ],
+                'data'           => $data['variable'] ?? '',
+                'error_bubbling' => false,
+                'choices'        => array_flip(TriggerCampaign::ALLOWED_TYPES),
+                'multiple'       => false,
+            ]
+        );
 
-        if ($eventName == FormEvents::PRE_SUBMIT) {
+        if (FormEvents::PRE_SUBMIT == $eventName) {
             $event->setData($data);
         }
     }

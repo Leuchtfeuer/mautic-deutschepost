@@ -1,16 +1,17 @@
 <?php
+
 namespace MauticPlugin\MauticTriggerdialogBundle\Entity;
 
 use Mautic\CoreBundle\Entity\CommonRepository;
 
 class TriggerCampaignRepository extends CommonRepository
 {
-    const ALIAS = 'td';
+    public const ALIAS = 'td';
 
     /**
      * {@inheritdoc}
      */
-    public function getTableAlias()
+    public function getTableAlias(): string
     {
         return self::ALIAS;
     }
@@ -18,11 +19,11 @@ class TriggerCampaignRepository extends CommonRepository
     /**
      * {@inheritdoc}
      */
-    protected function getDefaultOrder()
+    protected function getDefaultOrder(): array
     {
         return [
             [
-                self::ALIAS . '.name',
+                self::ALIAS.'.name',
                 'ASC',
             ],
         ];
