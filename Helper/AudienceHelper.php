@@ -9,7 +9,7 @@ class AudienceHelper
     private const TEST_AUDIENCE = 'https://uat.print-mailing-api-test.deutschepost.de';
 
     private const FRONTEND = 'https://print-mailing.deutschepost.de';
-    
+
     private const TEST_FRONTEND = 'https://uat.print-mailing-test.deutschepost.de';
 
     public static function getAudience(): string
