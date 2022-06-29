@@ -120,10 +120,7 @@ class CampaignSubscriber implements EventSubscriberInterface
 
     public function onTriggerCampaignPreDelete(TriggerCampaignEvent $event): void
     {
-        $this->getTriggerDialogService()->updateCampaignStage(
-            $event->getTriggerCampaign(),
-            TriggerdialogService::STATE_DELETED
-        );
+        // here you can the API call if there is a possibility to remove/hide mailing within Deutschepost API.
     }
 
     public function onCampaignTriggerAction(CampaignExecutionEvent $event)
