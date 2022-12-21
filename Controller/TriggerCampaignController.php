@@ -418,7 +418,7 @@ class TriggerCampaignController extends AbstractFormController
 
     protected function redirectToLastPage(int $count, int $limit): Response
     {
-        $lastPage = (1 === $count) ? 1 : (ceil($count / $limit)) ?: 1;
+        $lastPage = ((1 === $count) ? 1 : (ceil($count / $limit))) ?: 1;
         $this->session->set(self::SESSION_VARS['search'], $lastPage);
         $viewParameters = ['page' => $lastPage];
 
