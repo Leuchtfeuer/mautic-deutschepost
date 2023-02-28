@@ -1,3 +1,4 @@
+# Leuchtfeuer Print Mailing Deutsche Post for Mautic
 
 [![Latest Stable Version](https://poser.pugx.org/leuchtfeuer/mautic-deutschepost/v/stable)](https://packagist.org/packages/leuchtfeuer/mautic-deutschepost)
 [![Build Status](https://github.com/Leuchtfeuer/mautic-deutschepost/workflows/Continous%20Integration/badge.svg)](https://github.com/Leuchtfeuer/mautic-deutschepost/actions)
@@ -102,3 +103,9 @@ Mautic then uses the plugin to send the data to Deutsche Post for printing and d
 
 You can contribute by making a **pull request** to the master branch of 
 this repository. Or just send us some **beers**...
+
+### Author
+
+Leuchtfeuer Digital Marketing GmbH
+
+mautic@Leuchtfeuer.com
