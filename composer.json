@@ -7,10 +7,9 @@
     "minimum-stability": "dev",
     "authors": [
         {
-            "name": "Florian Wessels",
-            "email": "f.wessels@Leuchtfeuer.com",
-            "homepage": "https://www.Leuchtfeuer.com",
-            "role": "Developer"
+            "name": "Leuchtfeuer Digital Marketing GmbH",
+            "email": "hallo@Leuchtfeuer.com",
+            "homepage": "https://www.Leuchtfeuer.com"
         }
     ],
     "require": {
