@@ -22,11 +22,11 @@ class ConfigSubscriber implements EventSubscriberInterface
     public function onConfigGenerate(ConfigBuilderEvent $event): void
     {
         $event->addForm([
-            'bundle'     => 'MauticTriggerdialogBundle',
+            'bundle'     => 'LeuchtfeuerPrintmailingBundle',
             'formType'   => ConfigType::class,
             'formAlias'  => 'triggerdialogconfig',
-            'formTheme'  => 'MauticTriggerdialogBundle:FormTheme\Config',
-            'parameters' => $event->getParametersFromConfig('MauticTriggerdialogBundle'),
+            'formTheme'  => 'LeuchtfeuerPrintmailingBundle:FormTheme\Config',
+            'parameters' => $event->getParametersFromConfig('LeuchtfeuerPrintmailingBundle'),
         ]);
     }
 }

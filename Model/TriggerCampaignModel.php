@@ -22,7 +22,7 @@ class TriggerCampaignModel extends FormModel
      */
     public function getRepository()
     {
-        return $this->em->getRepository('MauticTriggerdialogBundle:TriggerCampaign');
+        return $this->em->getRepository('LeuchtfeuerPrintmailingBundle:TriggerCampaign');
     }
 
     /**

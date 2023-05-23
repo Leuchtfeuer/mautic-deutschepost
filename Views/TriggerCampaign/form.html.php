@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormView;
  * @var LeadField[]     $fields
  * @var array           $formFields
  */
-echo $view['assets']->includeScript('plugins/MauticTriggerdialogBundle/Assets/js/triggerdialog.js', 'td', 'td');
+echo $view['assets']->includeScript('plugins/LeuchtfeuerPrintmailingBundle/Assets/js/triggerdialog.js', 'td', 'td');
 $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', TriggerCampaignController::MAUTIC_CONTENT);
 $fields         = $form->vars['fields'];

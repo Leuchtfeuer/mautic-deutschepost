@@ -37,13 +37,13 @@ class TriggerCampaignController extends AbstractFormController
     ];
 
     public const THEMES = [
-        'variables' => 'MauticTriggerdialogBundle:FormTheme\Variables',
+        'variables' => 'LeuchtfeuerPrintmailingBundle:FormTheme\Variables',
     ];
 
     public const TEMPLATES = [
-        'form'  => 'MauticTriggerdialogBundle:TriggerCampaign:form.html.php',
-        'index' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
-        'list'  => 'MauticTriggerdialogBundle:TriggerCampaign:list.html.php',
+        'form'  => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:form.html.php',
+        'index' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:index',
+        'list'  => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:list.html.php',
     ];
 
     public const ACTIVE_LINK = '#mautic_triggerdialog_index';

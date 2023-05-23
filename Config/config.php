@@ -41,11 +41,11 @@ return [
         'main' => [
             'mautic_triggerdialog_index' => [
                 'path'       => '/triggertemplates/{page}',
-                'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
+                'controller' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:index',
             ],
             'mautic_triggerdialog_action' => [
                 'path'       => '/triggertemplates/{objectAction}/{objectId}',
-                'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:execute',
+                'controller' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:execute',
             ],
         ],
     ],
