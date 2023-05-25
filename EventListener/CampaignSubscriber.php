@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\EventListener;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\EventListener;
 
 use Mautic\CampaignBundle\CampaignEvents;
 use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
@@ -8,12 +8,12 @@ use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\CoreBundle\Helper\IpLookupHelper;
 use Mautic\CoreBundle\Model\AuditLogModel;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
-use MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Service\TriggerdialogService;
-use MauticPlugin\MauticTriggerdialogBundle\TriggerdialogEvents;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ActionType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Service\TriggerdialogService;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\TriggerdialogEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CampaignSubscriber implements EventSubscriberInterface
@@ -78,7 +78,7 @@ class CampaignSubscriber implements EventSubscriberInterface
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException
+     * @throws \MauticPlugin\LeuchtfeuerPrintmailingBundle\Exception\RequestException
      */
     public function onTriggerCampaignPreSave(TriggerCampaignEvent $event): void
     {

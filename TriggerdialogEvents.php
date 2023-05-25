@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle;
 
 final class TriggerdialogEvents
 {

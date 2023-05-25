@@ -1,12 +1,12 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Entity;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 use Mautic\CoreBundle\Entity\FormEntity;
-use MauticPlugin\MauticTriggerdialogBundle\Validator\AllowedCharacters;
-use MauticPlugin\MauticTriggerdialogBundle\Validator\Variable;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Validator\AllowedCharacters;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Validator\Variable;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Mapping\ClassMetadata as SymfonyClassMetadata;

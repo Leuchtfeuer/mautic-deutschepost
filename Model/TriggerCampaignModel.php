@@ -1,13 +1,13 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Model;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Model;
 
 use Mautic\CoreBundle\Model\FormModel;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
-use MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
-use MauticPlugin\MauticTriggerdialogBundle\TriggerdialogEvents;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaignRepository;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\TriggerCampaignType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\TriggerdialogEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 

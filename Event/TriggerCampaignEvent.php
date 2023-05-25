@@ -1,9 +1,9 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Event;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Event;
 
 use Mautic\CoreBundle\Event\CommonEvent;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
 
 class TriggerCampaignEvent extends CommonEvent
 {

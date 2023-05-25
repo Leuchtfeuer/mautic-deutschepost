@@ -1,8 +1,8 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type;
 
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;

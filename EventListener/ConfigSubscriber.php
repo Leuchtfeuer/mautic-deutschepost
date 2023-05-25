@@ -1,10 +1,10 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\EventListener;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\EventListener;
 
 use Mautic\ConfigBundle\ConfigEvents;
 use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConfigSubscriber implements EventSubscriberInterface

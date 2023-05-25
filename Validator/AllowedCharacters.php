@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Validator;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 

@@ -1,7 +1,7 @@
 <?php
 
 use Mautic\CoreBundle\Templating\Engine\PhpEngine;
-use MauticPlugin\MauticTriggerdialogBundle\Controller\TriggerCampaignController;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Controller\TriggerCampaignController;
 
 /**
  * @var $view          PhpEngine

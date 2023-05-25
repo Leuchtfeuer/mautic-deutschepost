@@ -2,8 +2,8 @@
 
 use Mautic\CoreBundle\Templating\Engine\PhpEngine;
 use Mautic\LeadBundle\Entity\LeadField;
-use MauticPlugin\MauticTriggerdialogBundle\Controller\TriggerCampaignController;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Controller\TriggerCampaignController;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
 use Symfony\Component\Form\FormView;
 
 /**
