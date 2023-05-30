@@ -15,13 +15,13 @@ if (!empty($ssoUrl)) {
     $ssoButton = sprintf(
         '<a href="%s" target="_blank" class="ml-10 btn btn-primary">%s</a>',
         $ssoUrl,
-        $view['translator']->trans('plugin.triggerdialog.open.triggerdialog')
+        $view['translator']->trans('plugin.printmailing.open.printmailing')
     );
 }
 
 $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', TriggerCampaignController::MAUTIC_CONTENT);
-$view['slots']->set('headerTitle', $view['translator']->trans('plugin.triggerdialog.menu.root'));
+$view['slots']->set('headerTitle', $view['translator']->trans('plugin.printmailing.menu.root'));
 
 if (false === $configInvalid) {
     $view['slots']->set(
@@ -41,7 +41,7 @@ if (false === $configInvalid) {
 
 <?php if (true === $configInvalid): ?>
 <div class="alert alert-warning" role="alert">
-	<?php echo $view['translator']->trans('plugin.triggerdialog.config.invalid', ['%link%' => '<a href="'.$view['router']->url('mautic_config_action', ['objectAction' => 'edit']).'#triggerdialog'.'">Configuration</a>']); ?>
+	<?php echo $view['translator']->trans('plugin.printmailing.config.invalid', ['%link%' => '<a href="'.$view['router']->url('mautic_config_action', ['objectAction' => 'edit']).'#printmailing'.'">Configuration</a>']); ?>
 </div>
 <?php endif; ?>
 
