@@ -10,7 +10,7 @@ use MauticPlugin\LeuchtfeuerPrintmailingBundle\Exception\RequestException;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Helper\AudienceHelper;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class TriggerdialogService
+class PrintmailingService
 {
     public const LOCALE = 'de';
 

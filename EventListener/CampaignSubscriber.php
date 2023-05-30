@@ -12,7 +12,7 @@ use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ActionType;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
-use MauticPlugin\LeuchtfeuerPrintmailingBundle\Service\TriggerdialogService;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Service\PrintmailingService;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\TriggerdialogEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -90,10 +90,10 @@ class CampaignSubscriber implements EventSubscriberInterface
             $triggerCampaign->setPrintNodeDescription('DESC_'.$printNodeId);
         } elseif ($changes = $event->getChanges()) {
             if (isset($changes['name']) || isset($changes['startDate'])) {
-                $this->getTriggerDialogService()->updateCampaign($triggerCampaign);
+                $this->getPrintmailingService()->updateCampaign($triggerCampaign);
             }
             if (isset($changes['variables'])) {
-                $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign, $changes['variables'][1]);
+                $this->getPrintmailingService()->updateCampaignVariable($triggerCampaign, $changes['variables'][1]);
             }
         }
     }
@@ -103,7 +103,7 @@ class CampaignSubscriber implements EventSubscriberInterface
         $triggerCampaign = $event->getTriggerCampaign();
 
         if (isset($triggerCampaign->getChanges()['printNodeId'])) {
-            $triggerCampaign = $this->getTriggerDialogService()->createCampaign($triggerCampaign);
+            $triggerCampaign = $this->getPrintmailingService()->createCampaign($triggerCampaign);
             $this->triggerCampaignModel->getRepository()->saveEntity($triggerCampaign);
         }
 
@@ -153,16 +153,16 @@ class CampaignSubscriber implements EventSubscriberInterface
                 'details'   => $event->getEventSettings(),
                 'ipAddress' => $this->ipLookupHelper->getIpAddressFromRequest(),
             ]);
-            $this->getTriggerDialogService()->createRecipient($triggerCampaign, $lead);
+            $this->getPrintmailingService()->createRecipient($triggerCampaign, $lead);
             $event->setResult(true);
         } catch (\Exception $exception) {
             $event->setFailed($exception->getMessage());
         }
     }
 
-    protected function getTriggerDialogService(): TriggerdialogService
+    protected function getPrintmailingService(): PrintmailingService
     {
-        return TriggerdialogService::makeInstance(
+        return PrintmailingService::makeInstance(
             (int) $this->coreParametersHelper->get('triggerdialog_masId'),
             $this->coreParametersHelper->get('triggerdialog_masClientId'),
             $this->coreParametersHelper->get('triggerdialog_rest_password')
