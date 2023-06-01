@@ -41,7 +41,7 @@ final class PrintmailingEvents
     public const TRIGGER_CAMPAIGN_POST_DELETE = 'mautic.triggercampaign_post_delete';
 
     /**
-     * The mautic.triggerdialog.on_campaign_trigger_action event is fired when the campaign action triggers.
+     * The mautic.printmailing.on_campaign_trigger_action event is fired when the campaign action triggers.
      *
      * The event listener receives a Mautic\CampaignBundle\Event\CampaignExecutionEvent
      *

@@ -25,13 +25,13 @@ The installation of the plugin requires, in addition to a Mautic account, a cust
 *   Download plugin "mautic-deutschepost" from [Github](https://ma.leuchtfeuer.com/asset/6:as051-`triggerdialog`-mautic-integration) (as ZIP archive) to the Mautic-Server
     
 *   Unpack the file, rename the directory and move it to the plugin directory of the Mautic installation  
-    `mv mautic-deutschepost-master <path-to-mautic>/plugins/MauticTriggerdialogBundle`
+    `mv mautic-deutschepost-master <path-to-mautic>/plugins/LeuchtfeuerPrintmailingBundle`
     
 *   Clear cache, typically:  
     `sudo -u www-data php <path-to-mautic>/bin/console cache:clear`
     
 *   adjust file permissions if needed:  
-    `chown -R www-data:www-data <path-to-mautic>/plugins/MauticTriggerdialogBundle`
+    `chown -R www-data:www-data <path-to-mautic>/plugins/LeuchtfeuerPrintmailingBundle`
     
 *   Go to "Settings" -> "Plugins" in the Mautic-Backend, klick on "Install/Update Plugins"
     

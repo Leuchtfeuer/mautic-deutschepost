@@ -14,7 +14,7 @@ class PrintmailingService
 {
     public const LOCALE = 'de';
 
-    public const SESSION_KEY = 'triggerdialog';
+    public const SESSION_KEY = 'printmailing';
 
     public const STATE_DRAFT    = 110;
     public const STATE_ACTIVE   = 120;

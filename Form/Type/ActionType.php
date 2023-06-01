@@ -31,7 +31,7 @@ class ActionType extends AbstractType
     {
         $builder->add('trigger_campaign', ChoiceType::class, [
             'choices'    => array_flip($this->fieldChoices),
-            'label'      => 'plugin.triggerdialog.campaign.formlabel',
+            'label'      => 'plugin.printmailing.campaign.formlabel',
             'label_attr' => ['class' => 'control-label'],
             'required'   => true,
             'multiple'   => false,

@@ -89,9 +89,9 @@ return [
             ],
         ],
         'forms' => [
-            'mautic.form.type.triggerdialogconfig' => [
+            'mautic.form.type.printmailingconfig' => [
                 'class' => ConfigType::class,
-                'alias' => 'triggerdialogconfig',
+                'alias' => 'printmailingconfig',
             ],
             'mautic.form.type.trigger_campaign' => [
                 'class'     => TriggerCampaignType::class,
@@ -131,11 +131,11 @@ return [
     ],
 
     'parameters' => [
-        'triggerdialog_masClientId'    => ClientIdGenerator::generateClientId(),
-        'triggerdialog_masSecret'      => null,
-        'triggerdialog_masId'          => null,
-        'triggerdialog_rest_user'      => null,
-        'triggerdialog_rest_password'  => null,
-        'triggerdialog_contract_email' => 'print-mailing@deutschepost.de',
+        'printmailing_masClientId'    => ClientIdGenerator::generateClientId(),
+        'printmailing_masSecret'      => null,
+        'printmailing_masId'          => null,
+        'printmailing_rest_user'      => null,
+        'printmailing_rest_password'  => null,
+        'printmailing_contract_email' => 'print-mailing@deutschepost.de',
     ],
 ];

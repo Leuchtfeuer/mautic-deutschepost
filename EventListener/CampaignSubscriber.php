@@ -13,7 +13,7 @@ use MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ActionType;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Service\PrintmailingService;
-use MauticPlugin\LeuchtfeuerPrintmailingBundle\TriggerdialogEvents;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\PrintmailingEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CampaignSubscriber implements EventSubscriberInterface

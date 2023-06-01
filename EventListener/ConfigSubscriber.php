@@ -24,7 +24,7 @@ class ConfigSubscriber implements EventSubscriberInterface
         $event->addForm([
             'bundle'     => 'LeuchtfeuerPrintmailingBundle',
             'formType'   => ConfigType::class,
-            'formAlias'  => 'triggerdialogconfig',
+            'formAlias'  => 'printmailingconfig',
             'formTheme'  => 'LeuchtfeuerPrintmailingBundle:FormTheme\Config',
             'parameters' => $event->getParametersFromConfig('LeuchtfeuerPrintmailingBundle'),
         ]);
