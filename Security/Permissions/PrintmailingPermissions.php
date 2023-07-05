@@ -24,7 +24,7 @@ class PrintmailingPermissions extends AbstractPermissions
      */
     public function getName()
     {
-        return 'triggerdialog';
+        return 'printmailing';
     }
 
     /**

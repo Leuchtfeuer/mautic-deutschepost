@@ -14,7 +14,7 @@ Leuchtfeuer has developed the Print Mailing-Plugin in cooperation with Deutsche 
 Mautic users can use the plugin to integrate the sending of a print mailing as a new action directly into their Mautic campaign - based on the normal logic modules (e.g. "email unopened?" or "booking cancelled?"). The corresponding postcards can, of course, be completely designed and personalized for each recipient, so that he can be addressed directly or, for example, given a special discount code. You can find out more about the benefits and possible applications of the Print Mailing-Plugin here.
 
 ## Installation and Basic Configuration
-The installation of the plugin requires, in addition to a Mautic account, a customer account for the Print Mailing administration website of Deutsche Post - more information can be found on the website [Print Mailing by Deutschen Post AG](https://www.deutschepost.de/de/t/triggerdialog.html).
+The installation of the plugin requires, in addition to a Mautic account, a customer account for the Print Mailing administration website of Deutsche Post - more information can be found on the website [Print Mailing by Deutschen Post AG](https://www.deutschepost.de/de/t/printmailing.html).
 
 ### Requirements
 *   Mautic Version 3.x // 4.x
@@ -22,7 +22,7 @@ The installation of the plugin requires, in addition to a Mautic account, a cust
 *   Command line access to the server
 
 ### Installation
-*   Download plugin "mautic-deutschepost" from [Github](https://ma.leuchtfeuer.com/asset/6:as051-`triggerdialog`-mautic-integration) (as ZIP archive) to the Mautic-Server
+*   Download plugin "mautic-deutschepost" from [Github](https://ma.leuchtfeuer.com/asset/6:as051-`printmailing`-mautic-integration) (as ZIP archive) to the Mautic-Server
 
 *   Unpack the file, rename the directory and move it to the plugin directory of the Mautic installation
     `mv mautic-deutschepost-master <path-to-mautic>/plugins/LeuchtfeuerPrintmailingBundle`

@@ -4,9 +4,9 @@ namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Integration;
 
 use Mautic\PluginBundle\Integration\AbstractIntegration;
 
-class TriggerdialogIntegration extends AbstractIntegration
+class PrintmailingIntegration extends AbstractIntegration
 {
-    public const PLUGIN_NAME = 'Triggerdialog';
+    public const PLUGIN_NAME = 'Printmailing';
 
     public function getName(): string
     {

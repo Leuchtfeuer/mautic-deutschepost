@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormView;
  * @var LeadField[]     $fields
  * @var array           $formFields
  */
-echo $view['assets']->includeScript('plugins/LeuchtfeuerPrintmailingBundle/Assets/js/triggerdialog.js', 'td', 'td');
+echo $view['assets']->includeScript('plugins/LeuchtfeuerPrintmailingBundle/Assets/js/printmailing.js', 'td', 'td');
 $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', TriggerCampaignController::MAUTIC_CONTENT);
 $fields         = $form->vars['fields'];
@@ -23,9 +23,9 @@ $mainErrors     = ($view['form']->containsErrors($form, ['variables'])) ? 'class
 $variableErrors = ($view['form']->containsErrors($form['variables'])) ? 'class="text-danger"' : '';
 
 if (!empty($id)) {
-    $header = $view['translator']->trans('plugin.triggerdialog.menu.edit', ['%name%' => $form->vars['data']->getName()]);
+    $header = $view['translator']->trans('plugin.printmailing.menu.edit', ['%name%' => $form->vars['data']->getName()]);
 } else {
-    $header = $view['translator']->trans('plugin.triggerdialog.menu.new');
+    $header = $view['translator']->trans('plugin.printmailing.menu.new');
 }
 
 $view['slots']->set('headerTitle', $header);
@@ -39,7 +39,7 @@ echo $view['form']->start($form);
 				<ul class="bg-auto nav nav-tabs pr-md pl-md">
 					<li class="active">
 						<a href="#details" role="tab" data-toggle="tab"<?php echo $mainErrors; ?>>
-                            <?php echo $view['translator']->trans('plugin.triggerdialog.form.tab.details'); ?>
+                            <?php echo $view['translator']->trans('plugin.printmailing.form.tab.details'); ?>
                             <?php if ($mainErrors): ?>
 								<i class="fa fa-warning"></i>
                             <?php endif; ?>
@@ -47,7 +47,7 @@ echo $view['form']->start($form);
 					</li>
 					<li data-toggle="tooltip" title="" data-placement="top">
 						<a href="#variables" role="tab" data-toggle="tab"<?php echo $variableErrors; ?>>
-                            <?php echo $view['translator']->trans('plugin.triggerdialog.form.tab.variables'); ?>
+                            <?php echo $view['translator']->trans('plugin.printmailing.form.tab.variables'); ?>
                             <?php if ($variableErrors): ?>
 								<i class="fa fa-warning"></i>
                             <?php endif; ?>
@@ -69,7 +69,7 @@ echo $view['form']->start($form);
 					</div>
 					<div class="tab-pane fade bdr-w-0" id="variables">
 						<div class="alert alert-info" role="alert">
-                            <?php echo $view['translator']->trans('plugin.triggerdialog.form.tab.variables.hint'); ?>
+                            <?php echo $view['translator']->trans('plugin.printmailing.form.tab.variables.hint'); ?>
 						</div>
 
 						<div class="form-group">

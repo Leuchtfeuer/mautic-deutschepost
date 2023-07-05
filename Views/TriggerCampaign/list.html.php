@@ -35,7 +35,7 @@ if ('index' === $template) {
                 ]);
 
                 echo $view->render('MauticCoreBundle:Helper:tableheader.html.php', [
-                    'sessionVar' => 'plugin.triggerdialog',
+                    'sessionVar' => 'plugin.printmailing',
                     'orderBy'    => TriggerCampaignRepository::ALIAS.'.name',
                     'text'       => 'mautic.core.name',
                     'class'      => 'col-triggercampaign-name',
@@ -43,7 +43,7 @@ if ('index' === $template) {
                 ]);
 
                 echo $view->render('MauticCoreBundle:Helper:tableheader.html.php', [
-                    'sessionVar' => 'plugin.triggerdialog',
+                    'sessionVar' => 'plugin.printmailing',
                     'orderBy'    => TriggerCampaignRepository::ALIAS.'.id',
                     'text'       => 'mautic.core.id',
                     'class'      => 'visible-md visible-lg col-triggercampaign-id',
@@ -107,7 +107,7 @@ if ('index' === $template) {
             'limit'      => $limit,
             'menuLinkId' => TriggerCampaignController::ROUTES['index'],
             'baseUrl'    => $view['router']->url(TriggerCampaignController::ROUTES['index']),
-            'sessionVar' => 'plugin.triggerdialog',
+            'sessionVar' => 'plugin.printmailing',
         ]); ?>
     </div>
 <?php else: ?>

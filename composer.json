@@ -1,6 +1,6 @@
 {
     "name": "leuchtfeuer/mautic-deutschepost",
-    "description": "Send postcards or letters with Mautic via Deutsche Post Triggerdialog",
+    "description": "Send postcards or letters with Mautic via Deutsche Post Printmailing",
     "license": "GPL-3.0-or-later",
     "type": "mautic-plugin",
     "homepage": "https://www.Leuchtfeuer.com",
