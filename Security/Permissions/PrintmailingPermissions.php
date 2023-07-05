@@ -5,7 +5,7 @@ namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Security\Permissions;
 use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TriggerdialogPermissions extends AbstractPermissions
+class PrintmailingPermissions extends AbstractPermissions
 {
     /**
      * {@inheritdoc}
