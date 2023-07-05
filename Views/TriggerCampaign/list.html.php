@@ -1,9 +1,9 @@
 <?php
 
 use Mautic\CoreBundle\Templating\Engine\PhpEngine;
-use MauticPlugin\MauticTriggerdialogBundle\Controller\TriggerCampaignController;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Controller\TriggerCampaignController;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaignRepository;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
 
 /**
  * @var string    $template

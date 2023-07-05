@@ -1,20 +1,20 @@
 <?php
 
-use MauticPlugin\MauticTriggerdialogBundle\EventListener\CampaignSubscriber;
-use MauticPlugin\MauticTriggerdialogBundle\EventListener\ConfigSubscriber;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
-use MauticPlugin\MauticTriggerdialogBundle\Generator\ClientIdGenerator;
-use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\EventListener\CampaignSubscriber;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\EventListener\ConfigSubscriber;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ActionType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ConfigType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\TriggerCampaignType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\VariableType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Generator\ClientIdGenerator;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Integration\TriggerdialogIntegration;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Utility\SingleSignOnUtility;
 
 return [
     'name'        => 'Print Mailing DPAG Integration by Leuchtfeuer',
     'description' => 'Send postcards or letters via Print Mailing',
-    'version'     => '4.2.2',
+    'version'     => '5.0.0',
     'author'      => 'Leuchtfeuer Digital Marketing GmbH',
 
     'menu' => [
@@ -41,11 +41,11 @@ return [
         'main' => [
             'mautic_triggerdialog_index' => [
                 'path'       => '/triggertemplates/{page}',
-                'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
+                'controller' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:index',
             ],
             'mautic_triggerdialog_action' => [
                 'path'       => '/triggertemplates/{objectAction}/{objectId}',
-                'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:execute',
+                'controller' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:execute',
             ],
         ],
     ],

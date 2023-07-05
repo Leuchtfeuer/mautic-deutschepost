@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Generator;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Generator;
 
 class ClientIdGenerator
 {

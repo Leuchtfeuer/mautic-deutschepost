@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Integration;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Integration;
 
 use Mautic\PluginBundle\Integration\AbstractIntegration;
 

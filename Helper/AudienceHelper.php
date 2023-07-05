@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Helper;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Helper;
 
 class AudienceHelper
 {

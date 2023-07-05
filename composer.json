@@ -25,7 +25,7 @@
         "phpunit/phpunit": "^9.5.0"
     },
     "extra": {
-        "install-directory-name": "MauticTriggerdialogBundle"
+        "install-directory-name": "LeuchtfeuerPrintmailingBundle"
     },
     "support": {
         "issues": "https://github.com/Leuchtfeuer/mautic-deutschepost/issues",
@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MauticPlugin\\MauticTriggerdialogBundle\\": ""
+            "MauticPlugin\\LeuchtfeuerPrintmailingBundle\\": ""
         }
     },
     "repositories": [

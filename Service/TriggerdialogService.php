@@ -1,13 +1,13 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Service;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Mautic\LeadBundle\Entity\Lead;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
-use MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException;
-use MauticPlugin\MauticTriggerdialogBundle\Helper\AudienceHelper;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Exception\RequestException;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Helper\AudienceHelper;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class TriggerdialogService

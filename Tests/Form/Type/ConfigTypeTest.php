@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Tests\Form\Type;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Tests\Form\Type;
 
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ConfigType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 

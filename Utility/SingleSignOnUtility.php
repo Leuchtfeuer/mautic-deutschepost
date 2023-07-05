@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Utility;
 
 if (!class_exists('Firebase\JWT\JWT', false)) {
     require_once dirname(__DIR__).'/Library/vendor/autoload.php';
@@ -9,7 +9,7 @@ if (!class_exists('Firebase\JWT\JWT', false)) {
 use Firebase\JWT\JWT;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\CoreBundle\Helper\UserHelper;
-use MauticPlugin\MauticTriggerdialogBundle\Helper\AudienceHelper;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Helper\AudienceHelper;
 
 class SingleSignOnUtility
 {

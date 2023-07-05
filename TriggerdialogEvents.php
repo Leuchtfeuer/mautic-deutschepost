@@ -1,13 +1,13 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle;
 
 final class TriggerdialogEvents
 {
     /**
      * The mautic.triggercampaign_pre_save event is thrown right before a form is persisted.
      *
-     * The event listener receives a MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent instance.
+     * The event listener receives a MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent instance.
      *
      * @var string
      */
@@ -16,7 +16,7 @@ final class TriggerdialogEvents
     /**
      * The mautic.triggercampaign_post_save is thrown right after a form is persisted.
      *
-     * The event listener receives a MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent instance.
+     * The event listener receives a MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent instance.
      *
      * @var string
      */
@@ -25,7 +25,7 @@ final class TriggerdialogEvents
     /**
      * Themautic.triggercampaign_pre_delete event is thrown before a form is deleted.
      *
-     * The event listener receives a MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent instance.
+     * The event listener receives a MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent instance.
      *
      * @var string
      */
@@ -34,7 +34,7 @@ final class TriggerdialogEvents
     /**
      * The mautic.triggercampaign_post_delete event is thrown after a form is deleted.
      *
-     * The event listener receives a MauticPlugin\MauticTriggerdialogBundle\Event\TriggerCampaignEvent instance.
+     * The event listener receives a MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent instance.
      *
      * @var string
      */

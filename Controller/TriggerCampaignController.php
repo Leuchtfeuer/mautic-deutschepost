@@ -1,14 +1,14 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Controller;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Mautic\CoreBundle\Controller\AbstractFormController;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaignRepository;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Utility\SingleSignOnUtility;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -37,13 +37,13 @@ class TriggerCampaignController extends AbstractFormController
     ];
 
     public const THEMES = [
-        'variables' => 'MauticTriggerdialogBundle:FormTheme\Variables',
+        'variables' => 'LeuchtfeuerPrintmailingBundle:FormTheme\Variables',
     ];
 
     public const TEMPLATES = [
-        'form'  => 'MauticTriggerdialogBundle:TriggerCampaign:form.html.php',
-        'index' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
-        'list'  => 'MauticTriggerdialogBundle:TriggerCampaign:list.html.php',
+        'form'  => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:form.html.php',
+        'index' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:index',
+        'list'  => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:list.html.php',
     ];
 
     public const ACTIVE_LINK = '#mautic_triggerdialog_index';
