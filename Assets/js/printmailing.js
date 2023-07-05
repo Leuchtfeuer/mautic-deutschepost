@@ -1,4 +1,4 @@
-Mautic.triggerdialogOnLoad = function (container) {
+Mautic.printmailingOnLoad = function (container) {
 	var prefix = 'trigger_campaign';
 	var parent = mQuery('.dynamic-content-variable, .dwc-variable');
 	if (parent.length) {
