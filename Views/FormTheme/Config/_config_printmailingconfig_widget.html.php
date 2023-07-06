@@ -11,10 +11,10 @@ use Symfony\Component\Form\FormView;
 $fields    = $form->children;
 
 $message = $view['translator']->trans('plugin.printmailing.form.contract.email', [
-    '%masId%'       => $_ENV['MAUTIC_TRIGGERDIALOG_MASID'],
-    '%masClientId%' => $_ENV['MAUTIC_TRIGGERDIALOG_MASCLIENTID'],
+    '%masId%'       => $_ENV['MAUTIC_PRINTMAILING_MASID'],
+    '%masClientId%' => $_ENV['MAUTIC_PRINTMAILING_MASCLIENTID'],
 ]);
-$subject = $view['translator']->trans('plugin.printmailing.form.contract.subject', ['%masId%' => $_ENV['MAUTIC_TRIGGERDIALOG_MASID']]);
+$subject = $view['translator']->trans('plugin.printmailing.form.contract.subject', ['%masId%' => $_ENV['MAUTIC_PRINTMAILING_MASID']]);
 ?>
 
 <div class="panel panel-primary">

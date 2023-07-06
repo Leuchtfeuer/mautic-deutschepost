@@ -90,10 +90,10 @@ class CampaignSubscriber implements EventSubscriberInterface
             $triggerCampaign->setPrintNodeDescription('DESC_'.$printNodeId);
         } elseif ($changes = $event->getChanges()) {
             if (isset($changes['name']) || isset($changes['startDate'])) {
-                $this->getTriggerDialogService()->updateCampaign($triggerCampaign);
+                $this->getPrintmailingService()->updateCampaign($triggerCampaign);
             }
             if (isset($changes['variables'])) {
-                $this->getTriggerDialogService()->updateCampaignVariable($triggerCampaign, $changes['variables'][1]);
+                $this->getPrintmailingService()->updateCampaignVariable($triggerCampaign, $changes['variables'][1]);
             }
         }
     }
@@ -103,7 +103,7 @@ class CampaignSubscriber implements EventSubscriberInterface
         $triggerCampaign = $event->getTriggerCampaign();
 
         if (isset($triggerCampaign->getChanges()['printNodeId'])) {
-            $triggerCampaign = $this->getTriggerDialogService()->createCampaign($triggerCampaign);
+            $triggerCampaign = $this->getPrintmailingService()->createCampaign($triggerCampaign);
             $this->triggerCampaignModel->getRepository()->saveEntity($triggerCampaign);
         }
 
@@ -153,14 +153,14 @@ class CampaignSubscriber implements EventSubscriberInterface
                 'details'   => $event->getEventSettings(),
                 'ipAddress' => $this->ipLookupHelper->getIpAddressFromRequest(),
             ]);
-            $this->getTriggerDialogService()->createRecipient($triggerCampaign, $lead);
+            $this->getPrintmailingService()->createRecipient($triggerCampaign, $lead);
             $event->setResult(true);
         } catch (\Exception $exception) {
             $event->setFailed($exception->getMessage());
         }
     }
 
-    protected function getTriggerDialogService(): PrintmailingService
+    protected function getPrintmailingService(): PrintmailingService
     {
         return PrintmailingService::makeInstance(
             (int) $this->coreParametersHelper->get('printmailing_masId'),
