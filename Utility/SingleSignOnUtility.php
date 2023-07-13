@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Utility;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Utility;
 
 if (!class_exists('Firebase\JWT\JWT', false)) {
     require_once dirname(__DIR__).'/Library/vendor/autoload.php';
@@ -9,7 +9,7 @@ if (!class_exists('Firebase\JWT\JWT', false)) {
 use Firebase\JWT\JWT;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\CoreBundle\Helper\UserHelper;
-use MauticPlugin\MauticTriggerdialogBundle\Helper\AudienceHelper;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Helper\AudienceHelper;
 
 class SingleSignOnUtility
 {
@@ -18,9 +18,9 @@ class SingleSignOnUtility
     public const PAYLOAD_ISS = 'issuer';
 
     public const REQUIRED_PARAMETERS = [
-        'triggerdialog_masId',
-        'triggerdialog_masClientId',
-        'triggerdialog_masSecret',
+        'printmailing_masId',
+        'printmailing_masClientId',
+        'printmailing_masSecret',
     ];
 
     protected $coreParametersHelper;
@@ -69,13 +69,13 @@ class SingleSignOnUtility
                 'lastname'    => $this->user->getLastName(), // TODO: Validate this (required, max 50 chars)
                 'email'       => $this->user->getEmail(), // TODO: Validate this (required, max 150 chars)
                 'username'    => $this->user->getUsername(), // TODO: Validate this (required, max 80 chars)
-                'masClientId' => $this->coreParametersHelper->get('triggerdialog_masClientId'),
-                'masId'       => (int) $this->coreParametersHelper->get('triggerdialog_masId'),
+                'masClientId' => $this->coreParametersHelper->get('printmailing_masClientId'),
+                'masId'       => (int) $this->coreParametersHelper->get('printmailing_masId'),
                 'iss'         => self::PAYLOAD_ISS,
                 'exp'         => strtotime('+30 day', time()),
                 'iat'         => time(),
             ],
-            $this->coreParametersHelper->get('triggerdialog_masSecret'),
+            $this->coreParametersHelper->get('printmailing_masSecret'),
             'HS512'
         );
     }

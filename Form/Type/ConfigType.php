@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -15,8 +15,8 @@ class ConfigType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('triggerdialog_masId', IntegerType::class, [
-            'label'      => 'plugin.triggerdialog.form.masId',
+        $builder->add('printmailing_masId', IntegerType::class, [
+            'label'      => 'plugin.printmailing.form.masId',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -27,8 +27,8 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_masClientId', TextType::class, [
-            'label'      => 'plugin.triggerdialog.form.masClientId',
+        $builder->add('printmailing_masClientId', TextType::class, [
+            'label'      => 'plugin.printmailing.form.masClientId',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -40,8 +40,8 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_masSecret', PasswordType::class, [
-            'label'      => 'plugin.triggerdialog.form.masSecret',
+        $builder->add('printmailing_masSecret', PasswordType::class, [
+            'label'      => 'plugin.printmailing.form.masSecret',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -52,8 +52,8 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_rest_user', TextType::class, [
-            'label'      => 'plugin.triggerdialog.form.rest.user',
+        $builder->add('printmailing_rest_user', TextType::class, [
+            'label'      => 'plugin.printmailing.form.rest.user',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -64,8 +64,8 @@ class ConfigType extends AbstractType
             ],
         ]);
 
-        $builder->add('triggerdialog_rest_password', PasswordType::class, [
-            'label'      => 'plugin.triggerdialog.form.rest.password',
+        $builder->add('printmailing_rest_password', PasswordType::class, [
+            'label'      => 'plugin.printmailing.form.rest.password',
             'label_attr' => [
                 'class' => 'control-label',
             ],
@@ -83,6 +83,6 @@ class ConfigType extends AbstractType
      */
     public function getName(): string
     {
-        return 'triggerdialogconfig';
+        return 'printmailingconfig';
     }
 }

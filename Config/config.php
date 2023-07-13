@@ -1,33 +1,33 @@
 <?php
 
-use MauticPlugin\MauticTriggerdialogBundle\EventListener\CampaignSubscriber;
-use MauticPlugin\MauticTriggerdialogBundle\EventListener\ConfigSubscriber;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ActionType;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\TriggerCampaignType;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\VariableType;
-use MauticPlugin\MauticTriggerdialogBundle\Generator\ClientIdGenerator;
-use MauticPlugin\MauticTriggerdialogBundle\Integration\TriggerdialogIntegration;
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\EventListener\CampaignSubscriber;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\EventListener\ConfigSubscriber;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ActionType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ConfigType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\TriggerCampaignType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\VariableType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Generator\ClientIdGenerator;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Integration\PrintmailingIntegration;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Utility\SingleSignOnUtility;
 
 return [
     'name'        => 'Print Mailing DPAG Integration by Leuchtfeuer',
     'description' => 'Send postcards or letters via Print Mailing',
-    'version'     => '4.2.2',
+    'version'     => '5.0.0',
     'author'      => 'Leuchtfeuer Digital Marketing GmbH',
 
     'menu' => [
         'main' => [
-            'plugin.triggerdialog.menu.index' => [
-                'route'  => 'mautic_triggerdialog_index',
+            'plugin.printmailing.menu.index' => [
+                'route'  => 'mautic_printmailing_index',
                 'parent' => 'mautic.core.channels',
                 'access' => [
-                    'triggerdialog:campaigns:view',
+                    'printmailing:campaigns:view',
                 ],
                 'checks' => [
                     'integration' => [
-                        'Triggerdialog' => [
+                        'Printmailing' => [
                             'enabled' => true,
                         ],
                     ],
@@ -39,21 +39,21 @@ return [
 
     'routes' => [
         'main' => [
-            'mautic_triggerdialog_index' => [
+            'mautic_printmailing_index' => [
                 'path'       => '/triggertemplates/{page}',
-                'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
+                'controller' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:index',
             ],
-            'mautic_triggerdialog_action' => [
+            'mautic_printmailing_action' => [
                 'path'       => '/triggertemplates/{objectAction}/{objectId}',
-                'controller' => 'MauticTriggerdialogBundle:TriggerCampaign:execute',
+                'controller' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:execute',
             ],
         ],
     ],
 
     'services' => [
         'integrations' => [
-            'mautic.integration.triggerdialog' => [
-                'class'     => TriggerdialogIntegration::class,
+            'mautic.integration.printmailing' => [
+                'class'     => PrintmailingIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',
@@ -75,23 +75,23 @@ return [
             ],
         ],
         'events' => [
-            'mautic.triggerdialog.config.subscriber' => [
+            'mautic.printmailing.config.subscriber' => [
                 'class' => ConfigSubscriber::class,
             ],
-            'mautic.triggerdialog.campaign.subscriber' => [
+            'mautic.printmailing.campaign.subscriber' => [
                 'class'     => CampaignSubscriber::class,
                 'arguments' => [
                     'mautic.helper.core_parameters',
                     'mautic.helper.ip_lookup',
                     'mautic.core.model.auditlog',
-                    'mautic.triggerdialog.model.campaign',
+                    'mautic.printmailing.model.campaign',
                 ],
             ],
         ],
         'forms' => [
-            'mautic.form.type.triggerdialogconfig' => [
+            'mautic.form.type.printmailingconfig' => [
                 'class' => ConfigType::class,
-                'alias' => 'triggerdialogconfig',
+                'alias' => 'printmailingconfig',
             ],
             'mautic.form.type.trigger_campaign' => [
                 'class'     => TriggerCampaignType::class,
@@ -109,17 +109,17 @@ return [
                 'class'     => ActionType::class,
                 'alias'     => 'trigger_action',
                 'arguments' => [
-                    'mautic.triggerdialog.model.campaign',
+                    'mautic.printmailing.model.campaign',
                 ],
             ],
         ],
         'models' => [
-            'mautic.triggerdialog.model.campaign' => [
+            'mautic.printmailing.model.campaign' => [
                 'class' => TriggerCampaignModel::class,
             ],
         ],
         'utilities' => [
-            'mautic.triggerdialog.utility.sso' => [
+            'mautic.printmailing.utility.sso' => [
                 'class'     => SingleSignOnUtility::class,
                 'alias'     => 'sso_utility',
                 'arguments' => [
@@ -131,11 +131,11 @@ return [
     ],
 
     'parameters' => [
-        'triggerdialog_masClientId'    => ClientIdGenerator::generateClientId(),
-        'triggerdialog_masSecret'      => null,
-        'triggerdialog_masId'          => null,
-        'triggerdialog_rest_user'      => null,
-        'triggerdialog_rest_password'  => null,
-        'triggerdialog_contract_email' => 'print-mailing@deutschepost.de',
+        'printmailing_masClientId'    => ClientIdGenerator::generateClientId(),
+        'printmailing_masSecret'      => null,
+        'printmailing_masId'          => null,
+        'printmailing_rest_user'      => null,
+        'printmailing_rest_password'  => null,
+        'printmailing_contract_email' => 'print-mailing@deutschepost.de',
     ],
 ];

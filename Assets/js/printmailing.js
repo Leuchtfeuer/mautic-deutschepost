@@ -1,4 +1,4 @@
-Mautic.triggerdialogOnLoad = function (container) {
+Mautic.printmailingOnLoad = function (container) {
 	var prefix = 'trigger_campaign';
 	var parent = mQuery('.dynamic-content-variable, .dwc-variable');
 	if (parent.length) {
@@ -8,7 +8,7 @@ Mautic.triggerdialogOnLoad = function (container) {
 	if (mQuery('#' + prefix + '_variables').length) {
 		mQuery('#available_variables').on('change', function () {
 			if (mQuery(this).val()) {
-				Mautic.addTriggerDialogVariable(mQuery(this).val(), mQuery('option:selected', this).data('field-object'));
+				Mautic.addPrintmailingVariable(mQuery(this).val(), mQuery('option:selected', this).data('field-object'));
 				mQuery(this).val('');
 				mQuery(this).trigger('chosen:updated');
 			}
@@ -111,7 +111,7 @@ Mautic.reorderTriggerCampaignVariables = function () {
 	mQuery('#' + prefix + '_variables .panel-heading').first().addClass('hide');
 };
 
-Mautic.addTriggerDialogVariable = function (elId, elObj) {
+Mautic.addPrintmailingVariable = function (elId, elObj) {
 	var variableId = '#available_' + elObj + '_' + elId,
 		variableOption = mQuery(variableId),
 		label = variableOption.text(),

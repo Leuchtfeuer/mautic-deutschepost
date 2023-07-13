@@ -1,14 +1,14 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Controller;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Mautic\CoreBundle\Controller\AbstractFormController;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaignRepository;
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
-use MauticPlugin\MauticTriggerdialogBundle\Utility\SingleSignOnUtility;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaignRepository;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Utility\SingleSignOnUtility;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -16,39 +16,39 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class TriggerCampaignController extends AbstractFormController
 {
     public const PERMISSIONS = [
-        'create'  => 'triggerdialog:campaigns:create',
-        'delete'  => 'triggerdialog:campaigns:delete',
-        'edit'    => 'triggerdialog:campaigns:edit',
-        'publish' => 'triggerdialog:campaigns:publish',
-        'view'    => 'triggerdialog:campaigns:view',
+        'create'  => 'printmailing:campaigns:create',
+        'delete'  => 'printmailing:campaigns:delete',
+        'edit'    => 'printmailing:campaigns:edit',
+        'publish' => 'printmailing:campaigns:publish',
+        'view'    => 'printmailing:campaigns:view',
     ];
 
     public const ROUTES = [
-        'action' => 'mautic_triggerdialog_action',
-        'index'  => 'mautic_triggerdialog_index',
+        'action' => 'mautic_printmailing_action',
+        'index'  => 'mautic_printmailing_index',
     ];
 
     public const SESSION_VARS = [
-        'limit'      => 'plugin.triggerdialog.limit',
-        'orderBy'    => 'plugin.triggerdialog.orderby',
-        'orderByDir' => 'plugin.triggerdialog.orderbydir',
-        'page'       => 'plugin.triggerdialog.page',
-        'search'     => 'plugin.triggerdialog.search',
+        'limit'      => 'plugin.printmailing.limit',
+        'orderBy'    => 'plugin.printmailing.orderby',
+        'orderByDir' => 'plugin.printmailing.orderbydir',
+        'page'       => 'plugin.printmailing.page',
+        'search'     => 'plugin.printmailing.search',
     ];
 
     public const THEMES = [
-        'variables' => 'MauticTriggerdialogBundle:FormTheme\Variables',
+        'variables' => 'LeuchtfeuerPrintmailingBundle:FormTheme\Variables',
     ];
 
     public const TEMPLATES = [
-        'form'  => 'MauticTriggerdialogBundle:TriggerCampaign:form.html.php',
-        'index' => 'MauticTriggerdialogBundle:TriggerCampaign:index',
-        'list'  => 'MauticTriggerdialogBundle:TriggerCampaign:list.html.php',
+        'form'  => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:form.html.php',
+        'index' => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:index',
+        'list'  => 'LeuchtfeuerPrintmailingBundle:TriggerCampaign:list.html.php',
     ];
 
-    public const ACTIVE_LINK = '#mautic_triggerdialog_index';
+    public const ACTIVE_LINK = '#mautic_printmailing_index';
 
-    public const MAUTIC_CONTENT = 'triggerdialog';
+    public const MAUTIC_CONTENT = 'printmailing';
 
     protected $session;
 
@@ -213,7 +213,7 @@ class TriggerCampaignController extends AbstractFormController
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'plugin.triggerdialog.campaign.error.notfound',
+                        'msg'     => 'plugin.printmailing.campaign.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -301,11 +301,11 @@ class TriggerCampaignController extends AbstractFormController
      */
     protected function checkConfiguration(CoreParametersHelper $coreParametersHelper)
     {
-        if (!$coreParametersHelper->has('triggerdialog_rest_user') || empty($coreParametersHelper->get('triggerdialog_rest_user'))) {
+        if (!$coreParametersHelper->has('printmailing_rest_user') || empty($coreParametersHelper->get('printmailing_rest_user'))) {
             return false;
         }
 
-        if (!$coreParametersHelper->has('triggerdialog_rest_password') || empty($coreParametersHelper->get('triggerdialog_rest_password'))) {
+        if (!$coreParametersHelper->has('printmailing_rest_password') || empty($coreParametersHelper->get('printmailing_rest_password'))) {
             return false;
         }
 
@@ -597,7 +597,7 @@ class TriggerCampaignController extends AbstractFormController
             if (null === $triggerCampaign) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'plugin.triggerdialog.campaign.error.notfound',
+                    'msg'     => 'plugin.printmailing.campaign.error.notfound',
                     'msgVars' => ['%id%' => $triggerCampaignId],
                 ];
             } elseif (!$this->get('mautic.security')->hasEntityAccess(true, self::PERMISSIONS['delete'], $triggerCampaign->getCreatedBy())) {
@@ -615,7 +615,7 @@ class TriggerCampaignController extends AbstractFormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'plugin.triggerdialog.campaign.notice.batch_deleted',
+                'msg'     => 'plugin.printmailing.campaign.notice.batch_deleted',
                 'msgVars' => [
                     '%count%' => count($triggerCampaigns),
                 ],
@@ -639,7 +639,7 @@ class TriggerCampaignController extends AbstractFormController
         if (null === $triggerCampaign) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'plugin.triggerdialog.campaign.error.notfound',
+                'msg'     => 'plugin.printmailing.campaign.error.notfound',
                 'msgVars' => ['%id%' => $objectId],
             ];
         } elseif (!$this->get('mautic.security')->hasEntityAccess(true, self::PERMISSIONS['delete'], $triggerCampaign->getCreatedBy())) {

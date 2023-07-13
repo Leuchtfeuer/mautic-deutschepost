@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Entity;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity;
 
 use Mautic\CoreBundle\Entity\CommonRepository;
 

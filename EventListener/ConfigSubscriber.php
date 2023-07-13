@@ -1,10 +1,10 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\EventListener;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\EventListener;
 
 use Mautic\ConfigBundle\ConfigEvents;
 use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use MauticPlugin\MauticTriggerdialogBundle\Form\Type\ConfigType;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConfigSubscriber implements EventSubscriberInterface
@@ -22,11 +22,11 @@ class ConfigSubscriber implements EventSubscriberInterface
     public function onConfigGenerate(ConfigBuilderEvent $event): void
     {
         $event->addForm([
-            'bundle'     => 'MauticTriggerdialogBundle',
+            'bundle'     => 'LeuchtfeuerPrintmailingBundle',
             'formType'   => ConfigType::class,
-            'formAlias'  => 'triggerdialogconfig',
-            'formTheme'  => 'MauticTriggerdialogBundle:FormTheme\Config',
-            'parameters' => $event->getParametersFromConfig('MauticTriggerdialogBundle'),
+            'formAlias'  => 'printmailingconfig',
+            'formTheme'  => 'LeuchtfeuerPrintmailingBundle:FormTheme\Config',
+            'parameters' => $event->getParametersFromConfig('LeuchtfeuerPrintmailingBundle'),
         ]);
     }
 }

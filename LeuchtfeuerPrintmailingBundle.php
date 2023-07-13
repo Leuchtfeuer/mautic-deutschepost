@@ -1,13 +1,13 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle;
 
 use Doctrine\DBAL\Schema\Schema;
 use Mautic\CoreBundle\Factory\MauticFactory;
 use Mautic\PluginBundle\Bundle\PluginBundleBase;
 use Mautic\PluginBundle\Entity\Plugin;
 
-class MauticTriggerdialogBundle extends PluginBundleBase
+class LeuchtfeuerPrintmailingBundle extends PluginBundleBase
 {
     public static function onPluginUpdate(Plugin $plugin, MauticFactory $factory, $metadata = null, Schema $installedSchema = null)
     {

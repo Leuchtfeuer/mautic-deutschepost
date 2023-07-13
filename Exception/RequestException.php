@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Exception;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Exception;
 
 use Psr\Http\Message\ResponseInterface;
 use Throwable;

@@ -1,8 +1,8 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Form\Type;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type;
 
-use MauticPlugin\MauticTriggerdialogBundle\Model\TriggerCampaignModel;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +31,7 @@ class ActionType extends AbstractType
     {
         $builder->add('trigger_campaign', ChoiceType::class, [
             'choices'    => array_flip($this->fieldChoices),
-            'label'      => 'plugin.triggerdialog.campaign.formlabel',
+            'label'      => 'plugin.printmailing.campaign.formlabel',
             'label_attr' => ['class' => 'control-label'],
             'required'   => true,
             'multiple'   => false,

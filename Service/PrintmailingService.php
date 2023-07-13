@@ -1,20 +1,20 @@
 <?php
 
-namespace MauticPlugin\MauticTriggerdialogBundle\Service;
+namespace MauticPlugin\LeuchtfeuerPrintmailingBundle\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Mautic\LeadBundle\Entity\Lead;
-use MauticPlugin\MauticTriggerdialogBundle\Entity\TriggerCampaign;
-use MauticPlugin\MauticTriggerdialogBundle\Exception\RequestException;
-use MauticPlugin\MauticTriggerdialogBundle\Helper\AudienceHelper;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Exception\RequestException;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Helper\AudienceHelper;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class TriggerdialogService
+class PrintmailingService
 {
     public const LOCALE = 'de';
 
-    public const SESSION_KEY = 'triggerdialog';
+    public const SESSION_KEY = 'printmailing';
 
     public const STATE_DRAFT    = 110;
     public const STATE_ACTIVE   = 120;
