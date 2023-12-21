@@ -87,7 +87,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'POST',
-            '/automation/longtermcampaigns',
+            '/post/advertising/print-mailing/automation/v1/longtermcampaigns',
             [
                 RequestOptions::JSON    => $this->transformTriggerCampaign($triggerCampaign),
                 RequestOptions::HEADERS => [
@@ -113,7 +113,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'GET',
-            sprintf('/automation/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
+            sprintf('/post/advertising/print-mailing/automation/v1/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
             [
                 RequestOptions::QUERY => [
                     'customerId' => $this->customerId,
@@ -135,7 +135,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'PUT',
-            sprintf('/automation/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
+            sprintf('/post/advertising/print-mailing/automation/v1/longtermcampaigns/%d', $triggerCampaign->getTriggerId()),
             [
                 RequestOptions::JSON    => $this->transformTriggerCampaign($triggerCampaign, false),
                 RequestOptions::HEADERS => [
@@ -153,7 +153,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'PUT',
-            sprintf('/automation/longtermcampaigns/%d/state', $triggerCampaign->getTriggerId()),
+            sprintf('/post/advertising/print-mailing/automation/v1/longtermcampaigns/%d/state', $triggerCampaign->getTriggerId()),
             [
                 RequestOptions::JSON => [
                     'customerId' => $this->customerId,
@@ -174,7 +174,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'GET',
-            '/automation/longtermcampaigns',
+            '/post/advertising/print-mailing/automation/v1/longtermcampaigns',
             [
                 RequestOptions::QUERY => [
                     'customerId'            => $this->customerId,
@@ -206,7 +206,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'POST',
-            '/automation/mailings',
+            '/post/advertising/print-mailing/automation/v1/mailings',
             [
                 RequestOptions::JSON => [
                     'customerId' => $this->customerId,
@@ -230,7 +230,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'GET',
-            '/automation/mailings/addressvariables',
+            '/post/advertising/print-mailing/automation/v1/mailings/addressvariables',
             [
                 RequestOptions::HEADERS => [
                     'Authorization' => 'Bearer '.$this->accessToken,
@@ -249,7 +249,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'GET',
-            '/automation/mailings',
+            '/post/advertising/print-mailing/automation/v1/mailings',
             [
                 RequestOptions::QUERY => [
                     'customerId' => $this->customerId,
@@ -272,7 +272,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'DELETE',
-            '/automation/mailings',
+            '/post/advertising/print-mailing/automation/v1/mailings',
             [
                 RequestOptions::QUERY => [
                     'customerId' => $this->customerId,
@@ -293,7 +293,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'POST',
-            sprintf('/automation/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
+            sprintf('/post/advertising/print-mailing/automation/v1/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
             [
                 RequestOptions::JSON => [
                     'customerId'                      => $this->customerId,
@@ -314,7 +314,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'PUT',
-            sprintf('/automation/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
+            sprintf('/post/advertising/print-mailing/automation/v1/mailings/%d/variabledefinitions', $triggerCampaign->getMailingId()),
             [
                 RequestOptions::JSON => [
                     'customerId'                      => $this->customerId,
@@ -339,7 +339,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'GET',
-            '/automation/campaignlookups',
+            '/post/advertising/print-mailing/automation/v1/campaignlookups',
             [
                 RequestOptions::HEADERS => [
                     'Authorization' => 'Bearer '.$this->accessToken,
@@ -360,7 +360,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'POST',
-            '/automation/recipients/',
+            '/post/advertising/print-mailing/automation/v1/recipients/',
             [
                 RequestOptions::JSON => [
                     'campaignId' => $triggerCampaign->getTriggerId(),
@@ -431,7 +431,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'POST',
-            '/user/authentication/partnersystem/credentialsbased',
+            '/post/advertising/print-mailing/user/v1/authentication/partnersystem/credentialsbased',
             [
                 RequestOptions::JSON => [
                     'partnerSystemIdExt'         => $this->partnerSystemIdExt,

@@ -6,7 +6,7 @@ class AudienceHelper
 {
     private const AUDIENCE = 'https://api-eu.dhl.com/post/advertising/print-mailing';
 
-    private const TEST_AUDIENCE = 'https://api-uat.dhl.com/post/advertising/print-mailing';
+    private const TEST_AUDIENCE = 'https://api-uat-vzen.dhl.com/post/advertising/print-mailing';
 
     private const FRONTEND = 'https://print-mailing.deutschepost.de';
 
