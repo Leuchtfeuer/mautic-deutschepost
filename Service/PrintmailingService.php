@@ -360,7 +360,7 @@ class PrintmailingService
     {
         $response = $this->client->request(
             'POST',
-            '/post/advertising/print-mailing/automation/v1/recipients/',
+            '/post/advertising/print-mailing/automation/v1/recipients',
             [
                 RequestOptions::JSON => [
                     'campaignId' => $triggerCampaign->getTriggerId(),
