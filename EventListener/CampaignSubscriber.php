@@ -12,8 +12,8 @@ use MauticPlugin\LeuchtfeuerPrintmailingBundle\Entity\TriggerCampaign;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Event\TriggerCampaignEvent;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Form\Type\ActionType;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\Model\TriggerCampaignModel;
-use MauticPlugin\LeuchtfeuerPrintmailingBundle\Service\PrintmailingService;
 use MauticPlugin\LeuchtfeuerPrintmailingBundle\PrintmailingEvents;
+use MauticPlugin\LeuchtfeuerPrintmailingBundle\Service\PrintmailingService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CampaignSubscriber implements EventSubscriberInterface
@@ -56,10 +56,10 @@ class CampaignSubscriber implements EventSubscriberInterface
     {
         return [
             CampaignEvents::CAMPAIGN_ON_BUILD                => ['onCampaignBuild', 0],
-            PrintmailingEvents::TRIGGER_CAMPAIGN_PRE_SAVE   => ['onTriggerCampaignPreSave', 0],
-            PrintmailingEvents::TRIGGER_CAMPAIGN_POST_SAVE  => ['onTriggerCampaignPostSave', 0],
-            PrintmailingEvents::TRIGGER_CAMPAIGN_PRE_DELETE => ['onTriggerCampaignPreDelete', 0],
-            PrintmailingEvents::ON_CAMPAIGN_TRIGGER_ACTION  => ['onCampaignTriggerAction', 0],
+            PrintmailingEvents::TRIGGER_CAMPAIGN_PRE_SAVE    => ['onTriggerCampaignPreSave', 0],
+            PrintmailingEvents::TRIGGER_CAMPAIGN_POST_SAVE   => ['onTriggerCampaignPostSave', 0],
+            PrintmailingEvents::TRIGGER_CAMPAIGN_PRE_DELETE  => ['onTriggerCampaignPreDelete', 0],
+            PrintmailingEvents::ON_CAMPAIGN_TRIGGER_ACTION   => ['onCampaignTriggerAction', 0],
         ];
     }
 

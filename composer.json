@@ -47,5 +47,11 @@
     ],
     "scripts": {
         "cs-fix": "./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.php --using-cache no --show-progress dots -v"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "php-http/discovery": false
+        }
     }
 }
