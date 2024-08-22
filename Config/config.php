@@ -14,7 +14,7 @@ use MauticPlugin\LeuchtfeuerPrintmailingBundle\Utility\SingleSignOnUtility;
 return [
     'name'        => 'Print Mailing DPAG Integration by Leuchtfeuer',
     'description' => 'Send postcards or letters via Print Mailing',
-    'version'     => '5.1.0',
+    'version'     => '5.1.2',
     'author'      => 'Leuchtfeuer Digital Marketing GmbH',
 
     'menu' => [
