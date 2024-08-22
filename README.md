@@ -17,7 +17,9 @@ Mautic users can use the plugin to integrate the sending of a print mailing as a
 The installation of the plugin requires, in addition to a Mautic account, a customer account for the Print Mailing administration website of Deutsche Post - more information can be found on the website [Print Mailing by Deutschen Post AG](https://www.deutschepost.de/de/t/printmailing.html).
 
 ### Updating from Rel. 4.x to Rel. 5.x
-We had a change in namings between 4.x and 5.x. This breaks the configuration. To fix that, you need to edit the local.php file:
+There was a change in namings between 4.x and 5.x: Please remove the `MauticTriggerdialogBundle`, and download & install the new one which is now called `LeuchtfeuerPrintmailingBundle`
+
+The change also breaks the configuration. To fix that, you need to edit the `local.php` file (maybe better get help if you are not familiar with that):
 * Remove the `printmailing_` entries at the end of the file
 * Rename all `triggerdialog_` entries to `printmailing_`
 
