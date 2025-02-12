@@ -9,7 +9,7 @@ on:
 jobs:
   integration:
     name: Integration tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         php-version: [ 7.4 ]
