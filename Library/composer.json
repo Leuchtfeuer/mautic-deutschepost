@@ -2,7 +2,7 @@
     "name": "bitmotion/triggerdialog-library",
     "type": "library",
     "require": {
-        "firebase/php-jwt": "^5.0"
+        "firebase/php-jwt": "^5.0 || ^6.0"
     },
     "authors": [
         {
